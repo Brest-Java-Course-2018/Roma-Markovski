@@ -1,38 +1,34 @@
 package com.epam.brest.course;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
+import static org.junit.Assert.*;
+
+import java.io.*;
+
+public class AppTest {
+
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+
+    //changing the output stream
+    @Before
+    public void changeOutStream() {
+        PrintStream printStream = new PrintStream(outContent);
+        System.setOut(printStream);
     }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
+    //returning the output stream
+    @After
+    public void returnOutStream() { //
+        System.setOut(System.out);
     }
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
+    //a simple test with streams
+    @Test
+    public void main() {
+        App.main(null);
+        assertEquals("Hello world", outContent.toString());
     }
 }
