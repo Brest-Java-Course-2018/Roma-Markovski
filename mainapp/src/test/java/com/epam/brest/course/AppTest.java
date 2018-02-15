@@ -1,15 +1,15 @@
 package com.epam.brest.course;
 
-import org.junit.After;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import java.io.*;
-
 public class AppTest {
-
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     //changing the output stream
@@ -31,4 +31,5 @@ public class AppTest {
         App.main(null);
         assertEquals("Hello world", outContent.toString());
     }
+
 }
