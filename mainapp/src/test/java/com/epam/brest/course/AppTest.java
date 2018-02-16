@@ -21,7 +21,7 @@ public class AppTest {
 
     //returning the output stream
     @After
-    public void returnOutStream() { //
+    public void returnOutStream() {
         System.setOut(System.out);
     }
 
