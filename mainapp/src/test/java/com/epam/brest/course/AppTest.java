@@ -2,6 +2,7 @@ package com.epam.brest.course;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.sql.SQLException;
 
 import org.junit.Before;
 import org.junit.After;
@@ -27,7 +28,7 @@ public class AppTest {
 
     //a simple test with streams
     @Test
-    public void main() {
+    public void main() throws SQLException, ClassNotFoundException {
         App.main(null);
         assertEquals("Hello world", outContent.toString());
     }
