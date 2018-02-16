@@ -30,7 +30,7 @@ public class AppTest {
     @Test
     public void main() throws SQLException, ClassNotFoundException {
         App.main(null);
-        assertEquals("Hello world", outContent.toString());
+        assertEquals("Hello world\n", outContent.toString());
     }
 
 }
