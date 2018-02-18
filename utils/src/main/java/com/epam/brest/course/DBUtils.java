@@ -51,4 +51,13 @@ public class DBUtils {
                     ));
         }
     }
+
+    public void deleteUser(Connection connection, String login) throws SQLException {
+        System.out.println(String.format("Delete user: %s.",login));
+        String delUser="DELETE FROM app_user WHERE login = ?";
+        PreparedStatement preparedStatement= connection.prepareStatement(delUser);
+        preparedStatement.setString(1,login);
+        int numOfUsers=preparedStatement.executeUpdate();
+        System.out.println(String.format("Number of deleted users: %d.",numOfUsers));
+    }
 }
