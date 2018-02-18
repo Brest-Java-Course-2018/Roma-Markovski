@@ -27,14 +27,14 @@ public class DBUtils {
         }
     }
 
-    public void addUser(Connection connection, String login, String password, String description) throws SQLException {
+    public int addUser(Connection connection, String login, String password, String description) throws SQLException {
         System.out.println(String.format("Add user: %s",login));
         String newUser="INSERT INTO app_user (login, password, description) VALUES (?,?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(newUser);
         preparedStatement.setString(1, login);
         preparedStatement.setString(2, password);
         preparedStatement.setString(3, description);
-        preparedStatement.executeUpdate();
+        return preparedStatement.executeUpdate();
     }
 
     public void getUsers(Connection connection) throws SQLException{
@@ -51,6 +51,20 @@ public class DBUtils {
                     ));
         }
     }
+
+    public boolean existUser(Connection connection, String login) throws SQLException{
+
+        System.out.println("Get users: ");
+        String getRecords = "SELECT * FROM app_user WHERE login=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(getRecords);
+        preparedStatement.setString(1, login);
+        ResultSet resultSet=preparedStatement.executeQuery();
+        if (resultSet.next())
+            return true;
+        return false;
+    }
+
+
 
     public void deleteUser(Connection connection, String login) throws SQLException {
         System.out.println(String.format("Delete user: %s.",login));
