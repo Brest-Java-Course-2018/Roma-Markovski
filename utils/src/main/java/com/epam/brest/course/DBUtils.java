@@ -53,7 +53,6 @@ public class DBUtils {
     }
 
     public boolean existUser(Connection connection, String login) throws SQLException{
-
         System.out.println("Get users: ");
         String getRecords = "SELECT * FROM app_user WHERE login=?";
         PreparedStatement preparedStatement = connection.prepareStatement(getRecords);
