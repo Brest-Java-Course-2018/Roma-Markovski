@@ -1,5 +1,9 @@
-package com.epam.brest.course;
+package com.epam.brest.course.model;
 
+
+/**
+ * POJO Department for model.
+ */
 public class Department {
 
     private Integer departmentId;

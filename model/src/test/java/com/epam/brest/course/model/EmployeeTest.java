@@ -1,4 +1,4 @@
-package com.epam.brest.course;
+package com.epam.brest.course.model;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,7 +9,7 @@ public class EmployeeTest {
 
     @Test
     public void getEmployeeName() {
-        Employee employee = new Employee();
+        com.epam.brest.course.model.Employee employee = new Employee();
         employee.setEmployeeName(VASIA);
         Assert.assertTrue(employee.getEmployeeName().equals(VASIA));
         Assert.assertEquals(VASIA, employee.getEmployeeName());

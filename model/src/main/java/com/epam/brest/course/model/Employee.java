@@ -1,4 +1,4 @@
-package com.epam.brest.course;
+package com.epam.brest.course.model;
 
 /**
  * POJO Employee for model
