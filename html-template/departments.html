@@ -22,7 +22,7 @@
     <div class="collapse navbar-collapse" id="navbarsNav">
         <div class="navbar-nav">
             <a class="nav-item nav-link active" href="departments.html">Departments <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="department.html">Employees</a>
+            <a class="nav-item nav-link" href="employees.html">Employees</a>
         </div>
     </div>
 </nav>
@@ -34,11 +34,11 @@
         </a>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a href="department.html" class="btn btn-light"
+                <a href="edit_department.html" class="btn btn-light"
                    data-toggle="tooltip"
                    data-placement="bottom"
                    title="Add department"><i class="fa fa-plus"></i>
-                    <span class="d-none d-sm-inline">Add</span>
+                    <span class="d-none d-sm-inline"> Add</span>
                 </a>
             </li>
         </ul>
@@ -48,8 +48,8 @@
 <section id="departments">
     <div class="container-fluid">
         <div class="row">
-            <div class="col">
-                <table class="table table-striped">
+            <div class="p-3 col">
+                <table class="table table-striped table-light">
                     <thead class="thead-inverse">
                     <tr>
                         <th>Title</th>
@@ -60,12 +60,12 @@
                     <tbody>
                     <tr>
                         <td>CEO</td>
-                        <td>1000</td>
+                        <td>10000</td>
                         <td class="text-right">
                             <a title="Edit department"
                                data-toggle="tooltip"
                                data-placement="top"
-                               href="department.html"
+                               href="edit_department.html"
                                class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
                                 <span class="d-none d-md-inline">Edit</span>
                             </a>
@@ -88,7 +88,7 @@
                             <a title="Edit department"
                                data-toggle="tooltip"
                                data-placement="top"
-                               href="department.html"
+                               href="edit_department.html"
                                class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
                                 <span class="d-none d-md-inline">Edit</span>
                             </a>
@@ -105,13 +105,79 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Development</td>
+                        <td>&nbsp;&nbsp;Development</td>
                         <td>1150</td>
                         <td class="text-right">
                             <a title="Edit department"
                                data-toggle="tooltip"
                                data-placement="top"
-                               href="department.html"
+                               href="edit_department.html"
+                               class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
+                                <span class="d-none d-md-inline">Edit</span></a>
+                            <a title="Delete department"
+                               data-toggle="tooltip"
+                               data-placement="top"
+                               href="#"
+                               class="btn-sm btn-outline-secondary">
+                                <span data-target="#confirmDeleteModal" data-toggle="modal">
+                                    <i class="fa fa-remove"></i>
+                                <span class="d-none d-md-inline">Delete</span>
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Java</td>
+                        <td>1500</td>
+                        <td class="text-right">
+                            <a title="Edit department"
+                               data-toggle="tooltip"
+                               data-placement="top"
+                               href="edit_department.html"
+                               class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
+                                <span class="d-none d-md-inline">Edit</span></a>
+                            <a title="Delete department"
+                               data-toggle="tooltip"
+                               data-placement="top"
+                               href="#"
+                               class="btn-sm btn-outline-secondary">
+                                <span data-target="#confirmDeleteModal" data-toggle="modal">
+                                    <i class="fa fa-remove"></i>
+                                <span class="d-none d-md-inline">Delete</span>
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Testing</td>
+                        <td>1100</td>
+                        <td class="text-right">
+                            <a title="Edit department"
+                               data-toggle="tooltip"
+                               data-placement="top"
+                               href="edit_department.html"
+                               class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
+                                <span class="d-none d-md-inline">Edit</span></a>
+                            <a title="Delete department"
+                               data-toggle="tooltip"
+                               data-placement="top"
+                               href="#"
+                               class="btn-sm btn-outline-secondary">
+                                <span data-target="#confirmDeleteModal" data-toggle="modal">
+                                    <i class="fa fa-remove"></i>
+                                <span class="d-none d-md-inline">Delete</span>
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;People management</td>
+                        <td>800</td>
+                        <td class="text-right">
+                            <a title="Edit department"
+                               data-toggle="tooltip"
+                               data-placement="top"
+                               href="edit_department.html"
                                class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
                                 <span class="d-none d-md-inline">Edit</span></a>
                             <a title="Delete department"
