@@ -6,42 +6,51 @@ package com.epam.brest.course.model;
  */
 public class Department {
 
-    private Integer departmentId;
+    private Integer departmentId; 
 
-    private String departmentName;
+    private String departmentName; 
 
-    private String description;
+    private String description; 
 
-    public Integer getDepartmentId() {
+    public Department() { 
+
+    }
+
+    public Department(final String departmentName, final String description) { 
+        this.departmentName = departmentName;
+        this.description = description;
+    }
+
+    public final Integer getDepartmentId() { 
         return departmentId;
     }
 
-    public void setDepartmentId(Integer departmentId) {
+    public final void setDepartmentId(final Integer departmentId) { 
         this.departmentId = departmentId;
     }
 
-    public String getDepartmentName() {
+    public final String getDepartmentName() { 
         return departmentName;
     }
 
-    public void setDepartmentName(String departmentName) {
+    public final void setDepartmentName(final String departmentName) { 
         this.departmentName = departmentName;
     }
 
-    public String getDescription() {
+    public final String getDescription() { 
         return description;
     }
 
-    public void setDescription(String description) {
+    public final void setDescription(final String description) { 
         this.description = description;
     }
 
     @Override
-    public String toString() {
-        return "Department{" +
-                "departmentId=" + departmentId +
-                ", departmentName='" + departmentName + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+    public final String toString() {
+        return "Department{"
+                + "departmentId=" + departmentId
+                + ", departmentName='" + departmentName + '\''
+                + ", description='" + description + '\''
+                + '}';
     }
 }
