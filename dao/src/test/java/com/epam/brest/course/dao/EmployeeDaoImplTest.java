@@ -105,4 +105,16 @@ public class EmployeeDaoImplTest {
         employeeDao.deleteEmployeeById(employee.getEmployeeId());
         Assert.assertTrue((sizeBefore-1)==employeeDao.getAllEmployees().size());
     }
+
+    @Test
+    public void getEmployeeByDepartmentId() {
+        List <Employee> employees = employeeDao.getEmployeesByDepartmentId(2);
+        Assert.assertNotNull(employees);
+        Assert.assertTrue(employees.get(0).getEmployeeName().equals("Dima Dmitriev"));
+        Assert.assertTrue(employees.get(0).getSalary().equals(2000));
+        Assert.assertTrue(employees.get(0).getDepartmentId().equals(2));
+        Assert.assertTrue(employees.get(1).getEmployeeName().equals("Pavel Pavlov"));
+        Assert.assertTrue(employees.get(1).getSalary().equals(3000));
+        Assert.assertTrue(employees.get(1).getDepartmentId().equals(2));
+    }
 }

@@ -9,9 +9,12 @@ public interface EmployeeDao {
 
     Employee getEmployeeById(Integer EmployeeId);
 
+    List<Employee> getEmployeesByDepartmentId (Integer DepartmentId);
+
     Employee addEmployee(Employee Employee);
 
     void updateEmployee(Employee Employee);
 
     void deleteEmployeeById(Integer EmployeeId);
+
 }

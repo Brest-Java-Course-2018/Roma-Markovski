@@ -1,6 +1,7 @@
 package com.epam.brest.course.dao;
 
 import com.epam.brest.course.model.Department;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
@@ -103,6 +104,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
         @Override
         public Department mapRow(ResultSet resultSet, int i) throws SQLException {
+            LOGGER.debug("mapRow({}, {})", resultSet, i);
             Department department = new Department();
             department.setDepartmentId(resultSet.getInt(DEPARTMENT_ID));
             department.setDepartmentName(resultSet.getString(DEPARTMENT_NAME));
@@ -142,6 +144,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     @Override
     public void updateDepartment(Department department /*Integer oldId, Department newDepartment*/) {
+        LOGGER.log(Level.DEBUG, "updateDepartment({})", department);
         SqlParameterSource namedParameter = new BeanPropertySqlParameterSource(department);
         namedParameterJdbcTemplate.update(update, namedParameter);
 
@@ -155,6 +158,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     @Override
     public void deleteDepartmentById(Integer departmentId) {
+        LOGGER.debug("deleteDepartmentById({})", departmentId);
         namedParameterJdbcTemplate.getJdbcOperations().update(delete, departmentId);
     }
 }

@@ -1,6 +1,8 @@
 package com.epam.brest.course.dao;
 
 import com.epam.brest.course.model.Employee;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -21,11 +23,16 @@ public class EmployeeDaoImpl implements EmployeeDao {
     private static final String SALARY = "salary";
     private static final String DEPARTMENT_ID = "departmentId";
 
+    private static final Logger LOGGER = LogManager.getLogger();
+
     @Value("${employee.select}")
     private String select;
 
     @Value("${employee.selectById}")
     private String selectById;
+
+    @Value("${employee.selectByDepId}")
+    private String selectByDepId;
 
     @Value("${employee.checkEmployee}")
     private String checkEmployee;
@@ -48,6 +55,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public List<Employee> getAllEmployees() {
+        LOGGER.debug("getAllEmployees()");
         List<Employee> employees =
                 namedParameterJdbcTemplate.getJdbcOperations().query(select, new EmployeeRowMapper());
         return employees;
@@ -55,6 +63,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public Employee getEmployeeById(Integer EmployeeId) {
+        LOGGER.debug("getEmployeeById({})", EmployeeId);
         SqlParameterSource namedParameters =
                 new MapSqlParameterSource(EMPLOYEE_ID, EmployeeId);
         Employee employee = namedParameterJdbcTemplate.queryForObject(selectById, namedParameters,
@@ -66,6 +75,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
         @Override
         public Employee mapRow(ResultSet resultSet, int i) throws SQLException {
+            LOGGER.debug("mapRow({}, {})", resultSet, i);
             Employee employee = new Employee();
             employee.setEmployeeId(resultSet.getInt(EMPLOYEE_ID));
             employee.setEmployeeName(resultSet.getString(EMPLOYEE_NAME));
@@ -77,6 +87,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public Employee addEmployee(Employee employee) {
+        LOGGER.debug("addEmployee({})", employee);
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue(EMPLOYEE_NAME, employee.getEmployeeName());
         namedParameters.addValue(SALARY, employee.getSalary());
@@ -89,12 +100,27 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public void updateEmployee(Employee employee) {
+        LOGGER.debug("updateEmployee({})", employee);
         SqlParameterSource namedParameter = new BeanPropertySqlParameterSource(employee);
         namedParameterJdbcTemplate.update(update, namedParameter);
     }
 
     @Override
     public void deleteEmployeeById(Integer employeeId) {
+        LOGGER.debug("deleteEmployeeById({})", employeeId);
         namedParameterJdbcTemplate.getJdbcOperations().update(delete, employeeId);
+    }
+
+    @Override
+    public List<Employee> getEmployeesByDepartmentId(Integer DepartmentId) {
+        LOGGER.debug("getEmployeesByDepartmentId({})", DepartmentId);
+        SqlParameterSource namedParameters =
+                new MapSqlParameterSource(DEPARTMENT_ID, DepartmentId);
+        List<Employee> employees =
+                namedParameterJdbcTemplate.query(selectByDepId, namedParameters,
+                        BeanPropertyRowMapper.newInstance(Employee.class));
+        int size = employees.size();
+        LOGGER.debug ("Size of employees: {}", size);
+        return employees;
     }
 }
