@@ -34,9 +34,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Value("${employee.selectByDepId}")
     private String selectByDepId;
 
-    @Value("${employee.checkEmployee}")
-    private String checkEmployee;
-
     @Value("${employee.insert}")
     private String insert;
 

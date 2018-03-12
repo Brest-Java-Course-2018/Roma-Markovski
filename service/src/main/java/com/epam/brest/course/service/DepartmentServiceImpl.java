@@ -19,7 +19,7 @@ public class DepartmentServiceImpl implements DepartmentService{
 
     @Override
     public Department getDepartmentById(Integer departmentId) {
-        LOGGER.debug("getDepartmentById({})");
+        LOGGER.debug("getDepartmentById({})", departmentId);
         return departmentDao.getDepartmentById(departmentId);
     }
 

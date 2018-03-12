@@ -7,14 +7,14 @@ import java.util.List;
 public interface EmployeeDao {
     List<Employee> getAllEmployees();
 
-    Employee getEmployeeById(Integer EmployeeId);
+    Employee getEmployeeById(Integer employeeId);
 
-    List<Employee> getEmployeesByDepartmentId (Integer DepartmentId);
+    List<Employee> getEmployeesByDepartmentId (Integer departmentId);
 
-    Employee addEmployee(Employee Employee);
+    Employee addEmployee(Employee employee);
 
-    void updateEmployee(Employee Employee);
+    void updateEmployee(Employee employee);
 
-    void deleteEmployeeById(Integer EmployeeId);
+    void deleteEmployeeById(Integer employeeId);
 
 }
