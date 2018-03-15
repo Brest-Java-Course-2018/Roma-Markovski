@@ -1,6 +1,7 @@
 package com.epam.brest.course.dao;
 
 import com.epam.brest.course.model.Department;
+import com.epam.brest.course.model.DepartmentForOutput;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -12,7 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.Collection;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:test-db-spring.xml",
@@ -27,7 +28,7 @@ public class DepartmentDaoImplTest {
 
     @Test
     public void getAllDepartments() {
-        List<Department> departments = departmentDao.getAllDepartments();
+        Collection<DepartmentForOutput> departments = departmentDao.getAllDepartments();
         Assert.assertFalse(departments.isEmpty());
     }
 
@@ -58,7 +59,7 @@ public class DepartmentDaoImplTest {
 //        department = departmentDao.getDepartmentByName("Insert");
 //        assertRecord(department, "Insert", "Insert test");
 
-        List<Department> departments=departmentDao.getAllDepartments();
+        Collection<DepartmentForOutput> departments=departmentDao.getAllDepartments();
         int sizeBefore = departments.size();
         Department department = new Department("Education and Training", "Department Education and Training");
         Department newDepartment = departmentDao.addDepartment(department);
@@ -116,7 +117,7 @@ public class DepartmentDaoImplTest {
 //        Assert.assertNull(departmentDao.getDepartmentById(2));
         Department department = new Department("Education", "Department of Education");
         department = departmentDao.addDepartment(department);
-        List <Department> departments = departmentDao.getAllDepartments();
+        Collection<DepartmentForOutput> departments = departmentDao.getAllDepartments();
         int sizeBefore= departments.size();
         departmentDao.deleteDepartmentById(department.getDepartmentId());
         Assert.assertTrue((sizeBefore-1)==departmentDao.getAllDepartments().size());

@@ -52,151 +52,46 @@
     <div class="container-fluid">
         <div class="row">
             <div class="p-3 col">
-                <table class="table table-striped table-light">
-                    <thead class="thead-inverse">
-                    <tr>
-                        <th>Title</th>
-                        <th>Avg salary</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>CEO</td>
-                        <td>10000</td>
-                        <td class="text-right">
-                            <a title="Edit department"
-                               data-toggle="tooltip"
-                               data-placement="top"
-                               href="editDepartment.html"
-                               class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
-                                <span class="d-none d-md-inline">Edit</span>
-                            </a>
-                            <a title="Delete department"
-                               data-toggle="tooltip"
-                               data-placement="top"
-                               href="#"
-                               class="btn-sm btn-outline-secondary">
-                                <span data-target="#confirmDeleteModal" data-toggle="modal">
-                                    <i class="fa fa-remove"></i>
-                                <span class="d-none d-md-inline">Delete</span>
-                                </span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;&nbsp;Accounting</td>
-                        <td>2500</td>
-                        <td class="text-right">
-                            <a title="Edit department"
-                               data-toggle="tooltip"
-                               data-placement="top"
-                               href="editDepartment.html"
-                               class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
-                                <span class="d-none d-md-inline">Edit</span>
-                            </a>
-                            <a title="Delete department"
-                               data-toggle="tooltip"
-                               data-placement="top"
-                               href="#"
-                               class="btn-sm btn-outline-secondary">
-                                <span data-target="#confirmDeleteModal" data-toggle="modal">
-                                    <i class="fa fa-remove"></i>
-                                <span class="d-none d-md-inline">Delete</span>
-                                </span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;&nbsp;Development</td>
-                        <td>1150</td>
-                        <td class="text-right">
-                            <a title="Edit department"
-                               data-toggle="tooltip"
-                               data-placement="top"
-                               href="editDepartment.html"
-                               class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
-                                <span class="d-none d-md-inline">Edit</span></a>
-                            <a title="Delete department"
-                               data-toggle="tooltip"
-                               data-placement="top"
-                               href="#"
-                               class="btn-sm btn-outline-secondary">
-                                <span data-target="#confirmDeleteModal" data-toggle="modal">
-                                    <i class="fa fa-remove"></i>
-                                <span class="d-none d-md-inline">Delete</span>
-                                </span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Java</td>
-                        <td>1500</td>
-                        <td class="text-right">
-                            <a title="Edit department"
-                               data-toggle="tooltip"
-                               data-placement="top"
-                               href="editDepartment.html"
-                               class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
-                                <span class="d-none d-md-inline">Edit</span></a>
-                            <a title="Delete department"
-                               data-toggle="tooltip"
-                               data-placement="top"
-                               href="#"
-                               class="btn-sm btn-outline-secondary">
-                                <span data-target="#confirmDeleteModal" data-toggle="modal">
-                                    <i class="fa fa-remove"></i>
-                                <span class="d-none d-md-inline">Delete</span>
-                                </span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Testing</td>
-                        <td>1100</td>
-                        <td class="text-right">
-                            <a title="Edit department"
-                               data-toggle="tooltip"
-                               data-placement="top"
-                               href="editDepartment.html"
-                               class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
-                                <span class="d-none d-md-inline">Edit</span></a>
-                            <a title="Delete department"
-                               data-toggle="tooltip"
-                               data-placement="top"
-                               href="#"
-                               class="btn-sm btn-outline-secondary">
-                                <span data-target="#confirmDeleteModal" data-toggle="modal">
-                                    <i class="fa fa-remove"></i>
-                                <span class="d-none d-md-inline">Delete</span>
-                                </span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;&nbsp;People management</td>
-                        <td>800</td>
-                        <td class="text-right">
-                            <a title="Edit department"
-                               data-toggle="tooltip"
-                               data-placement="top"
-                               href="editDepartment.html"
-                               class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
-                                <span class="d-none d-md-inline">Edit</span></a>
-                            <a title="Delete department"
-                               data-toggle="tooltip"
-                               data-placement="top"
-                               href="#"
-                               class="btn-sm btn-outline-secondary">
-                                <span data-target="#confirmDeleteModal" data-toggle="modal">
-                                    <i class="fa fa-remove"></i>
-                                <span class="d-none d-md-inline">Delete</span>
-                                </span>
-                            </a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="card" th:if="not ${departments.isEmpty()}">
+                    <table class="table table-striped table-light">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>Title</th>
+                            <th>Avg salary</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="department : ${departments}">
+                                <td th:text="${department.departmentName}">CEO</td>
+                                <td th:text="${department.departmentAvgSalary}"></td>
+                                <td class="text-right">
+                                    <a title="Edit department"
+                                       th:href="'/editDepartment/'+${department.departmentId}"
+                                       data-toggle="tooltip"
+                                       data-placement="top"
+                                       href="editDepartment.html"
+                                       class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
+                                        <span class="d-none d-md-inline">Edit</span>
+                                    </a>
+                                    <a title="Delete department"
+                                       data-toggle="tooltip"
+                                       data-placement="top"
+                                       href="#"
+                                       class="btn-sm btn-outline-secondary">
+                                    <span data-target="#confirmDeleteModal" data-toggle="modal">
+                                        <i class="fa fa-remove"></i>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                    </span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card alert alert-info" th:if="${departments.isEmpty()}">
+
+                </div>
             </div>
         </div>
     </div>

@@ -5,19 +5,39 @@ package com.epam.brest.course.model;
  */
 public class Employee {
 
-    private Integer employeeId; 
+    /**
+     * The employee's id.
+     */
+    private Integer employeeId;
 
-    private String employeeName; 
+    /**
+     * The employee's name.
+     */
+    private String employeeName;
 
-    private Integer salary; 
+    /**
+     * The employee's salary.
+     */
+    private Integer salary;
 
+    /**
+     * The employee's department (its id).
+     */
     private Integer departmentId;
 
+
+    /**
+     * Constructor without params.
+     */
     public Employee() {
 
     }
 
-    public Employee(String employeeName, Integer salary, Integer departmentId) {
+    /**
+     * Constructor with params.
+     */
+    public Employee(final String employeeName,
+                    final Integer salary, final Integer departmentId) {
         this.employeeName = employeeName;
         this.salary = salary;
         this.departmentId = departmentId;
@@ -25,16 +45,12 @@ public class Employee {
 
     public final Integer getEmployeeId() {
         return employeeId;
-    } 
+    }
 
     public final void setEmployeeId(final Integer employeeId) {
         this.employeeId = employeeId;
     }
 
-    /**
-     * Get Employee ID.
-     * @return ID.
-     */
     public final String getEmployeeName() {
         return employeeName;
     }
@@ -59,6 +75,10 @@ public class Employee {
         this.departmentId = departmentId;
     }
 
+
+    /**
+     * ToString function.
+     */
     @Override
     public final String toString() {
         return "Employee{"

@@ -15,7 +15,7 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Collection;
 
 public class EmployeeDaoImpl implements EmployeeDao {
     private static final String EMPLOYEE_ID = "employeeId";
@@ -51,9 +51,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public List<Employee> getAllEmployees() {
+    public Collection<Employee> getAllEmployees() {
         LOGGER.debug("getAllEmployees()");
-        List<Employee> employees =
+        Collection<Employee> employees =
                 namedParameterJdbcTemplate.getJdbcOperations().query(select, new EmployeeRowMapper());
         return employees;
     }
@@ -109,11 +109,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public List<Employee> getEmployeesByDepartmentId(Integer DepartmentId) {
+    public Collection<Employee> getEmployeesByDepartmentId(Integer DepartmentId) {
         LOGGER.debug("getEmployeesByDepartmentId({})", DepartmentId);
         SqlParameterSource namedParameters =
                 new MapSqlParameterSource(DEPARTMENT_ID, DepartmentId);
-        List<Employee> employees =
+        Collection<Employee> employees =
                 namedParameterJdbcTemplate.query(selectByDepId, namedParameters,
                         BeanPropertyRowMapper.newInstance(Employee.class));
         int size = employees.size();

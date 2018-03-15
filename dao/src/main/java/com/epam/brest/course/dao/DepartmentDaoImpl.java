@@ -1,6 +1,7 @@
 package com.epam.brest.course.dao;
 
 import com.epam.brest.course.model.Department;
+import com.epam.brest.course.model.DepartmentForOutput;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +17,7 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Collection;
 
 public class DepartmentDaoImpl implements DepartmentDao {
 
@@ -25,6 +26,8 @@ public class DepartmentDaoImpl implements DepartmentDao {
     private static final String DEPARTMENT_ID = "departmentId";
     private static final String DEPARTMENT_NAME = "departmentName";
     private static final String DESCRIPTION = "description";
+    private static final String DEPARTMENT_AVG_SALARY = "emp";
+
 
     @Value("${department.select}")
     private String select;
@@ -73,9 +76,9 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
 
     @Override
-    public List<Department> getAllDepartments() {
+    public Collection<DepartmentForOutput> getAllDepartments() {
         LOGGER.debug("getAllDepartments()");
-        List<Department> departments =
+        Collection<DepartmentForOutput> departments =
                 namedParameterJdbcTemplate.getJdbcOperations().query(select, new DepartmentRowMapper());
         return departments;
     }
@@ -100,15 +103,15 @@ public class DepartmentDaoImpl implements DepartmentDao {
         return department;
     }
 
-    private class DepartmentRowMapper implements RowMapper<Department> {
+    private class DepartmentRowMapper implements RowMapper<DepartmentForOutput> {
 
         @Override
-        public Department mapRow(ResultSet resultSet, int i) throws SQLException {
+        public DepartmentForOutput mapRow(ResultSet resultSet, int i) throws SQLException {
             LOGGER.debug("mapRow({}, {})", resultSet, i);
-            Department department = new Department();
+            DepartmentForOutput department = new DepartmentForOutput();
             department.setDepartmentId(resultSet.getInt(DEPARTMENT_ID));
             department.setDepartmentName(resultSet.getString(DEPARTMENT_NAME));
-            department.setDescription(resultSet.getString(DESCRIPTION));
+            department.setDepartmentAvgSalary(resultSet.getInt(DEPARTMENT_AVG_SALARY));
             return department;
         }
     }

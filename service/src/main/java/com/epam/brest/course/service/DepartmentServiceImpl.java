@@ -2,9 +2,12 @@ package com.epam.brest.course.service;
 
 import com.epam.brest.course.dao.DepartmentDao;
 import com.epam.brest.course.model.Department;
+import com.epam.brest.course.model.DepartmentForOutput;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Collection;
 
 public class DepartmentServiceImpl implements DepartmentService{
 
@@ -30,4 +33,11 @@ public class DepartmentServiceImpl implements DepartmentService{
         department.setDescription(description);
         departmentDao.updateDepartment(department);
     }
+
+    @Override
+    public Collection <DepartmentForOutput> getAllDepartments() {
+        LOGGER.debug("getAllDepartments()");
+        return departmentDao.getAllDepartments();
+    }
+
 }
