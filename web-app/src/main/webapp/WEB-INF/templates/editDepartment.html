@@ -37,7 +37,8 @@
     <nav class="navbar navbar-expand-sm navbar-light bg-light text-dark">
         <a href="departments.html" class="navbar-brand fa fa-arrow-left"></a>
         <a href="departments.html" class="navbar-brand text-uppercase mr-auto">
-            Edit department
+            <span th:if="${addOrEdit=='edit'}">Edit department</span>
+            <span th:if="${addOrEdit=='add'}">Add department</span>
         </a>
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -62,18 +63,26 @@
                         <form>
                             <div class="form-group">
                                 <div class="mb-3">
-                                    <label class= "d-none d-sm-inline" for="deptNameInput">Department name</label>
+                                    <label th:if="${addOrEdit=='edit'}" class= "d-none d-sm-inline" for="deptNameInputEdit">Department name</label>
+                                    <label th:if="${addOrEdit=='add'}" class= "d-none d-sm-inline" for="deptNameInputAdd">Department name</label>
                                     <input type="text" class="mt-2 form-control"
-                                           id="deptNameInput"
-                                           th:value="${department.departmentName}"
-                                           placeholder="CEO"/>
+                                           id="deptNameInputEdit"
+                                           th:if="${addOrEdit=='edit'}"
+                                           th:value="${department.departmentName}"/>
+                                    <input type="text" class="mt-2 form-control"
+                                           id="deptNameInputAdd"
+                                           th:if="${addOrEdit=='add'}"/>
                                 </div>
                                 <div class="my-3">
-                                    <label class= "d-none d-sm-inline" for="deptDescInput">Description</label>
+                                    <label th:if="${addOrEdit=='edit'}" class= "d-none d-sm-inline" for="deptDescInputEdit">Description</label>
+                                    <label th:if="${addOrEdit=='add'}" class= "d-none d-sm-inline" for="deptDescInputAdd">Description</label>
                                     <input type="text" class="mt-2 form-control"
-                                           id="deptDescInput"
-                                           th:value="${department.description}"
-                                           placeholder="CEO department"/>
+                                           th:if="${addOrEdit=='edit'}"
+                                           id="deptDescInputEdit"
+                                           th:value="${department.description}"/>
+                                    <input type="text" class="mt-2 form-control"
+                                           th:if="${addOrEdit=='add'}"
+                                           id="deptDescInputAdd"/>
                                 </div>
                             </div>
                         </form>

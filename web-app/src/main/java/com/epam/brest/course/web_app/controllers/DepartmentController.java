@@ -22,6 +22,13 @@ public class DepartmentController {
                                     Model model) {
         Department department = departmentService.getDepartmentById(id);
         model.addAttribute("department", department);
+        model.addAttribute("addOrEdit", "edit");
+        return "editDepartment";
+    }
+
+    @GetMapping(value = "/addDepartment")
+    public String addDepartment(Model model) {
+        model.addAttribute("addOrEdit", "add");
         return "editDepartment";
     }
 
