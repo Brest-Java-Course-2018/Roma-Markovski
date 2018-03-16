@@ -16,6 +16,11 @@ public class Employee {
     private String employeeName;
 
     /**
+     * The employee's email.
+     */
+    private String employeeEmail;
+
+    /**
      * The employee's salary.
      */
     private Integer salary;
@@ -36,9 +41,9 @@ public class Employee {
     /**
      * Constructor with params.
      */
-    public Employee(final String employeeName,
-                    final Integer salary, final Integer departmentId) {
+    public Employee(String employeeName, String employeeEmail, Integer salary, Integer departmentId) {
         this.employeeName = employeeName;
+        this.employeeEmail = employeeEmail;
         this.salary = salary;
         this.departmentId = departmentId;
     }
@@ -75,17 +80,22 @@ public class Employee {
         this.departmentId = departmentId;
     }
 
+    public String getEmployeeEmail() {
+        return employeeEmail;
+    }
 
-    /**
-     * ToString function.
-     */
+    public void setEmployeeEmail(String employeeEmail) {
+        this.employeeEmail = employeeEmail;
+    }
+
     @Override
-    public final String toString() {
-        return "Employee{"
-                + "employeeId=" + employeeId
-                + ", employeeName='" + employeeName + '\''
-                + ", salary=" + salary
-                + ", departmentId=" + departmentId
-                + '}';
+    public String toString() {
+        return "Employee{" +
+                "employeeId=" + employeeId +
+                ", employeeName='" + employeeName + '\'' +
+                ", employeeEmail='" + employeeEmail + '\'' +
+                ", salary=" + salary +
+                ", departmentId=" + departmentId +
+                '}';
     }
 }

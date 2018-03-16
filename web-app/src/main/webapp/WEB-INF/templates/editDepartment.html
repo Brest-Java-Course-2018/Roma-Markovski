@@ -21,7 +21,7 @@
             data-target="#navbarsNav">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a href="departments.html" class="navbar-brand"><img src="../../resources/static/img/logo.svg" width="64" height="32"
+    <a th:href="@{/departments}" href="departments.html" class="navbar-brand"><img src="../../resources/static/img/logo.svg" width="64" height="32"
     th:src="@{/resources/static/img/logo.svg}"></a>
     <div class="collapse navbar-collapse" id="navbarsNav">
         <div class="navbar-nav">
@@ -35,8 +35,8 @@
 
 <header>
     <nav class="navbar navbar-expand-sm navbar-light bg-light text-dark">
-        <a href="departments.html" class="navbar-brand fa fa-arrow-left"></a>
-        <a href="departments.html" class="navbar-brand text-uppercase mr-auto">
+        <a th:href="@{/departments}" href="departments.html" class="navbar-brand fa fa-arrow-left"></a>
+        <a th:href="@{/departments}" href="departments.html" class="navbar-brand text-uppercase mr-auto">
             <span th:if="${addOrEdit=='edit'}">Edit department</span>
             <span th:if="${addOrEdit=='add'}">Add department</span>
         </a>
@@ -63,15 +63,10 @@
                         <form>
                             <div class="form-group">
                                 <div class="mb-3">
-                                    <label th:if="${addOrEdit=='edit'}" class= "d-none d-sm-inline" for="deptNameInputEdit">Department name</label>
-                                    <label th:if="${addOrEdit=='add'}" class= "d-none d-sm-inline" for="deptNameInputAdd">Department name</label>
+                                    <label class= "d-none d-sm-inline" for="deptNameInput">Department name</label>
                                     <input type="text" class="mt-2 form-control"
-                                           id="deptNameInputEdit"
-                                           th:if="${addOrEdit=='edit'}"
+                                           id="deptNameInput"
                                            th:value="${department.departmentName}"/>
-                                    <input type="text" class="mt-2 form-control"
-                                           id="deptNameInputAdd"
-                                           th:if="${addOrEdit=='add'}"/>
                                 </div>
                                 <div class="my-3">
                                     <label th:if="${addOrEdit=='edit'}" class= "d-none d-sm-inline" for="deptDescInputEdit">Description</label>

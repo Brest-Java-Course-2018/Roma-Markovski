@@ -20,6 +20,7 @@ import java.util.Collection;
 public class EmployeeDaoImpl implements EmployeeDao {
     private static final String EMPLOYEE_ID = "employeeId";
     private static final String EMPLOYEE_NAME = "employeeName";
+    private static final String EMPLOYEE_EMAIL = "employeeEmail";
     private static final String SALARY = "salary";
     private static final String DEPARTMENT_ID = "departmentId";
 
@@ -76,6 +77,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             Employee employee = new Employee();
             employee.setEmployeeId(resultSet.getInt(EMPLOYEE_ID));
             employee.setEmployeeName(resultSet.getString(EMPLOYEE_NAME));
+            employee.setEmployeeEmail(resultSet.getString(EMPLOYEE_EMAIL));
             employee.setSalary(resultSet.getInt(SALARY));
             employee.setDepartmentId(resultSet.getInt(DEPARTMENT_ID));
             return employee;
@@ -87,6 +89,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         LOGGER.debug("addEmployee({})", employee);
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue(EMPLOYEE_NAME, employee.getEmployeeName());
+        namedParameters.addValue(EMPLOYEE_EMAIL, employee.getEmployeeName());
         namedParameters.addValue(SALARY, employee.getSalary());
         namedParameters.addValue(DEPARTMENT_ID, employee.getDepartmentId());
         KeyHolder generateKeyHolder = new GeneratedKeyHolder();
