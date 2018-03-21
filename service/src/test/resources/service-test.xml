@@ -10,7 +10,7 @@
     </bean>
 
     <bean id="departmentDao" class="com.epam.brest.course.dao.DepartmentDaoImpl">
-        <property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
     <bean id="departmentService" class="com.epam.brest.course.service.DepartmentServiceImpl">

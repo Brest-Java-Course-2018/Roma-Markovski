@@ -1,7 +1,7 @@
 package com.epam.brest.course.dao;
 
 import com.epam.brest.course.model.Department;
-import com.epam.brest.course.model.DepartmentForOutput;
+import com.epam.brest.course.dto.DepartmentForOutput;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,11 +26,14 @@ public class DepartmentDaoImpl implements DepartmentDao {
     private static final String DEPARTMENT_ID = "departmentId";
     private static final String DEPARTMENT_NAME = "departmentName";
     private static final String DESCRIPTION = "description";
-    private static final String DEPARTMENT_AVG_SALARY = "emp";
+    private static final String DEPARTMENT_AVG_SALARY = "averageSalary";
 
 
     @Value("${department.select}")
     private String select;
+
+    @Value("${department.selectForOutput}")
+    private String selectForOutput;
 
     @Value("${department.selectById}")
     private String selectById;
@@ -49,10 +52,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-
-
-    public final void setNamedParameterJdbcTemplate
-            (final NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public DepartmentDaoImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
@@ -76,10 +76,18 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
 
     @Override
-    public Collection<DepartmentForOutput> getAllDepartments() {
+    public Collection<Department> getAllDepartments() {
         LOGGER.debug("getAllDepartments()");
-        Collection<DepartmentForOutput> departments =
+        Collection<Department> departments =
                 namedParameterJdbcTemplate.getJdbcOperations().query(select, new DepartmentRowMapper());
+        return departments;
+    }
+
+    @Override
+    public Collection<DepartmentForOutput> getAllDepartmentsForOutput() {
+        LOGGER.debug("getAllDepartmentsForOutput()");
+        Collection<DepartmentForOutput> departments =
+                namedParameterJdbcTemplate.getJdbcOperations().query(selectForOutput, new DepartmentForOutputRowMapper());
         return departments;
     }
 
@@ -103,19 +111,6 @@ public class DepartmentDaoImpl implements DepartmentDao {
         return department;
     }
 
-    private class DepartmentRowMapper implements RowMapper<DepartmentForOutput> {
-
-        @Override
-        public DepartmentForOutput mapRow(ResultSet resultSet, int i) throws SQLException {
-            LOGGER.debug("mapRow({}, {})", resultSet, i);
-            DepartmentForOutput department = new DepartmentForOutput();
-            department.setDepartmentId(resultSet.getInt(DEPARTMENT_ID));
-            department.setDepartmentName(resultSet.getString(DEPARTMENT_NAME));
-            department.setDepartmentAvgSalary(resultSet.getInt(DEPARTMENT_AVG_SALARY));
-            return department;
-        }
-    }
-
     @Override
     public Department addDepartment(Department department) {
         LOGGER.debug("addDepartment({})", department);
@@ -130,7 +125,6 @@ public class DepartmentDaoImpl implements DepartmentDao {
             namedParameters.addValue(DESCRIPTION, department.getDescription());
 
             KeyHolder generateKeyHolder = new GeneratedKeyHolder();
-
             namedParameterJdbcTemplate.update(insert, namedParameters, generateKeyHolder);
             department.setDepartmentId(generateKeyHolder.getKey().intValue());
         } else {
@@ -163,5 +157,30 @@ public class DepartmentDaoImpl implements DepartmentDao {
     public void deleteDepartmentById(Integer departmentId) {
         LOGGER.debug("deleteDepartmentById({})", departmentId);
         namedParameterJdbcTemplate.getJdbcOperations().update(delete, departmentId);
+    }
+
+    private class DepartmentRowMapper implements RowMapper<Department> {
+
+        @Override
+        public Department mapRow(ResultSet resultSet, int i) throws SQLException {
+            Department department = new Department();
+            department.setDepartmentId(resultSet.getInt(DEPARTMENT_ID));
+            department.setDepartmentName(resultSet.getString(DEPARTMENT_NAME));
+            department.setDescription(resultSet.getString(DESCRIPTION));
+            return department;
+        }
+    }
+
+    private class DepartmentForOutputRowMapper implements RowMapper<DepartmentForOutput> {
+
+        @Override
+        public DepartmentForOutput mapRow(ResultSet resultSet, int i) throws SQLException {
+            LOGGER.debug("mapRow({}, {})", resultSet, i);
+            DepartmentForOutput department = new DepartmentForOutput();
+            department.setDepartmentId(resultSet.getInt(DEPARTMENT_ID));
+            department.setDepartmentName(resultSet.getString(DEPARTMENT_NAME));
+            department.setDepartmentAvgSalary(resultSet.getInt(DEPARTMENT_AVG_SALARY));
+            return department;
+        }
     }
 }

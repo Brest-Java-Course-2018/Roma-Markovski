@@ -11,10 +11,10 @@ INSERT INTO employee (employeeName, employeeEmail, salary, departmentId)
 VALUES ('Roma Markovski', 'markovski@gmail.com', 1200, 1);
 
 INSERT INTO employee (employeeName, employeeEmail, salary, departmentId)
-VALUES ('Roma Morkovski', 'morkovski@gmail.com', 120, 1);
+VALUES ('Roma Morkovski', 'morkovski@gmail.bin', 120, 1);
 
 INSERT INTO employee (employeeName, employeeEmail, salary, departmentId)
-VALUES ('Dima Dmitriev', 'dmitriev@gmail.com', 2000, 2);
+VALUES ('Dima Dmitriev', 'dmitriev@gmail.au', 2000, 2);
 
 INSERT INTO employee (employeeName, employeeEmail, salary, departmentId)
 VALUES ('Pavel Pavlov', 'pasha@gmail.com', 3000, 3);

@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/context
-		http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-    <import resource="sample-db-spring.xml"/>
-
-    <mvc:annotation-driven/>
-
-    <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <import resource="sample-db-spring.xml"></import>
 
     <context:component-scan base-package="com.epam.brest.course.web_app.*"/>
 
@@ -24,26 +20,35 @@
     </bean>
 
     <bean id="departmentDao" class="com.epam.brest.course.dao.DepartmentDaoImpl">
-        <property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
     <bean id="departmentService" class="com.epam.brest.course.service.DepartmentServiceImpl">
         <constructor-arg ref="departmentDao"/>
     </bean>
 
+    <mvc:default-servlet-handler/>
+
+    <mvc:annotation-driven/>
+
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+
     <bean id="employeeDao" class="com.epam.brest.course.dao.EmployeeDaoImpl">
-        <property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>
+        <constructor-arg name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>
     </bean>
 
     <bean id="employeeService" class="com.epam.brest.course.service.EmployeeServiceImpl">
         <constructor-arg ref="employeeDao"/>
     </bean>
 
-    <bean id="templateResolver"
-          class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
-        <property name="prefix" value="/WEB-INF/templates/"/>
-        <property name="suffix" value=".html"/>
-        <property name="templateMode" value="HTML5"/>
+    <bean id="validator"
+          class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+    </bean>
+
+    <bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+        <property name="prefix" value="/WEB-INF/templates/" />
+        <property name="suffix" value=".html" />
+        <property name="templateMode" value="HTML" />
     </bean>
 
     <bean id="templateEngine"
@@ -54,19 +59,18 @@
     <bean id="viewResolver"
           class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
         <property name="templateEngine" ref="templateEngine"/>
+        <property name="characterEncoding" value="UTF-8" />
     </bean>
 
     <!--<context:property-placeholder location="classpath:application.properties"/>-->
 
-    <bean
-            class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
                 <value>classpath:sql-properties.properties</value>
                 <value>classpath:application.properties</value>
             </list>
         </property>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
     </bean>
-
 </beans>

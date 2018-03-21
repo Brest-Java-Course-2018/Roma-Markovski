@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>BS 4 template</title>
+    <title>Departments List</title>
     <link rel="stylesheet" href="../../resources/static/css/font-awesome.min.css"
           th:href="@{/resources/static/css/font-awesome.min.css}"/>
     <link rel="stylesheet" href="../../resources/static/css/bootstrap.css"
@@ -21,10 +21,11 @@
             data-target="#navbarsNav">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a th:href="@{/departments}" href="departments.html" class="navbar-brand"><img src="../../resources/static/img/logo.svg" width="64" height="32"></a>
+    <a th:href="@{/departments}" href="/" class="navbar-brand"><img
+            src="../../resources/static/img/logo.svg" width="64" height="32"></a>
     <div class="collapse navbar-collapse" id="navbarsNav">
         <div class="navbar-nav">
-            <a class="nav-item nav-link active" th:href="@{/departments}" href="departments.html">Departments <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link active" th:href="@{/departments}" href="departments.html">Departments</a>
             <a class="nav-item nav-link" th:href="@{/employees}" href="employees.html">Employees</a>
         </div>
     </div>
@@ -38,7 +39,7 @@
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a href="editDepartment.html" class="btn btn-light"
-                   th:href="@{/addDepartment}"
+                   th:href="@{/department}"
                    data-toggle="tooltip"
                    data-placement="bottom"
                    title="Add department"><i class="fa fa-plus"></i>
@@ -63,35 +64,35 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="department : ${departments}">
-                                <td th:text="${department.departmentName}">CEO</td>
-                                <td th:text="${department.departmentAvgSalary}"></td>
-                                <td class="text-right">
-                                    <a title="Edit department"
-                                       th:href="'/editDepartment/'+${department.departmentId}"
-                                       data-toggle="tooltip"
-                                       data-placement="top"
-                                       href="editDepartment.html"
-                                       class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
-                                        <span class="d-none d-md-inline">Edit</span>
-                                    </a>
-                                    <a title="Delete department"
-                                       data-toggle="tooltip"
-                                       data-placement="top"
-                                       href="#"
-                                       class="btn-sm btn-outline-secondary">
-                                    <span data-target="#confirmDeleteModal" data-toggle="modal">
-                                        <i class="fa fa-remove"></i>
-                                    <span class="d-none d-md-inline">Delete</span>
-                                    </span>
-                                    </a>
-                                </td>
-                            </tr>
+                        <tr th:each="department : ${departments}">
+                            <td th:text="${department.departmentName}">CEO</td>
+                            <td th:text="${department.departmentAvgSalary}"></td>
+                            <td class="text-right">
+                                <a title="Edit department"
+                                   th:href="@{|/department/${department.departmentId}|}"
+                                   data-toggle="tooltip"
+                                   data-placement="top"
+                                   href="editDepartment.html"
+                                   class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </a>
+                                <span data-toggle="modal"
+                                      data-target="#deleteDialog"
+                                      th:attr="data-id=${department.departmentId},data-name=${department.departmentName}">
+                                <a title="delete department"
+                                   data-toggle="tooltip"
+                                   data-placement="top"
+                                   href="#"
+                                   class="btn-sm btn-outline-secondary">
+                                    <i class="fa fa-remove"></i> <span class="d-none d-md-inline">Delete</span></a>
+                                </span>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="card alert alert-info" th:if="${departments.isEmpty()}">
-
+                <div class="card alert alert-warning" th:if="${departments.isEmpty()}">
+                    <h2>Nothing found</h2>
                 </div>
             </div>
         </div>
@@ -99,7 +100,8 @@
 </section>
 
 <!-- Modal -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header alert-danger">
@@ -113,7 +115,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger">Delete</button>
+                <a id="deleteUrl" href="#" class="btn btn-danger">Delete</a>
             </div>
         </div>
     </div>
@@ -128,6 +130,11 @@
 <script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
+    })
+    $('#deleteDialog').on('show.bs.modal', function (event) {
+        var target = $(event.relatedTarget)
+        $(this).find('.modal-body').text('Please confirm delete department: "' + target.data('name') + '"')
+        document.getElementById('deleteUrl').href = '/department/' + target.data('id') + '/delete';
     })
 </script>
 </body>

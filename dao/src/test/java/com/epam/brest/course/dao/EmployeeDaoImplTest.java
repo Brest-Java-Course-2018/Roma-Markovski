@@ -20,7 +20,7 @@ import java.util.List;
         "classpath:test-dao.xml", "classpath:dao.xml"})
 
 @Rollback
-@Transactional
+@Transactional(transactionManager = "transactionManager")
 public class EmployeeDaoImplTest {
 
     @Autowired
@@ -33,6 +33,13 @@ public class EmployeeDaoImplTest {
     }
 
     @Test
+    public void getEmployeeByDepartmentId() {
+        Collection<Employee> employees = employeeDao.getEmployeesByDepartmentId(2);
+        Assert.assertNotNull(employees);
+        Assert.assertTrue(employees.size()==2);
+    }
+
+    @Test
     public void getEmployeeById() {
         Employee employee = employeeDao.getEmployeeById(1);
         Assert.assertNotNull(employee);
@@ -42,12 +49,8 @@ public class EmployeeDaoImplTest {
         Assert.assertTrue(employee.getDepartmentId().equals(1));
     }
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Test
     public void addEmployee() {
-
         Collection<Employee> employees=employeeDao.getAllEmployees();
         int sizeBefore = employees.size();
         Employee employee = new Employee("Ivan Ivanov", "ivanov@gmail.com", 3000, 2);
@@ -80,9 +83,9 @@ public class EmployeeDaoImplTest {
     public void updateEmployee() {
         Employee employee = new Employee("Ivan Ivanov", "ivanov@gmail.com", 3000, 2);
         Employee newEmployee = employeeDao.addEmployee(employee);
-        employee.setEmployeeName("Petr Petrov");
-        employee.setSalary(2000);
-        employee.setDepartmentId(1);
+        newEmployee.setEmployeeName("Petr Petrov");
+        newEmployee.setSalary(2000);
+        newEmployee.setDepartmentId(1);
 
         employeeDao.updateEmployee(newEmployee);
         Employee updatedEmployee = employeeDao.getEmployeeById(newEmployee.getEmployeeId());
@@ -107,15 +110,4 @@ public class EmployeeDaoImplTest {
         Assert.assertTrue((sizeBefore-1)==employeeDao.getAllEmployees().size());
     }
 
-    @Test
-    public void getEmployeeByDepartmentId() {
-        Collection <Employee> employees = employeeDao.getEmployeesByDepartmentId(2);
-        Assert.assertNotNull(employees);
-//        Assert.assertTrue(employees.get(0).getEmployeeName().equals("Dima Dmitriev"));
-//        Assert.assertTrue(employees.get(0).getSalary().equals(2000));
-//        Assert.assertTrue(employees.get(0).getDepartmentId().equals(2));
-//        Assert.assertTrue(employees.get(1).getEmployeeName().equals("Pavel Pavlov"));
-//        Assert.assertTrue(employees.get(1).getSalary().equals(3000));
-//        Assert.assertTrue(employees.get(1).getDepartmentId().equals(2));
-    }
 }

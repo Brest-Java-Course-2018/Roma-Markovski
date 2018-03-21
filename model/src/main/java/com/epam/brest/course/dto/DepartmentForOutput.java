@@ -1,4 +1,4 @@
-package com.epam.brest.course.model;
+package com.epam.brest.course.dto;
 
 public class DepartmentForOutput {
 
@@ -34,11 +34,5 @@ public class DepartmentForOutput {
 
     public DepartmentForOutput() {
 
-    }
-
-    public DepartmentForOutput(Integer departmentId, String departmentName, Integer departmentAvgSalary) {
-        this.departmentId = departmentId;
-        this.departmentName = departmentName;
-        this.departmentAvgSalary = departmentAvgSalary;
     }
 }

@@ -46,8 +46,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public final void setNamedParameterJdbcTemplate
-            (final NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public EmployeeDaoImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 

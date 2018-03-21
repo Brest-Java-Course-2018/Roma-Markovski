@@ -8,11 +8,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:service-mock-test.xml"})
@@ -44,8 +42,6 @@ public class DepartmentServiceImplMockTest {
         departmentService.updateDepartmentDescription(ID,DESC);
 
         Department department = captureArgument.getValue();
-
-        //        Department department = departmentService.getDepartmentById(ID);
         Assert.assertEquals(DESC, department.getDescription());
     }
 }

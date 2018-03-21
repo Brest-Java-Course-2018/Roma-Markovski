@@ -21,10 +21,12 @@
             data-target="#navbarsNav">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a th:href="@{/departments}" href="departments.html" class="navbar-brand"><img src="../../resources/static/img/logo.svg" width="64" height="32"></a>
+    <a th:href="@{/departments}" href="departments.html" class="navbar-brand"><img
+            src="../../resources/static/img/logo.svg" width="64" height="32"></a>
     <div class="collapse navbar-collapse" id="navbarsNav">
         <div class="navbar-nav">
-            <a class="nav-item nav-link" th:href="@{/departments}" href="departments.html">Departments<span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" th:href="@{/departments}" href="departments.html">Departments<span
+                    class="sr-only">(current)</span></a>
             <a class="nav-item nav-link active" th:href="@{/employees}" href="employees.html">Employees</a>
         </div>
     </div>
@@ -60,10 +62,10 @@
                         <form>
                             <div class="form-group">
                                 <div class="mb-3">
-                                    <label class= "d-none d-sm-inline" for="deptDeptSelect">Department</label>
+                                    <label class="d-none d-sm-inline" for="deptDeptSelect">Department</label>
                                     <select type="text" class="mt-2 form-control"
-                                           id="deptDeptSelect"
-                                            >
+                                            id="deptDeptSelect"
+                                    >
                                         <option th:each="department : ${departments}"
                                                 th:value="${department.departmentId}"
                                                 th:text="${department.departmentName}"
@@ -72,7 +74,7 @@
                                     </select>
                                 </div>
                                 <div class="my-3">
-                                    <label class= "d-none d-sm-inline" for="deptNameInput">Employee name</label>
+                                    <label class="d-none d-sm-inline" for="deptNameInput">Employee name</label>
                                     <input type="text" class="mt-2 form-control"
                                            id="deptNameInput"
                                            th:placeholder="${addOrEdit=='edit'} ? ${employee.employeeName} : ''">

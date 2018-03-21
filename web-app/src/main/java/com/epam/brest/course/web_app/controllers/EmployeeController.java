@@ -1,6 +1,6 @@
 package com.epam.brest.course.web_app.controllers;
 
-import com.epam.brest.course.model.DepartmentForOutput;
+import com.epam.brest.course.dto.DepartmentForOutput;
 import com.epam.brest.course.model.Employee;
 import com.epam.brest.course.service.DepartmentService;
 import com.epam.brest.course.service.EmployeeService;
@@ -23,7 +23,7 @@ public class EmployeeController {
     @GetMapping(value = "/editEmployee/{id}")
     public String editEmployee(@PathVariable Integer id,
                                Model model) {
-        Collection<DepartmentForOutput> departments = departmentService.getAllDepartments();
+        Collection<DepartmentForOutput> departments = departmentService.getAllDepartmentsForOutput();
         Employee employee = employeeService.getEmployeeById(id);
         model.addAttribute("addOrEdit", "edit");
         model.addAttribute("departments", departments);
@@ -33,7 +33,7 @@ public class EmployeeController {
 
     @GetMapping(value = "/addEmployee")
     public String addDepartment(Model model) {
-        Collection<DepartmentForOutput> departments = departmentService.getAllDepartments();
+        Collection<DepartmentForOutput> departments = departmentService.getAllDepartmentsForOutput();
         model.addAttribute("addOrEdit", "add");
         model.addAttribute("departments", departments);
         return "editEmployee";
