@@ -24,7 +24,7 @@ public class Department {
      * The department's description.
      */
 
-    @Size(max=255)
+    @Size(max = 255)
     private String description;
 
     /**
