@@ -3,7 +3,7 @@ package com.epam.brest.course.client.rest;
 import com.epam.brest.course.dto.DepartmentForOutput;
 import com.epam.brest.course.model.Department;
 import com.epam.brest.course.service.DepartmentService;
-import org.easymock.EasyMock;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

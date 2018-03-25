@@ -21,16 +21,13 @@
             data-target="#navbarsNav">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a th:href="@{/departments}" href="departments.html" class="navbar-brand"><img
+    <a th:href="@{/departments}" href="/" class="navbar-brand"><img
             src="../../resources/static/img/logo.svg" width="64" height="32"
             th:src="@{/resources/static/img/logo.svg}"></a>
     <div class="collapse navbar-collapse" id="navbarsNav">
         <div class="navbar-nav">
-            <a class="nav-item nav-link active" th:href="@{/departments}" href="departments.html">Departments<span
-                    class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link"
-               th:href="@{/employees}"
-               href="employees.html">Employees</a>
+            <a class="nav-item nav-link active" th:href="@{/departments}" href="departments.html">Departments</a>
+            <a class="nav-item nav-link" th:href="@{/employees}" href="employees.html">Employees</a>
         </div>
     </div>
 </nav>
@@ -76,7 +73,6 @@
                                    name="field_departmentId"
                                    type="hidden"
                                    th:field="*{departmentId}"/>
-
 
                             <div class="form-group">
                                 <div class="mb-3">

@@ -16,6 +16,6 @@ CREATE TABLE employee (
   PRIMARY KEY (employeeId),
   CONSTRAINT FK_EmployeeId_DepartmentId
   FOREIGN KEY (departmentId) REFERENCES department(departmentId)
-  ON UPDATE NO ACTION
-  ON DELETE NO ACTION
+  ON UPDATE CASCADE
+  ON DELETE CASCADE
 );

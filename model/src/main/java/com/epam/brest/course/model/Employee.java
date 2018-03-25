@@ -24,14 +24,14 @@ public class Employee {
      * The employee's email.
      */
     @NotEmpty
-    @Size(min = 10, max = 255)
+    @Size(min = 4, max = 255)
 //    TODO: Validation for email.
     private String employeeEmail;
 
     /**
      * The employee's salary.
      */
-    @Size (min=100)
+//    @Size (min=100)
     private Integer salary;
 
     /**

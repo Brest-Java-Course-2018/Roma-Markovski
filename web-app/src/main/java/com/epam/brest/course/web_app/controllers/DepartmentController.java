@@ -57,7 +57,7 @@ public class DepartmentController {
 
     @GetMapping(value = "/department")
     public String gotoAddDepartmentPage(Model model) {
-        LOGGER.debug("addDepartment({})", model);
+        LOGGER.debug("gotoAddDepartmentPage({})", model);
         Department department = new Department();
         model.addAttribute("isNew", true);
         model.addAttribute("department", department);
@@ -65,7 +65,7 @@ public class DepartmentController {
     }
 
     @GetMapping(value = "/departments")
-    public String departments(Model model) {
+    public String getDepartments(Model model) {
         LOGGER.debug("getDepartments({})", model);
         Collection<DepartmentForOutput> departments = departmentService.getAllDepartmentsForOutput();
         model.addAttribute("departments", departments);

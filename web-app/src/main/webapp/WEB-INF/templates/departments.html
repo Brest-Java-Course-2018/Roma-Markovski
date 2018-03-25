@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title></title>
+    <title>Departments</title>
     <link rel="stylesheet" href="../../resources/static/css/font-awesome.min.css"
           th:href="@{/resources/static/css/font-awesome.min.css}"/>
     <link rel="stylesheet" href="../../resources/static/css/bootstrap.css"
@@ -65,7 +65,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="department : ${departments}">
-                            <td th:text="${department.departmentName}">CEO</td>
+                            <td th:text="${department.departmentName}"></td>
                             <td th:text="${department.departmentAvgSalary}"></td>
                             <td class="text-right">
                                 <a title="Edit department"
@@ -79,7 +79,7 @@
                                 <span data-toggle="modal"
                                       data-target="#deleteDialog"
                                       th:attr="data-id=${department.departmentId},data-name=${department.departmentName}">
-                                <a title="delete department"
+                                <a title="Delete department"
                                    data-toggle="tooltip"
                                    data-placement="top"
                                    href="#"
