@@ -35,4 +35,13 @@ public class DepartmentForOutput {
     public DepartmentForOutput() {
 
     }
+
+    @Override
+    public String toString() {
+        return "DepartmentForOutput{" +
+                "departmentId=" + departmentId +
+                ", departmentName='" + departmentName + '\'' +
+                ", departmentAvgSalary=" + departmentAvgSalary +
+                '}';
+    }
 }

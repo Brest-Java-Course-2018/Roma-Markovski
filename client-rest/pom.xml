@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>clent-rest</artifactId>
+    <artifactId>client-rest</artifactId>
 
     <dependencies>
         <dependency>
