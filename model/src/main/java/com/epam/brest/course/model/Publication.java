@@ -28,11 +28,24 @@ public class Publication {
     private Date publicationDate;
 
     /**
+     * Number of pages.
+     */
+    private Integer publicationNumOfPages;
+
+    /**
      * The publication's description.
      */
     private String publicationDescription;
 
     /*Getters and Setters*/
+
+    public Integer getPublicationNumOfPages() {
+        return publicationNumOfPages;
+    }
+
+    public void setPublicationNumOfPages(Integer publicationNumOfPages) {
+        this.publicationNumOfPages = publicationNumOfPages;
+    }
 
     public final Integer getPublicationId() {
         return publicationId;
@@ -77,15 +90,17 @@ public class Publication {
 
     /**
      * Overrided toString method.
+     *
      * @return string which describes the publication.
      */
     @Override
-    public final String toString() {
+    public String toString() {
         return "Publication{"
                 + "publicationId=" + publicationId
                 + ", publicationName='" + publicationName + '\''
                 + ", writerId=" + writerId
                 + ", publicationDate=" + publicationDate
+                + ", publicationNumOfPages=" + publicationNumOfPages
                 + ", publicationDescription='" + publicationDescription + '\''
                 + '}';
     }
