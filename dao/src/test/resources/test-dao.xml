@@ -7,7 +7,7 @@
     <bean id="publicationDao" class="com.epam.brest.course.dao.PublicationDaoImpl">
         <constructor-arg ref="dataSource"/>
     </bean>
-    <bean id="writerDao" class="com.epam.brest.course.dao.WriterDaoImpl"/>
-
-
+    <bean id="writerDao" class="com.epam.brest.course.dao.WriterDaoImpl">
+        <constructor-arg ref="dataSource"/>
+    </bean>
 </beans>

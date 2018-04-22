@@ -22,10 +22,15 @@ public class WriterDaoImplTest {
     @Test
     public void getWriters() {
         Collection<Writer> writers = writerDao.getWriters();
-        Assert.assertTrue(writers.isEmpty());
+        Assert.assertFalse(writers.isEmpty());
     }
 
     @Test
     public void getWriterById() {
+        Writer writer = writerDao.getWriterById(1);
+        Assert.assertNotNull(writer);
+        Assert.assertTrue(writer.getWriterId().equals(1));
+        Assert.assertEquals("Alex Pushkin", writer.getWriterName());
+        Assert.assertEquals("Russia", writer.getWriterCountry());
     }
 }

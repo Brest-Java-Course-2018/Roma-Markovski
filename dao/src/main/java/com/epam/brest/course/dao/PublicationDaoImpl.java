@@ -3,6 +3,9 @@ package com.epam.brest.course.dao;
 import com.epam.brest.course.model.Publication;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -11,14 +14,21 @@ import java.util.Collection;
 
 public class PublicationDaoImpl implements PublicationDao {
 
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
+
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private final String GET_PUBLICATIONS_SQL = "SELECT publication_id, publication_name, " +
             "writer_id, publication_date, publication_num_of_pages, publication_description " +
             "FROM publication";
 
+    private final String GET_PUBLICATIONS_BY_ID_SQL = "SELECT publication_id, publication_name, " +
+            "writer_id, publication_date, publication_num_of_pages, publication_description " +
+            "FROM publication WHERE publication_id = :publication_id";
+
     public PublicationDaoImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
     @Override
@@ -29,7 +39,11 @@ public class PublicationDaoImpl implements PublicationDao {
 
     @Override
     public Publication getPublicationById(Integer publicationId) {
-        return null;
+        SqlParameterSource namedParameters =
+                new MapSqlParameterSource("publication_id", publicationId);
+        Publication publication = namedParameterJdbcTemplate.
+                queryForObject(GET_PUBLICATIONS_BY_ID_SQL, namedParameters, new PublicationRowMapper());
+        return publication;
     }
 
     private class PublicationRowMapper implements RowMapper<Publication> {
