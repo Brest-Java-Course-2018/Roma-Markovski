@@ -17,4 +17,6 @@ public interface PublicationDao {
     Publication addPublication (Publication publication);
 
     void updatePublication (Publication publication);
+
+    void deletePublicationById (Integer publicationId);
 }

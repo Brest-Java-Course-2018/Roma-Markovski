@@ -17,5 +17,5 @@ public interface WriterDao {
 
     void updateWriter(Writer writer);
 
-    void deleteWriterById(Writer writer);
+    void deleteWriterById(Integer writerId);
 }

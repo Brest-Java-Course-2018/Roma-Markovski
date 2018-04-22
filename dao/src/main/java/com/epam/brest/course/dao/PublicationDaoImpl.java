@@ -39,6 +39,9 @@ public class PublicationDaoImpl implements PublicationDao {
             "publication_description = :publication_description WHERE publication_id = " +
             ":publication_id";
 
+    private static final String DELETE_PUBLICATION_SQL = "DELETE FROM publication WHERE " +
+            "publication_id = :id";
+
     public PublicationDaoImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
@@ -85,6 +88,12 @@ public class PublicationDaoImpl implements PublicationDao {
         namedParameters.addValue("publication_description", publication.getPublicationDescription());
 
         namedParameterJdbcTemplate.update(UPDATE_PUBLICATION_SQL, namedParameters);
+    }
+
+    @Override
+    public void deletePublicationById(Integer publicationId) {
+        SqlParameterSource namedParameters = new MapSqlParameterSource("id", publicationId);
+        namedParameterJdbcTemplate.update(DELETE_PUBLICATION_SQL, namedParameters);
     }
 
     private class PublicationRowMapper implements RowMapper<Publication> {

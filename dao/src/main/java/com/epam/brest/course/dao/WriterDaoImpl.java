@@ -31,6 +31,8 @@ public class WriterDaoImpl implements WriterDao {
     private static final String UPDATE_WRITER_SQL = "UPDATE writer SET writer_name = :writer_name, " +
             "writer_country = :writer_country WHERE writer_id= :writer_id";
 
+    private static final String DELETE_WRITER_SQL = "DELETE FROM writer WHERE writer_id = :id";
+
     public WriterDaoImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
@@ -72,8 +74,9 @@ public class WriterDaoImpl implements WriterDao {
     }
 
     @Override
-    public void deleteWriterById(Writer writer) {
-
+    public void deleteWriterById(Integer writerId) {
+        SqlParameterSource namedParameters = new MapSqlParameterSource("id", writerId);
+        namedParameterJdbcTemplate.update(DELETE_WRITER_SQL, namedParameters);
     }
 
     private class WriterRowMapper implements RowMapper<Writer> {

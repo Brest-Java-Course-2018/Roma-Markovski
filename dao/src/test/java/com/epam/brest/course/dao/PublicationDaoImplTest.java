@@ -85,4 +85,27 @@ public class PublicationDaoImplTest {
         Assert.assertTrue(updatedPublication.getWriterId().equals(3));
         Assert.assertEquals(Date.valueOf("2018-01-19"), updatedPublication.getPublicationDate());
     }
+
+    @Test
+    public void deletePublicationById () {
+        Publication publication = new Publication();
+
+        publication.setPublicationName("War and Peace");
+        publication.setWriterId(2);
+        publication.setPublicationDate(Date.valueOf("2018-02-25"));
+        publication.setPublicationNumOfPages(768);
+        publication.setPublicationDescription("Novel");
+
+        Publication addedPublication = publicationDao.addPublication(publication);
+
+        Collection<Publication> publications = publicationDao.getPublications();
+        int oldSize = publications.size();
+
+        publicationDao.deletePublicationById(addedPublication.getPublicationId());
+
+        publications = publicationDao.getPublications();
+        int newSize = publications.size();
+
+        Assert.assertEquals(oldSize - 1, newSize);
+    }
 }

@@ -67,6 +67,18 @@ public class WriterDaoImplTest {
 
     @Test
     public void deleteWriterById() {
+        Writer writer = new Writer();
+        writer.setWriterName("Bykov Alex");
+        writer.setWriterCountry("Russia");
+        Writer addedWriter = writerDao.addWriter(writer);
 
+        Collection<Writer> writers = writerDao.getWriters();
+        int oldSize = writers.size();
+
+        writerDao.deleteWriterById(addedWriter.getWriterId());
+        writers = writerDao.getWriters();
+        int newSize = writers.size();
+
+        Assert.assertEquals(oldSize - 1, newSize);
     }
 }
