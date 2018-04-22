@@ -14,92 +14,158 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 
+/**
+ * Implementation of PublicationDao.
+ */
 public class PublicationDaoImpl implements PublicationDao {
 
+    /**
+     * JDBC template.
+     */
     private JdbcTemplate jdbcTemplate;
 
+    /**
+     * Named parameter JDBC template.
+     */
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private static final String GET_PUBLICATIONS_SQL = "SELECT publication_id, publication_name, " +
-            "writer_id, publication_date, publication_num_of_pages, publication_description " +
-            "FROM publication";
+    /**
+     * SQL Select-All String.
+     */
+    private static final String GET_PUBLICATIONS_SQL = "SELECT "
+            + "publication_id, publication_name, writer_id, publication_date, "
+            + "publication_num_of_pages, publication_description "
+            + "FROM publication";
 
-    private static final String GET_PUBLICATIONS_BY_ID_SQL = "SELECT publication_id, publication_name, " +
-            "writer_id, publication_date, publication_num_of_pages, publication_description " +
-            "FROM publication WHERE publication_id = :publication_id";
+    /**
+     * SQL Select-By-Id String.
+     */
+    private static final String GET_PUBLICATIONS_BY_ID_SQL = "SELECT "
+            + "publication_id, publication_name, writer_id, publication_date, "
+            + "publication_num_of_pages, publication_description FROM "
+            + "publication WHERE publication_id = :publication_id";
 
-    private static final String ADD_PUBLICATION_SQL = "INSERT INTO publication " +
-            "(publication_name, writer_id, publication_date, publication_num_of_pages, " +
-            "publication_description) VALUES (:publication_name, :writer_id, " +
-            ":publication_date, :publication_num_of_pages, :publication_description)";
+    /**
+     * SQL Insert String.
+     */
+    private static final String ADD_PUBLICATION_SQL = "INSERT INTO "
+            + "publication (publication_name, writer_id, "
+            + "publication_date, publication_num_of_pages, "
+            + "publication_description) VALUES (:publication_name, "
+            + ":writer_id, :publication_date, :publication_num_of_pages, "
+            + ":publication_description)";
 
-    private static final String UPDATE_PUBLICATION_SQL = "UPDATE publication SET " +
-            "publication_name = :publication_name, writer_id = :writer_id, publication_date " +
-            "= :publication_date, publication_num_of_pages = :publication_num_of_pages, " +
-            "publication_description = :publication_description WHERE publication_id = " +
-            ":publication_id";
+    /**
+     * Sql Update String.
+     */
+    private static final String UPDATE_PUBLICATION_SQL = "UPDATE "
+            + "publication SET publication_name = :publication_name, "
+            + "writer_id = :writer_id, publication_date = "
+            + ":publication_date, publication_num_of_pages = "
+            + ":publication_num_of_pages, publication_description = "
+            + ":publication_description WHERE publication_id = "
+            + ":publication_id";
 
-    private static final String DELETE_PUBLICATION_SQL = "DELETE FROM publication WHERE " +
-            "publication_id = :id";
+    /**
+     * Sql Delete String.
+     */
+    private static final String DELETE_PUBLICATION_SQL = "DELETE FROM "
+            + "publication WHERE publication_id = :id";
 
-    public PublicationDaoImpl(DataSource dataSource) {
+    /**
+     * Constructor with data source.
+     * @param dataSource - data source.
+     */
+    public PublicationDaoImpl(final DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
-        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+        this.namedParameterJdbcTemplate =
+                new NamedParameterJdbcTemplate(dataSource);
     }
 
     @Override
-    public Collection<Publication> getPublications() {
-        Collection<Publication> publications = jdbcTemplate.query(GET_PUBLICATIONS_SQL, new PublicationRowMapper());
+    public final Collection<Publication> getPublications() {
+        Collection<Publication> publications =
+                jdbcTemplate.query(GET_PUBLICATIONS_SQL,
+                        new PublicationRowMapper());
         return publications;
     }
 
     @Override
-    public Publication getPublicationById(Integer publicationId) {
+    public final Publication getPublicationById(
+            final Integer publicationId) {
         SqlParameterSource namedParameters =
-                new MapSqlParameterSource("publication_id", publicationId);
+                new MapSqlParameterSource(
+                        "publication_id", publicationId);
         Publication publication = namedParameterJdbcTemplate.
-                queryForObject(GET_PUBLICATIONS_BY_ID_SQL, namedParameters, new PublicationRowMapper());
+                queryForObject(GET_PUBLICATIONS_BY_ID_SQL,
+                        namedParameters, new PublicationRowMapper());
         return publication;
     }
 
     @Override
-    public Publication addPublication(Publication publication) {
-        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
-        namedParameters.addValue("publication_name", publication.getPublicationName());
-        namedParameters.addValue("writer_id", publication.getWriterId());
-        namedParameters.addValue("publication_date", publication.getPublicationDate());
-        namedParameters.addValue("publication_num_of_pages", publication.getPublicationNumOfPages());
-        namedParameters.addValue("publication_description", publication.getPublicationDescription());
+    public final Publication addPublication(
+            final Publication publication) {
+        MapSqlParameterSource namedParameters =
+                new MapSqlParameterSource();
+        namedParameters.addValue(
+                "publication_name", publication.getPublicationName());
+        namedParameters.addValue(
+                "writer_id", publication.getWriterId());
+        namedParameters.addValue(
+                "publication_date", publication.getPublicationDate());
+        namedParameters.addValue(
+                "publication_num_of_pages",
+                        publication.getPublicationNumOfPages());
+        namedParameters.addValue(
+                "publication_description",
+                        publication.getPublicationDescription());
 
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
-        namedParameterJdbcTemplate.update(ADD_PUBLICATION_SQL, namedParameters, generatedKeyHolder);
-        publication.setPublicationId(generatedKeyHolder.getKey().intValue());
+        namedParameterJdbcTemplate.update(
+                ADD_PUBLICATION_SQL, namedParameters, generatedKeyHolder);
+        publication.setPublicationId(
+                generatedKeyHolder.getKey().intValue());
         return publication;
     }
 
     @Override
-    public void updatePublication(Publication publication) {
-        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
-        namedParameters.addValue("publication_id", publication.getPublicationId());
-        namedParameters.addValue("publication_name", publication.getPublicationName());
-        namedParameters.addValue("writer_id", publication.getWriterId());
-        namedParameters.addValue("publication_date", publication.getPublicationDate());
-        namedParameters.addValue("publication_num_of_pages", publication.getPublicationNumOfPages());
-        namedParameters.addValue("publication_description", publication.getPublicationDescription());
-
-        namedParameterJdbcTemplate.update(UPDATE_PUBLICATION_SQL, namedParameters);
+    public final void updatePublication(final Publication publication) {
+        MapSqlParameterSource namedParameters =
+                new MapSqlParameterSource();
+        namedParameters.addValue(
+                "publication_id", publication.getPublicationId());
+        namedParameters.addValue(
+                "publication_name", publication.getPublicationName());
+        namedParameters.addValue(
+                "writer_id", publication.getWriterId());
+        namedParameters.addValue(
+                "publication_date", publication.getPublicationDate());
+        namedParameters.addValue(
+                "publication_num_of_pages",
+                        publication.getPublicationNumOfPages());
+        namedParameters.addValue(
+                "publication_description",
+                        publication.getPublicationDescription());
+        namedParameterJdbcTemplate.update(
+                UPDATE_PUBLICATION_SQL, namedParameters);
     }
 
     @Override
-    public void deletePublicationById(Integer publicationId) {
-        SqlParameterSource namedParameters = new MapSqlParameterSource("id", publicationId);
-        namedParameterJdbcTemplate.update(DELETE_PUBLICATION_SQL, namedParameters);
+    public final void deletePublicationById(final Integer publicationId) {
+        SqlParameterSource namedParameters =
+                new MapSqlParameterSource("id", publicationId);
+        namedParameterJdbcTemplate.update(
+                DELETE_PUBLICATION_SQL, namedParameters);
     }
 
+    /**
+     * PublicationRowMapper  - for creating models from resultSet.
+     */
     private class PublicationRowMapper implements RowMapper<Publication> {
 
         @Override
-        public Publication mapRow(ResultSet resultSet, int i) throws SQLException {
+        public final Publication mapRow(
+                final ResultSet resultSet, final int i) throws SQLException {
             Publication publication = new Publication();
             publication.setPublicationId(resultSet.getInt(1));
             publication.setPublicationName(resultSet.getString(2));
