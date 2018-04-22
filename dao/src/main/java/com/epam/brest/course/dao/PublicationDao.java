@@ -13,4 +13,6 @@ public interface PublicationDao {
     Collection<Publication> getPublications();
 
     Publication getPublicationById(Integer publicationId);
+
+    Publication addPublication (Publication publication);
 }

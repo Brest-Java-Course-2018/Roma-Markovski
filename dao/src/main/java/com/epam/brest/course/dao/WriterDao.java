@@ -13,5 +13,9 @@ public interface WriterDao {
 
     Writer getWriterById(Integer writerId);
 
+    Writer addWriter(Writer writer);
 
+    void updateWriter(Writer writer);
+
+    void deleteWriterById(Writer writer);
 }

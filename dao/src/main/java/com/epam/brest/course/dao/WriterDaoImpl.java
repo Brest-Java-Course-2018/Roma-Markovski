@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -22,6 +24,9 @@ public class WriterDaoImpl implements WriterDao {
 
     private final String GET_WRITER_BY_ID_SQL = "SELECT writer_id, writer_name, writer_country FROM writer " +
             "WHERE writer_id = :id";
+
+    private final String ADD_WRITER_SQL = "INSERT INTO writer (writer_name, writer_country)" +
+            "VALUES (:writer_name, :writer_country)";
 
     public WriterDaoImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -41,6 +46,27 @@ public class WriterDaoImpl implements WriterDao {
                 GET_WRITER_BY_ID_SQL, namedParameters, new WriterRowMapper()
         );
         return writer;
+    }
+
+    @Override
+    public Writer addWriter(Writer writer) {
+        MapSqlParameterSource namedParameters =
+                new MapSqlParameterSource("writer_name", writer.getWriterName());
+        namedParameters.addValue("writer_country", writer.getWriterCountry());
+        KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+        namedParameterJdbcTemplate.update(ADD_WRITER_SQL, namedParameters, generatedKeyHolder);
+        writer.setWriterId(generatedKeyHolder.getKey().intValue());
+        return writer;
+    }
+
+    @Override
+    public void updateWriter(Writer writer) {
+
+    }
+
+    @Override
+    public void deleteWriterById(Writer writer) {
+
     }
 
     private class WriterRowMapper implements RowMapper<Writer> {

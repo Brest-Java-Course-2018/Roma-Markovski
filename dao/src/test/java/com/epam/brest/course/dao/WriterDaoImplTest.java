@@ -33,4 +33,30 @@ public class WriterDaoImplTest {
         Assert.assertEquals("Alex Pushkin", writer.getWriterName());
         Assert.assertEquals("Russia", writer.getWriterCountry());
     }
+
+    @Test
+    public void addWriter() {
+        Collection<Writer> writers = writerDao.getWriters();
+        int size = writers.size();
+        Writer writer = new Writer();
+        writer.setWriterName("Gogol Nikolay");
+        writer.setWriterCountry("Ukraine");
+        Writer returnedWriter = writerDao.addWriter(writer);
+        Integer id = returnedWriter.getWriterId();
+        Assert.assertNotNull(id);
+        Writer addedWriter = writerDao.getWriterById(id);
+        Assert.assertEquals("Gogol Nikolay", addedWriter.getWriterName());
+        Assert.assertEquals("Ukraine", addedWriter.getWriterCountry());
+        Assert.assertEquals(size+1, writerDao.getWriters().size());
+    }
+
+    @Test
+    public void updateWriter() {
+
+    }
+
+    @Test
+    public void deleteWriterById() {
+
+    }
 }

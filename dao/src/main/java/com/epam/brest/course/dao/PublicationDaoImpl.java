@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -26,6 +28,11 @@ public class PublicationDaoImpl implements PublicationDao {
             "writer_id, publication_date, publication_num_of_pages, publication_description " +
             "FROM publication WHERE publication_id = :publication_id";
 
+    private static final String ADD_PUBLICATION_SQL = "INSERT INTO publication " +
+            "(publication_name, writer_id, publication_date, publication_num_of_pages, " +
+            "publication_description) VALUES (:publication_name, :writer_id, " +
+            ":publication_date, :publication_num_of_pages, :publication_description)";
+
     public PublicationDaoImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
@@ -43,6 +50,21 @@ public class PublicationDaoImpl implements PublicationDao {
                 new MapSqlParameterSource("publication_id", publicationId);
         Publication publication = namedParameterJdbcTemplate.
                 queryForObject(GET_PUBLICATIONS_BY_ID_SQL, namedParameters, new PublicationRowMapper());
+        return publication;
+    }
+
+    @Override
+    public Publication addPublication(Publication publication) {
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("publication_name", publication.getPublicationName());
+        namedParameters.addValue("writer_id", publication.getWriterId());
+        namedParameters.addValue("publication_date", publication.getPublicationDate());
+        namedParameters.addValue("publication_num_of_pages", publication.getPublicationNumOfPages());
+        namedParameters.addValue("publication_description", publication.getPublicationDescription());
+
+        KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+        namedParameterJdbcTemplate.update(ADD_PUBLICATION_SQL, namedParameters, generatedKeyHolder);
+        publication.setPublicationId(generatedKeyHolder.getKey().intValue());
         return publication;
     }
 
