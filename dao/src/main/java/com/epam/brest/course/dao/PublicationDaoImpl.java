@@ -20,11 +20,11 @@ public class PublicationDaoImpl implements PublicationDao {
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private final String GET_PUBLICATIONS_SQL = "SELECT publication_id, publication_name, " +
+    private static final String GET_PUBLICATIONS_SQL = "SELECT publication_id, publication_name, " +
             "writer_id, publication_date, publication_num_of_pages, publication_description " +
             "FROM publication";
 
-    private final String GET_PUBLICATIONS_BY_ID_SQL = "SELECT publication_id, publication_name, " +
+    private static final String GET_PUBLICATIONS_BY_ID_SQL = "SELECT publication_id, publication_name, " +
             "writer_id, publication_date, publication_num_of_pages, publication_description " +
             "FROM publication WHERE publication_id = :publication_id";
 
@@ -32,6 +32,12 @@ public class PublicationDaoImpl implements PublicationDao {
             "(publication_name, writer_id, publication_date, publication_num_of_pages, " +
             "publication_description) VALUES (:publication_name, :writer_id, " +
             ":publication_date, :publication_num_of_pages, :publication_description)";
+
+    private static final String UPDATE_PUBLICATION_SQL = "UPDATE publication SET " +
+            "publication_name = :publication_name, writer_id = :writer_id, publication_date " +
+            "= :publication_date, publication_num_of_pages = :publication_num_of_pages, " +
+            "publication_description = :publication_description WHERE publication_id = " +
+            ":publication_id";
 
     public PublicationDaoImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -66,6 +72,19 @@ public class PublicationDaoImpl implements PublicationDao {
         namedParameterJdbcTemplate.update(ADD_PUBLICATION_SQL, namedParameters, generatedKeyHolder);
         publication.setPublicationId(generatedKeyHolder.getKey().intValue());
         return publication;
+    }
+
+    @Override
+    public void updatePublication(Publication publication) {
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("publication_id", publication.getPublicationId());
+        namedParameters.addValue("publication_name", publication.getPublicationName());
+        namedParameters.addValue("writer_id", publication.getWriterId());
+        namedParameters.addValue("publication_date", publication.getPublicationDate());
+        namedParameters.addValue("publication_num_of_pages", publication.getPublicationNumOfPages());
+        namedParameters.addValue("publication_description", publication.getPublicationDescription());
+
+        namedParameterJdbcTemplate.update(UPDATE_PUBLICATION_SQL, namedParameters);
     }
 
     private class PublicationRowMapper implements RowMapper<Publication> {

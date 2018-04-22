@@ -61,4 +61,28 @@ public class PublicationDaoImplTest {
         Assert.assertEquals("Novel",addedPublication.getPublicationDescription());
         Assert.assertEquals(size + 1, publicationDao.getPublications().size());
     }
+
+    @Test
+    public void updatePublication() {
+        Publication publication = new Publication();
+
+        publication.setPublicationName("War and Peace");
+        publication.setWriterId(2);
+        publication.setPublicationDate(Date.valueOf("2018-02-25"));
+        publication.setPublicationNumOfPages(768);
+        publication.setPublicationDescription("Novel");
+
+        Publication addedPublication = publicationDao.addPublication(publication);
+        addedPublication.setPublicationName("Peace and War");
+        addedPublication.setWriterId(3);
+        addedPublication.setPublicationDate(Date.valueOf("2018-01-19"));
+
+        publicationDao.updatePublication(addedPublication);
+        Publication updatedPublication = publicationDao.getPublicationById(addedPublication.getPublicationId());
+
+        Assert.assertEquals(addedPublication.getPublicationId(), updatedPublication.getPublicationId());
+        Assert.assertEquals("Peace and War", updatedPublication.getPublicationName());
+        Assert.assertTrue(updatedPublication.getWriterId().equals(3));
+        Assert.assertEquals(Date.valueOf("2018-01-19"), updatedPublication.getPublicationDate());
+    }
 }

@@ -20,13 +20,16 @@ public class WriterDaoImpl implements WriterDao {
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private final String GET_WRITERS_SQL = "SELECT writer_id, writer_name, writer_country FROM writer";
+    private static final String GET_WRITERS_SQL = "SELECT writer_id, writer_name, writer_country FROM writer";
 
-    private final String GET_WRITER_BY_ID_SQL = "SELECT writer_id, writer_name, writer_country FROM writer " +
+    private static final String GET_WRITER_BY_ID_SQL = "SELECT writer_id, writer_name, writer_country FROM writer " +
             "WHERE writer_id = :id";
 
-    private final String ADD_WRITER_SQL = "INSERT INTO writer (writer_name, writer_country)" +
+    private static final String ADD_WRITER_SQL = "INSERT INTO writer (writer_name, writer_country)" +
             "VALUES (:writer_name, :writer_country)";
+
+    private static final String UPDATE_WRITER_SQL = "UPDATE writer SET writer_name = :writer_name, " +
+            "writer_country = :writer_country WHERE writer_id= :writer_id";
 
     public WriterDaoImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -61,7 +64,11 @@ public class WriterDaoImpl implements WriterDao {
 
     @Override
     public void updateWriter(Writer writer) {
-
+        MapSqlParameterSource namedParameters =
+                new MapSqlParameterSource("writer_name", writer.getWriterName());
+        namedParameters.addValue("writer_country", writer.getWriterCountry());
+        namedParameters.addValue("writer_id", writer.getWriterId());
+        namedParameterJdbcTemplate.update(UPDATE_WRITER_SQL, namedParameters);
     }
 
     @Override

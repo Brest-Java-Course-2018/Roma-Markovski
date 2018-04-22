@@ -52,7 +52,17 @@ public class WriterDaoImplTest {
 
     @Test
     public void updateWriter() {
-
+        Writer writer = new Writer();
+        writer.setWriterName("Bykov Alex");
+        writer.setWriterCountry("Russia");
+        Writer addedWriter = writerDao.addWriter(writer);
+        addedWriter.setWriterName("Bykov Vasil");
+        addedWriter.setWriterCountry("Belarus");
+        writerDao.updateWriter(addedWriter);
+        Writer updatedWriter = writerDao.getWriterById(addedWriter.getWriterId());
+        Assert.assertEquals(addedWriter.getWriterId() ,updatedWriter.getWriterId());
+        Assert.assertEquals("Bykov Vasil" ,updatedWriter.getWriterName());
+        Assert.assertEquals("Belarus" ,updatedWriter.getWriterCountry());
     }
 
     @Test
