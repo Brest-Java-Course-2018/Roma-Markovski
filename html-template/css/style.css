@@ -1,0 +1,39 @@
+#horizontal-line {
+    margin: 0;
+    background-color: #40C4FF;
+    height: 5px;
+}
+
+#navbar-with-logo {
+    background-color: #1A237E;
+}
+
+#navbar-name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#navbar-title {
+    color: #40C4FF;
+    margin-left: 20px;
+    font-size: xx-large;
+}
+
+@media (max-width: 768px) {
+    #navbar-title {
+        display: none
+    }
+    #navbar-with-logo {
+        justify-content: center;
+    }
+}
+
+#navbar-with-nav {
+    background-color: #7986CB;
+}
+
+#navbar-menu {
+    font-size: larger;
+}
+
