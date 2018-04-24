@@ -36,20 +36,57 @@
 </div>
 
 <header>
-    <div class="mb-2 navbar navbar-expand-sm navbar-light bg-light text-dark">
-        <a href="index.html" class="navbar-brand">
-            Publications
-        </a>
-        <div>
-
+    <div class="mb-2 navbar navbar-expand-sm navbar-light bg-light text-dark"
+            id="div-header">
+        <div id="div-header-top">
+            <a href="index.html"
+               id = "header-title"
+               class="navbar-brand text-uppercase mr-auto">
+                Publications
+            </a>
+            <button href="#"
+                    class="py-0 my-1 btn btn-dark"
+                    id="button-add"
+               data-toggle="tooltip"
+               title="Add publication"><i class="fa fa-plus"></i>
+                <span class="d-none d-sm-inline">Add</span>
+            </button>
         </div>
-        <button href="#" class="btn btn-light"
-           data-toggle="tooltip"
-           data-placement="bottom"
-           title="Add publication"><i class="fa fa-plus"></i>
-            <span class="d-none d-sm-inline">Add</span>
-        </button>
-
+        <div id="div-header-bottom">
+            <button href="#"
+                    class="mt-2 btn btn-dark"
+                    type="button"
+                    id="button-date-filter"
+                    data-toggle="collapse"
+                    data-target="#date-filter-form"
+                    title="Filter by date">
+                <span>Filter by date</span>
+            </button>
+            <form class="mt-2 collapse"  id="date-filter-form">
+                <label class="mt-2" for="before-date">Select date from</label>
+                <input type="date" class="mt-2 form-control" id="before-date">
+                <label class="mt-2" for="after-date">to</label>
+                <input type="date" class="mt-2 form-control" id="after-date">
+                <div class="mt-2" id="div-two-btns">
+                    <button href="#"
+                            class="btn btn-light"
+                            type="button"
+                            id="button-date-accept"
+                            data-toggle="tool-tip"
+                            title="Accept filter by date">
+                        <span>Accept</span>
+                    </button>
+                    <button href="#"
+                            class="ml-2 btn btn-light"
+                            type="reset"
+                            id="button-date-reset"
+                            data-toggle="tool-tip"
+                            title="Reset date">
+                        <span>Clear</span>
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </header>
 

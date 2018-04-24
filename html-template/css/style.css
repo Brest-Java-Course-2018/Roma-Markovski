@@ -37,3 +37,77 @@
     font-size: larger;
 }
 
+#header-title {
+    font-size: x-large;
+}
+
+#button-add,
+#button-date-filter {
+    background-color: #40C4FF;
+    border: 0;
+}
+
+#button-add:hover,
+#button-date-filter:hover {
+    background-color: transparent;
+    color: #1A237E;
+    border: 1px solid #1A237E;
+}
+
+#button-date-filter {
+    margin-right: auto;
+}
+
+#div-header {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    grid-template-columns: 100%;
+}
+
+#div-header-top,
+#div-header-bottom {
+    display: flex;
+}
+
+#div-header-bottom {
+    flex-direction: column;
+}
+
+#button-date-reset {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    color: #40C4FF;
+    border: 1px solid #40C4FF;
+}
+
+#button-date-accept {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    color: #1A237E;
+    border: 1px solid #1A237E;
+}
+
+#button-date-reset:hover {
+    background-color: #40C4FF;
+    color: white;
+    border: 0;
+}
+
+#button-date-accept:hover {
+    background-color: #1A237E;
+    color: white;
+    border: 0;
+}
+
+.btn-two {
+    width: 50px;
+}
+
+#div-two-btns {
+    display: grid;
+    grid-template-columns: 100px 100px auto;
+}
