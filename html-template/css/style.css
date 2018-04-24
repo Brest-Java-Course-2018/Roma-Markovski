@@ -1,10 +1,10 @@
-#horizontal-line {
+.horizontal-line {
     margin: 0;
     background-color: #40C4FF;
     height: 5px;
 }
 
-#navbar-with-logo {
+#navbar-with-logo{
     background-color: #1A237E;
 }
 
@@ -73,9 +73,13 @@
     flex-direction: column;
 }
 
+table {
+    min-width: 720px;
+}
+
 #button-date-reset {
-    grid-column-start: 2;
-    grid-column-end: 3;
+    grid-column-start: 3;
+    grid-column-end: 4;
     grid-row-start: 1;
     grid-row-end: 2;
     color: #40C4FF;
@@ -109,5 +113,5 @@
 
 #div-two-btns {
     display: grid;
-    grid-template-columns: 100px 100px auto;
+    grid-template-columns: 100px 10px 100px ;
 }

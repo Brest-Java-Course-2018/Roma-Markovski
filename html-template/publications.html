@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BS 4 template</title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div>
+    <div id="navbar-with-logo" class="navbar navbar-expand-md navbar-dark">
+        <a href="publications.html" id="navbar-name" class="my-2 ml-2 navbar-brand">
+            <img height="70" src="img/book.svg">
+            <span id="navbar-title">Writers and publications</span>
+        </a>
+    </div>
+    <hr class="horizontal-line"/>
+    <nav id="navbar-with-nav" class="py-1 navbar navbar-expand-sm navbar-dark">
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbar-menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar-menu">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="#">Publications <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="#">Writers</a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<header>
+    <div class="mb-2 navbar navbar-expand-sm navbar-light bg-light text-dark"
+         id="div-header">
+        <div id="div-header-top">
+            <a href="publications.html"
+               id="header-title"
+               class="navbar-brand text-uppercase mr-auto">
+                Publications
+            </a>
+            <button href="#"
+                    class="py-0 my-1 btn btn-dark"
+                    id="button-add"
+                    data-toggle="tooltip"
+                    title="Add publication"><i class="fa fa-plus"></i>
+                <span class="d-none d-sm-inline">Add</span>
+            </button>
+        </div>
+        <div id="div-header-bottom">
+            <button href="#"
+                    class="mt-2 btn btn-dark"
+                    type="button"
+                    id="button-date-filter"
+                    data-toggle="collapse"
+                    data-target="#date-filter-form"
+                    title="Filter by date">
+                <span>Filter by date</span>
+            </button>
+            <form class="mt-2 collapse" id="date-filter-form">
+                <label class="mt-2" for="before-date">Select date from</label>
+                <input type="date" class="mt-2 form-control" id="before-date">
+                <label class="mt-2" for="after-date">to</label>
+                <input type="date" class="mt-2 form-control" id="after-date">
+                <div class="mt-2" id="div-two-btns">
+                    <button href="#"
+                            class="btn btn-light"
+                            type="button"
+                            id="button-date-accept"
+                            data-toggle="tool-tip"
+                            title="Accept filter by date">
+                        <span>Accept</span>
+                    </button>
+                    <button href="#"
+                            class="btn btn-light"
+                            type="reset"
+                            id="button-date-reset"
+                            data-toggle="tool-tip"
+                            title="Reset date">
+                        <span>Clear</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</header>
+
+<section id="publications">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Writer</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Number of pages</th>
+                        <th scope="col">Description</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>War and Peace</td>
+                        <td>Tolstoy Leo</td>
+                        <td>12.10.2016</td>
+                        <td>567</td>
+                        <td>novel</td>
+                        <td class="text-right">
+                            <a title="Edit publication"
+                               data-toggle="tooltip"
+                               data-placement="top"
+                               href="publication.html"
+                               class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
+                                <span class="d-none d-lg-inline">Edit</span>
+                            </a>
+                            <a title="Delete publication"
+                               data-toggle="tooltip"
+                               data-placement="top"
+                               href="#"
+                               class="btn-sm btn-outline-danger">
+                                <span data-target="#confirmDeleteModal" data-toggle="modal">
+                                    <i class="fa fa-remove"></i>
+                                <span class="d-none d-lg-inline">Delete</span>
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>War and Peace</td>
+                        <td>Tolstoy Leo</td>
+                        <td>12.10.2016</td>
+                        <td>567</td>
+                        <td>novel</td>
+                        <td class="text-right">
+                            <a title="Edit publication"
+                               data-toggle="tooltip"
+                               data-placement="top"
+                               href="publication.html"
+                               class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
+                                <span class="d-none d-lg-inline">Edit</span>
+                            </a>
+                            <a title="Delete publication"
+                               data-toggle="tooltip"
+                               data-placement="top"
+                               href="#"
+                               class="btn-sm btn-outline-danger">
+                                <span data-target="#confirmDeleteModal" data-toggle="modal">
+                                    <i class="fa fa-remove"></i>
+                                <span class="d-none d-lg-inline">Delete</span>
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+</body>
+</html>
