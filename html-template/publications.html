@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>BS 4 template</title>
+    <title>Publication</title>
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
@@ -29,8 +29,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar-menu">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#">Publications <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="#">Writers</a>
+                <a class="nav-item nav-link active" href="publications.html">Publications <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="writers.html">Writers</a>
             </div>
         </div>
     </nav>
@@ -45,13 +45,16 @@
                class="navbar-brand text-uppercase mr-auto">
                 Publications
             </a>
-            <button href="#"
-                    class="py-0 my-1 btn btn-dark"
-                    id="button-add"
-                    data-toggle="tooltip"
-                    title="Add publication"><i class="fa fa-plus"></i>
-                <span class="d-none d-sm-inline">Add</span>
-            </button>
+            <a href="publication.html"
+               class="py-0 my-1 btn btn-dark"
+               id="button-add"
+               data-toggle="tooltip"
+               title="Add publication">
+                <div>
+                    <i class="fa fa-plus"></i>
+                    <span class="d-none d-sm-inline">Add</span>
+                </div>
+            </a>
         </div>
         <div id="div-header-bottom">
             <button href="#"
@@ -70,17 +73,15 @@
                 <input type="date" class="mt-2 form-control" id="after-date">
                 <div class="mt-2" id="div-two-btns">
                     <button href="#"
-                            class="btn btn-light"
+                            class="btn btn-light button-date-accept"
                             type="button"
-                            id="button-date-accept"
                             data-toggle="tool-tip"
                             title="Accept filter by date">
                         <span>Accept</span>
                     </button>
                     <button href="#"
-                            class="btn btn-light"
+                            class="btn btn-light button-date-reset"
                             type="reset"
-                            id="button-date-reset"
                             data-toggle="tool-tip"
                             title="Reset date">
                         <span>Clear</span>
@@ -95,7 +96,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped table-light">
                     <thead>
                     <tr>
                         <th scope="col">Name</th>
@@ -126,7 +127,7 @@
                                data-placement="top"
                                href="#"
                                class="btn-sm btn-outline-danger">
-                                <span data-target="#confirmDeleteModal" data-toggle="modal">
+                                <span data-target="#exampleModal" data-toggle="modal">
                                     <i class="fa fa-remove"></i>
                                 <span class="d-none d-lg-inline">Delete</span>
                                 </span>
@@ -134,10 +135,10 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>War and Peace</td>
+                        <td>Anna Karenina</td>
                         <td>Tolstoy Leo</td>
-                        <td>12.10.2016</td>
-                        <td>567</td>
+                        <td>03.10.2016</td>
+                        <td>235</td>
                         <td>novel</td>
                         <td class="text-right">
                             <a title="Edit publication"
@@ -152,7 +153,7 @@
                                data-placement="top"
                                href="#"
                                class="btn-sm btn-outline-danger">
-                                <span data-target="#confirmDeleteModal" data-toggle="modal">
+                                <span data-target="#exampleModal" data-toggle="modal">
                                     <i class="fa fa-remove"></i>
                                 <span class="d-none d-lg-inline">Delete</span>
                                 </span>
@@ -165,6 +166,28 @@
         </div>
     </div>
 </section>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header alert-danger">
+                <h5 class="modal-title" id="exampleModalLabel">Delete publication</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you really want to delete this publication?
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="delete-btn-yes" class="btn btn-outline-danger">Yes</button>
+                <button type="button" id="delete-btn-no" class="btn" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="js/jquery.min.js"></script>
 <script src="js/popper.min.js"></script>

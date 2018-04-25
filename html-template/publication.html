@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Publication</title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div>
+    <div id="navbar-with-logo" class="navbar navbar-expand-md navbar-dark">
+        <a href="publications.html" id="navbar-name" class="my-2 ml-2 navbar-brand">
+            <img height="70" src="img/book.svg">
+            <span id="navbar-title">Writers and publications</span>
+        </a>
+    </div>
+    <hr class="horizontal-line"/>
+    <nav id="navbar-with-nav" class="py-1 navbar navbar-expand-sm navbar-dark">
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbar-menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar-menu">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="publications.html">Publications <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="writers.html">Writers</a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<header>
+    <div class="mb-2 navbar navbar-expand-sm navbar-light bg-light text-dark"
+         id="div-header">
+        <div id="div-header-top">
+            <a href="publications.html"
+               id="header-title"
+               class="navbar-brand text-uppercase mr-auto">
+                Add publication
+            </a>
+            <a href="publication.html"
+               class="py-0 my-1 btn btn-dark"
+               id="button-add"
+               data-toggle="tooltip"
+               title="Add publication">
+                <div>
+                    <i class="fa fa-plus"></i>
+                    <span class="d-none d-sm-inline">Add</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</header>
+
+<section id="publications">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col table-responsive">
+                <div class="card">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="publication-name">Name of publication</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="publication-name"
+                                       placeholder="Enter name">
+                            </div>
+                            <div class="form-group">
+                                <label for="writer-name">Writer</label>
+                                <select class="form-control"
+                                       id="writer-name">
+                                    <option>Tolstoy Leo</option>
+                                    <option>Shakespeare William</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="publication-date">Date</label>
+                                <input type="date"
+                                        class="form-control"
+                                        id="publication-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="publication-pages">Number of pages</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="publication-pages"
+                                       placeholder="Enter number of pages">
+                            </div>
+                            <div class="form-group">
+                                <label for="publication-description">Description</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="publication-description"
+                                       placeholder="Enter description">
+                            </div>
+                            <div class="form-group mt-2" id="div-two-btns">
+                                <button href="#"
+                                        class="btn btn-light button-date-accept"
+                                        type="button"
+                                        data-toggle="tool-tip"
+                                        title="Accept filter by date">
+                                    <span>Save</span>
+                                </button>
+                                <button href="#"
+                                        class="btn btn-light button-date-reset"
+                                        type="reset"
+                                        data-toggle="tool-tip"
+                                        title="Reset date">
+                                    <span>Clear</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
