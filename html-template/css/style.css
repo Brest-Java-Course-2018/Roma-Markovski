@@ -82,8 +82,12 @@ body {
     flex-direction: column;
 }
 
-table {
+#table-publications {
     min-width: 720px;
+}
+
+#table-writers {
+    min-width: 570px;
 }
 
 .button-date-reset {
@@ -91,6 +95,7 @@ table {
     grid-column-end: 4;
     grid-row-start: 1;
     grid-row-end: 2;
+    background-color: transparent;
     color: #40C4FF;
     border: 1px solid #40C4FF;
 }

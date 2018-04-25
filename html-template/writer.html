@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Publication</title>
+    <title>Writer</title>
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
@@ -29,8 +29,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar-menu">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="publications.html">Publications <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="writers.html">Writers</a>
+                <a class="nav-item nav-link" href="publications.html">Publications</a>
+                <a class="nav-item nav-link active" href="writers.html">Writers <span class="sr-only">(current)</span></a>
             </div>
         </div>
     </nav>
@@ -40,10 +40,10 @@
     <div class="mb-2 navbar navbar-expand-sm navbar-light bg-light text-dark"
          id="div-header">
         <div id="div-header-top">
-            <a href="publications.html"
+            <a href="writer.html"
                id="header-title"
                class="navbar-brand text-uppercase mr-auto">
-                Add publication
+                Add writer
             </a>
         </div>
     </div>
@@ -57,46 +57,25 @@
                     <div class="card-body">
                         <form>
                             <div class="form-group">
-                                <label for="publication-name">Name of publication</label>
+                                <label for="writer-name">Name of writer</label>
                                 <input type="text"
                                        class="form-control"
-                                       id="publication-name"
+                                       id="writer-name"
                                        placeholder="Enter name">
                             </div>
                             <div class="form-group">
-                                <label for="writer-name">Writer</label>
-                                <select class="form-control"
-                                       id="writer-name">
-                                    <option>Tolstoy Leo</option>
-                                    <option>Shakespeare William</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="publication-date">Date</label>
-                                <input type="date"
-                                        class="form-control"
-                                        id="publication-date">
-                            </div>
-                            <div class="form-group">
-                                <label for="publication-pages">Number of pages</label>
+                                <label for="writer-country">Country</label>
                                 <input type="text"
                                        class="form-control"
-                                       id="publication-pages"
-                                       placeholder="Enter number of pages">
-                            </div>
-                            <div class="form-group">
-                                <label for="publication-description">Description</label>
-                                <input type="text"
-                                       class="form-control"
-                                       id="publication-description"
-                                       placeholder="Enter description">
+                                       id="writer-country"
+                                       placeholder="Enter country">
                             </div>
                             <div class="form-group mt-2" id="div-two-btns">
                                 <button href="#"
                                         class="btn btn-light button-date-accept"
                                         type="button"
                                         data-toggle="tool-tip"
-                                        title="Save publication">
+                                        title="Save writer">
                                     <span>Save</span>
                                 </button>
                                 <button href="#"
