@@ -47,13 +47,12 @@ public class PublicationDaoImplTest {
     public void addPublication() {
         Collection<Publication> publications = publicationDao.getPublications();
         int size = publications.size();
-        Publication publication = new Publication();
-        publication.setPublicationName("War and Peace");
-        publication.setWriterId(2);
-        publication.setPublicationDate(Date.valueOf("2018-02-25"));
-        publication.setPublicationNumOfPages(768);
-        publication.setPublicationDescription("Novel");
-
+        Publication publication = new Publication(
+                "War and Peace",
+                2,
+                Date.valueOf("2018-02-25"),
+                768,
+                "Novel");
         Publication returnedPublication = publicationDao.addPublication(publication);
         Integer id = returnedPublication.getPublicationId();
         Assert.assertNotNull(id);
@@ -69,13 +68,13 @@ public class PublicationDaoImplTest {
 
     @Test
     public void updatePublication() {
-        Publication publication = new Publication();
 
-        publication.setPublicationName("War and Peace");
-        publication.setWriterId(2);
-        publication.setPublicationDate(Date.valueOf("2018-02-25"));
-        publication.setPublicationNumOfPages(768);
-        publication.setPublicationDescription("Novel");
+        Publication publication = new Publication(
+                "War and Peace",
+                2,
+                Date.valueOf("2018-02-25"),
+                768,
+                "Novel");
 
         Publication addedPublication = publicationDao.addPublication(publication);
         addedPublication.setPublicationName("Peace and War");
@@ -92,17 +91,14 @@ public class PublicationDaoImplTest {
     }
 
     //TODO: Exception with a rule.
-    //TODO: Make strings constant.
-    //TODO: Setters -> constructor in dao test modules.
     @Test
     public void deletePublicationById () {
-        Publication publication = new Publication();
-
-        publication.setPublicationName("War and Peace");
-        publication.setWriterId(2);
-        publication.setPublicationDate(Date.valueOf("2018-02-25"));
-        publication.setPublicationNumOfPages(768);
-        publication.setPublicationDescription("Novel");
+        Publication publication = new Publication(
+                "War and Peace",
+                2,
+                Date.valueOf("2018-02-25"),
+                768,
+                "Novel");
 
         Publication addedPublication = publicationDao.addPublication(publication);
 

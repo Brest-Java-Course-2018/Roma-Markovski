@@ -43,9 +43,7 @@ public class WriterDaoImplTest {
     public void addWriter() {
         Collection<Writer> writers = writerDao.getWriters();
         int size = writers.size();
-        Writer writer = new Writer();
-        writer.setWriterName("Gogol Nikolay");
-        writer.setWriterCountry("Ukraine");
+        Writer writer = new Writer("Gogol Nikolay", "Ukraine");
         Writer returnedWriter = writerDao.addWriter(writer);
         Integer id = returnedWriter.getWriterId();
         Assert.assertNotNull(id);
@@ -57,9 +55,7 @@ public class WriterDaoImplTest {
 
     @Test
     public void updateWriter() {
-        Writer writer = new Writer();
-        writer.setWriterName("Bykov Alex");
-        writer.setWriterCountry("Russia");
+        Writer writer = new Writer("Bykov Alex", "Russia");
         Writer addedWriter = writerDao.addWriter(writer);
         addedWriter.setWriterName("Bykov Vasil");
         addedWriter.setWriterCountry("Belarus");
@@ -72,9 +68,7 @@ public class WriterDaoImplTest {
 
     @Test
     public void deleteWriterById() {
-        Writer writer = new Writer();
-        writer.setWriterName("Bykov Alex");
-        writer.setWriterCountry("Russia");
+        Writer writer = new Writer("Bykov Alex", "Russia");
         Writer addedWriter = writerDao.addWriter(writer);
 
         Collection<Writer> writers = writerDao.getWriters();

@@ -14,15 +14,12 @@ public class Writer {
 
     /**
      * Constructor with params.
-     * @param writerId
      * @param writerName
      * @param writerCountry
      */
     public Writer(
-            final Integer writerId,
             final String writerName,
             final String writerCountry) {
-        this.writerId = writerId;
         this.writerName = writerName;
         this.writerCountry = writerCountry;
     }
