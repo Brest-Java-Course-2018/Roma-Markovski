@@ -1,6 +1,8 @@
 package com.epam.brest.course.dao;
 
 import com.epam.brest.course.model.Writer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -17,6 +19,8 @@ import java.util.Collection;
  * Implementation of WriterDao.
  */
 public class WriterDaoImpl implements WriterDao {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     /**
      * Named parameters JDBC template.
@@ -72,6 +76,7 @@ public class WriterDaoImpl implements WriterDao {
 
     @Override
     public final Collection<Writer> getWriters() {
+        LOGGER.debug("getWriters()");
         Collection<Writer> writers =
                 namedParameterJdbcTemplate.
                         query(GET_WRITERS_SQL, new WriterRowMapper());
@@ -80,6 +85,7 @@ public class WriterDaoImpl implements WriterDao {
 
     @Override
     public final Writer getWriterById(final Integer writerId) {
+        LOGGER.debug("getWritersById({})", writerId);
         SqlParameterSource namedParameters =
                 new MapSqlParameterSource(WRITER_ID, writerId);
         Writer writer = namedParameterJdbcTemplate.queryForObject(
@@ -90,6 +96,7 @@ public class WriterDaoImpl implements WriterDao {
 
     @Override
     public final Writer addWriter(final Writer writer) {
+        LOGGER.debug("addWriter({})", writer);
         MapSqlParameterSource namedParameters =
                 new MapSqlParameterSource(WRITER_NAME,
                         writer.getWriterName());
@@ -104,6 +111,7 @@ public class WriterDaoImpl implements WriterDao {
 
     @Override
     public final void updateWriter(final Writer writer) {
+        LOGGER.debug("updateWriter({})", writer);
         MapSqlParameterSource namedParameters =
                 new MapSqlParameterSource(WRITER_NAME,
                         writer.getWriterName());
@@ -114,6 +122,7 @@ public class WriterDaoImpl implements WriterDao {
 
     @Override
     public final void deleteWriterById(final Integer writerId) {
+        LOGGER.debug("deleteWriterById({})", writerId);
         SqlParameterSource namedParameters =
                 new MapSqlParameterSource(WRITER_ID, writerId);
         namedParameterJdbcTemplate.update(

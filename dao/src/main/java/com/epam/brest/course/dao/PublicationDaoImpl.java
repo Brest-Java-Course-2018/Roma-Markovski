@@ -1,6 +1,8 @@
 package com.epam.brest.course.dao;
 
 import com.epam.brest.course.model.Publication;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -18,6 +20,8 @@ import java.util.Collection;
  * Implementation of PublicationDao.
  */
 public class PublicationDaoImpl implements PublicationDao {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     /**
      * Named parameter JDBC template.
@@ -80,6 +84,7 @@ public class PublicationDaoImpl implements PublicationDao {
 
     @Override
     public final Collection<Publication> getPublications() {
+        LOGGER.debug("getPublications()");
         Collection<Publication> publications =
                 namedParameterJdbcTemplate.
                         query(GET_PUBLICATIONS_SQL,
@@ -90,6 +95,7 @@ public class PublicationDaoImpl implements PublicationDao {
     @Override
     public final Publication getPublicationById(
             final Integer publicationId) {
+        LOGGER.debug("getPublicationsById({})", publicationId);
         SqlParameterSource namedParameters =
                 new MapSqlParameterSource(
                         PUBLICATION_ID, publicationId);
@@ -102,6 +108,7 @@ public class PublicationDaoImpl implements PublicationDao {
     @Override
     public final Publication addPublication(
             final Publication publication) {
+        LOGGER.debug("addPublication({})", publication);
         MapSqlParameterSource namedParameters =
                 new MapSqlParameterSource();
         namedParameters.addValue(
@@ -127,6 +134,7 @@ public class PublicationDaoImpl implements PublicationDao {
 
     @Override
     public final void updatePublication(final Publication publication) {
+        LOGGER.debug("updatePublication({})", publication);
         MapSqlParameterSource namedParameters =
                 new MapSqlParameterSource();
         namedParameters.addValue(
@@ -149,6 +157,7 @@ public class PublicationDaoImpl implements PublicationDao {
 
     @Override
     public final void deletePublicationById(final Integer publicationId) {
+        LOGGER.debug("deletePublicationById({})", publicationId);
         SqlParameterSource namedParameters =
                 new MapSqlParameterSource(PUBLICATION_ID, publicationId);
         namedParameterJdbcTemplate.update(
