@@ -1,7 +1,7 @@
 package com.epam.brest.course.dao;
 
 import com.epam.brest.course.model.Writer;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
@@ -20,69 +19,69 @@ import java.util.Collection;
 public class WriterDaoImpl implements WriterDao {
 
     /**
-     * JDBC template.
-     */
-    private JdbcTemplate jdbcTemplate;
-
-    /**
      * Named parameters JDBC template.
      */
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    //constant fields
+
+    private static final String WRITER_ID = "writer_id";
+
+    private static final String WRITER_NAME = "writer_name";
+
+    private static final String WRITER_COUNTRY = "writer_country";
+
     /**
      * SQL Select-all String.
      */
-    private static final String GET_WRITERS_SQL = "SELECT writer_id, "
-            + "writer_name, writer_country FROM writer";
+    @Value("${writer.select}")
+    private String GET_WRITERS_SQL;
 
     /**
      * SQL Select-By-Id String.
      */
-    private static final String GET_WRITER_BY_ID_SQL = "SELECT "
-            + "writer_id, writer_name, writer_country FROM writer "
-            + "WHERE writer_id = :id";
+    @Value("${writer.selectById}")
+    private String GET_WRITER_BY_ID_SQL;
 
     /**
      * SQL Insert String.
      */
-    private static final String ADD_WRITER_SQL = "INSERT INTO writer "
-            + "(writer_name, writer_country) VALUES (:writer_name, "
-            + ":writer_country)";
+    @Value("${writer.insert}")
+    private String ADD_WRITER_SQL;
 
     /**
      * Sql Update String.
      */
-    private static final String UPDATE_WRITER_SQL = "UPDATE writer "
-            + "SET writer_name = :writer_name, writer_country = "
-            + ":writer_country WHERE writer_id= :writer_id";
+    @Value("${writer.update}")
+    private String UPDATE_WRITER_SQL;
 
     /**
      * Sql Delete String.
      */
-    private static final String DELETE_WRITER_SQL = "DELETE FROM writer "
-            + "WHERE writer_id = :id";
+    @Value("${writer.delete}")
+    private String DELETE_WRITER_SQL;
 
     /**
-     * Constructor with data source.
-     * @param dataSource - data source.
+     * Setter.
+     * @param namedParameterJdbcTemplate
      */
-    public WriterDaoImpl(final DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-        this.namedParameterJdbcTemplate =
-                new NamedParameterJdbcTemplate(dataSource);
+    public void setNamedParameterJdbcTemplate(
+            NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
     @Override
     public final Collection<Writer> getWriters() {
         Collection<Writer> writers =
-                jdbcTemplate.query(GET_WRITERS_SQL, new WriterRowMapper());
+                namedParameterJdbcTemplate.
+                        query(GET_WRITERS_SQL, new WriterRowMapper());
         return writers;
     }
 
     @Override
     public final Writer getWriterById(final Integer writerId) {
         SqlParameterSource namedParameters =
-                new MapSqlParameterSource("id", writerId);
+                new MapSqlParameterSource(WRITER_ID, writerId);
         Writer writer = namedParameterJdbcTemplate.queryForObject(
                 GET_WRITER_BY_ID_SQL, namedParameters, new WriterRowMapper()
         );
@@ -92,9 +91,9 @@ public class WriterDaoImpl implements WriterDao {
     @Override
     public final Writer addWriter(final Writer writer) {
         MapSqlParameterSource namedParameters =
-                new MapSqlParameterSource("writer_name",
+                new MapSqlParameterSource(WRITER_NAME,
                         writer.getWriterName());
-        namedParameters.addValue("writer_country",
+        namedParameters.addValue(WRITER_COUNTRY,
                 writer.getWriterCountry());
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         namedParameterJdbcTemplate.update(ADD_WRITER_SQL,
@@ -106,17 +105,17 @@ public class WriterDaoImpl implements WriterDao {
     @Override
     public final void updateWriter(final Writer writer) {
         MapSqlParameterSource namedParameters =
-                new MapSqlParameterSource("writer_name",
+                new MapSqlParameterSource(WRITER_NAME,
                         writer.getWriterName());
-        namedParameters.addValue("writer_country", writer.getWriterCountry());
-        namedParameters.addValue("writer_id", writer.getWriterId());
+        namedParameters.addValue(WRITER_COUNTRY, writer.getWriterCountry());
+        namedParameters.addValue(WRITER_ID, writer.getWriterId());
         namedParameterJdbcTemplate.update(UPDATE_WRITER_SQL, namedParameters);
     }
 
     @Override
     public final void deleteWriterById(final Integer writerId) {
         SqlParameterSource namedParameters =
-                new MapSqlParameterSource("id", writerId);
+                new MapSqlParameterSource(WRITER_ID, writerId);
         namedParameterJdbcTemplate.update(
                 DELETE_WRITER_SQL, namedParameters);
     }
@@ -131,9 +130,9 @@ public class WriterDaoImpl implements WriterDao {
                 final ResultSet resultSet, final int i)
                 throws SQLException {
             Writer writer = new Writer();
-            writer.setWriterId(resultSet.getInt(1));
-            writer.setWriterName(resultSet.getString(2));
-            writer.setWriterCountry(resultSet.getString(3));
+            writer.setWriterId(resultSet.getInt(WRITER_ID));
+            writer.setWriterName(resultSet.getString(WRITER_NAME));
+            writer.setWriterCountry(resultSet.getString(WRITER_COUNTRY));
             return writer;
         }
     }

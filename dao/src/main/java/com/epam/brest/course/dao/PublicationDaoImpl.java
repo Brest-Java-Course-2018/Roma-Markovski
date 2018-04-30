@@ -1,7 +1,8 @@
 package com.epam.brest.course.dao;
 
 import com.epam.brest.course.model.Publication;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -9,7 +10,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
@@ -20,72 +20,69 @@ import java.util.Collection;
 public class PublicationDaoImpl implements PublicationDao {
 
     /**
-     * JDBC template.
-     */
-    private JdbcTemplate jdbcTemplate;
-
-    /**
      * Named parameter JDBC template.
      */
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    //constant fields
+    
+    private static final String PUBLICATION_ID = "publication_id";
+    
+    private static final String PUBLICATION_NAME = "publication_name";
+    
+    private static final String WRITER_ID = "writer_id";
+    
+    private static final String PUBLICATION_DATE = "publication_date";
+    
+    private static final String PUBLICATION_NUM_OF_PAGES = "publication_num_of_pages";
+
+    private static final String PUBLICATION_DESCRIPTION = "publication_description";
+    
+
     /**
      * SQL Select-All String.
      */
-    private static final String GET_PUBLICATIONS_SQL = "SELECT "
-            + "publication_id, publication_name, writer_id, publication_date, "
-            + "publication_num_of_pages, publication_description "
-            + "FROM publication";
+    @Value("${publication.select}")
+    private String GET_PUBLICATIONS_SQL;
 
     /**
      * SQL Select-By-Id String.
      */
-    private static final String GET_PUBLICATIONS_BY_ID_SQL = "SELECT "
-            + "publication_id, publication_name, writer_id, publication_date, "
-            + "publication_num_of_pages, publication_description FROM "
-            + "publication WHERE publication_id = :publication_id";
+    @Value("${publication.selectById}")
+    private String GET_PUBLICATIONS_BY_ID_SQL;
 
     /**
      * SQL Insert String.
      */
-    private static final String ADD_PUBLICATION_SQL = "INSERT INTO "
-            + "publication (publication_name, writer_id, "
-            + "publication_date, publication_num_of_pages, "
-            + "publication_description) VALUES (:publication_name, "
-            + ":writer_id, :publication_date, :publication_num_of_pages, "
-            + ":publication_description)";
+    @Value("${publication.insert}")
+    private String ADD_PUBLICATION_SQL;
 
     /**
      * Sql Update String.
      */
-    private static final String UPDATE_PUBLICATION_SQL = "UPDATE "
-            + "publication SET publication_name = :publication_name, "
-            + "writer_id = :writer_id, publication_date = "
-            + ":publication_date, publication_num_of_pages = "
-            + ":publication_num_of_pages, publication_description = "
-            + ":publication_description WHERE publication_id = "
-            + ":publication_id";
+    @Value("${publication.update}")
+    private String UPDATE_PUBLICATION_SQL;
 
     /**
      * Sql Delete String.
      */
-    private static final String DELETE_PUBLICATION_SQL = "DELETE FROM "
-            + "publication WHERE publication_id = :id";
+    @Value("${publication.delete}")
+    private String DELETE_PUBLICATION_SQL;
 
     /**
-     * Constructor with data source.
-     * @param dataSource - data source.
+     * Setter.
+     * @param namedParameterJdbcTemplate
      */
-    public PublicationDaoImpl(final DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-        this.namedParameterJdbcTemplate =
-                new NamedParameterJdbcTemplate(dataSource);
+    public void setNamedParameterJdbcTemplate(
+            NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
     @Override
     public final Collection<Publication> getPublications() {
         Collection<Publication> publications =
-                jdbcTemplate.query(GET_PUBLICATIONS_SQL,
+                namedParameterJdbcTemplate.
+                        query(GET_PUBLICATIONS_SQL,
                         new PublicationRowMapper());
         return publications;
     }
@@ -95,10 +92,10 @@ public class PublicationDaoImpl implements PublicationDao {
             final Integer publicationId) {
         SqlParameterSource namedParameters =
                 new MapSqlParameterSource(
-                        "publication_id", publicationId);
+                        PUBLICATION_ID, publicationId);
         Publication publication = namedParameterJdbcTemplate.
-                queryForObject(GET_PUBLICATIONS_BY_ID_SQL,
-                        namedParameters, new PublicationRowMapper());
+                queryForObject(GET_PUBLICATIONS_BY_ID_SQL, namedParameters,
+                        BeanPropertyRowMapper.newInstance(Publication.class));
         return publication;
     }
 
@@ -108,16 +105,16 @@ public class PublicationDaoImpl implements PublicationDao {
         MapSqlParameterSource namedParameters =
                 new MapSqlParameterSource();
         namedParameters.addValue(
-                "publication_name", publication.getPublicationName());
+                PUBLICATION_NAME, publication.getPublicationName());
         namedParameters.addValue(
-                "writer_id", publication.getWriterId());
+                WRITER_ID, publication.getWriterId());
         namedParameters.addValue(
-                "publication_date", publication.getPublicationDate());
+                PUBLICATION_DATE, publication.getPublicationDate());
         namedParameters.addValue(
-                "publication_num_of_pages",
+                PUBLICATION_NUM_OF_PAGES,
                         publication.getPublicationNumOfPages());
         namedParameters.addValue(
-                "publication_description",
+                PUBLICATION_DESCRIPTION,
                         publication.getPublicationDescription());
 
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
@@ -133,18 +130,18 @@ public class PublicationDaoImpl implements PublicationDao {
         MapSqlParameterSource namedParameters =
                 new MapSqlParameterSource();
         namedParameters.addValue(
-                "publication_id", publication.getPublicationId());
+                PUBLICATION_ID, publication.getPublicationId());
         namedParameters.addValue(
-                "publication_name", publication.getPublicationName());
+                PUBLICATION_NAME, publication.getPublicationName());
         namedParameters.addValue(
-                "writer_id", publication.getWriterId());
+                WRITER_ID, publication.getWriterId());
         namedParameters.addValue(
-                "publication_date", publication.getPublicationDate());
+                PUBLICATION_DATE, publication.getPublicationDate());
         namedParameters.addValue(
-                "publication_num_of_pages",
+                PUBLICATION_NUM_OF_PAGES,
                         publication.getPublicationNumOfPages());
         namedParameters.addValue(
-                "publication_description",
+                PUBLICATION_DESCRIPTION,
                         publication.getPublicationDescription());
         namedParameterJdbcTemplate.update(
                 UPDATE_PUBLICATION_SQL, namedParameters);
@@ -153,7 +150,7 @@ public class PublicationDaoImpl implements PublicationDao {
     @Override
     public final void deletePublicationById(final Integer publicationId) {
         SqlParameterSource namedParameters =
-                new MapSqlParameterSource("id", publicationId);
+                new MapSqlParameterSource(PUBLICATION_ID, publicationId);
         namedParameterJdbcTemplate.update(
                 DELETE_PUBLICATION_SQL, namedParameters);
     }
@@ -167,12 +164,12 @@ public class PublicationDaoImpl implements PublicationDao {
         public final Publication mapRow(
                 final ResultSet resultSet, final int i) throws SQLException {
             Publication publication = new Publication();
-            publication.setPublicationId(resultSet.getInt(1));
-            publication.setPublicationName(resultSet.getString(2));
-            publication.setWriterId(resultSet.getInt(3));
-            publication.setPublicationDate(resultSet.getDate(4));
-            publication.setPublicationNumOfPages(resultSet.getInt(5));
-            publication.setPublicationDescription(resultSet.getString(6));
+            publication.setPublicationId(resultSet.getInt(PUBLICATION_ID));
+            publication.setPublicationName(resultSet.getString(PUBLICATION_NAME));
+            publication.setWriterId(resultSet.getInt(WRITER_ID));
+            publication.setPublicationDate(resultSet.getDate(PUBLICATION_DATE));
+            publication.setPublicationNumOfPages(resultSet.getInt(PUBLICATION_NUM_OF_PAGES));
+            publication.setPublicationDescription(resultSet.getString(PUBLICATION_DESCRIPTION));
             return publication;
         }
     }

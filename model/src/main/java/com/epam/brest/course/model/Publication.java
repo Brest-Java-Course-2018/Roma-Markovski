@@ -8,6 +8,28 @@ import java.sql.Date;
 public class Publication {
 
     /**
+     * Constructor without params.
+     */
+    public Publication() {
+    }
+
+    /**
+     * Constructor with params.
+     * @param publicationName
+     * @param writerId
+     * @param publicationDate
+     * @param publicationNumOfPages
+     * @param publicationDescription
+     */
+    public Publication(String publicationName, Integer writerId, Date publicationDate, Integer publicationNumOfPages, String publicationDescription) {
+        this.publicationName = publicationName;
+        this.writerId = writerId;
+        this.publicationDate = publicationDate;
+        this.publicationNumOfPages = publicationNumOfPages;
+        this.publicationDescription = publicationDescription;
+    }
+
+    /**
      * The publication's id.
      */
     private Integer publicationId;

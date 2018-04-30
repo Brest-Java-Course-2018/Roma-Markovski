@@ -5,8 +5,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.Collection;
@@ -14,7 +16,10 @@ import java.util.Collection;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:test-db-spring.xml", "classpath:test-dao.xml"})
+@ContextConfiguration(locations = {"classpath:test-db-spring.xml", "classpath:test-dao.xml",
+"classpath:dao.xml"})
+@Rollback
+@Transactional
 public class PublicationDaoImplTest {
 
     @Autowired
@@ -86,6 +91,8 @@ public class PublicationDaoImplTest {
         Assert.assertEquals(Date.valueOf("2018-01-19"), updatedPublication.getPublicationDate());
     }
 
+    //TODO: Exception with a rule.
+    //TODO: Make strings constant.
     @Test
     public void deletePublicationById () {
         Publication publication = new Publication();

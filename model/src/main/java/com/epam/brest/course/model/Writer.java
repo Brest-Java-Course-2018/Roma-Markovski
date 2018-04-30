@@ -7,6 +7,24 @@ package com.epam.brest.course.model;
 public class Writer {
 
     /**
+     * Constructor withput params.
+     */
+    public Writer() {
+    }
+
+    /**
+     * Constructor with params.
+     * @param writerId
+     * @param writerName
+     * @param writerCountry
+     */
+    public Writer(Integer writerId, String writerName, String writerCountry) {
+        this.writerId = writerId;
+        this.writerName = writerName;
+        this.writerCountry = writerCountry;
+    }
+
+    /**
      * The writer's id.
      */
     private Integer writerId;
