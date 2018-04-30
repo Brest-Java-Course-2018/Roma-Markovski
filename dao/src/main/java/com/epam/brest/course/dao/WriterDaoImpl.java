@@ -39,38 +39,39 @@ public class WriterDaoImpl implements WriterDao {
      * SQL Select-all String.
      */
     @Value("${writer.select}")
-    private String GET_WRITERS_SQL;
+    private String getWritersSql;
 
     /**
      * SQL Select-By-Id String.
      */
     @Value("${writer.selectById}")
-    private String GET_WRITER_BY_ID_SQL;
+    private String getWriterByIdSql;
 
     /**
      * SQL Insert String.
      */
     @Value("${writer.insert}")
-    private String ADD_WRITER_SQL;
+    private String addWriterSql;
 
     /**
      * Sql Update String.
      */
     @Value("${writer.update}")
-    private String UPDATE_WRITER_SQL;
+    private String updateWriterSql;
 
     /**
      * Sql Delete String.
      */
     @Value("${writer.delete}")
-    private String DELETE_WRITER_SQL;
+    private String deleteWriterSql;
 
     /**
      * Setter.
      * @param namedParameterJdbcTemplate
      */
-    public void setNamedParameterJdbcTemplate(
-            NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public final void setNamedParameterJdbcTemplate(
+            final NamedParameterJdbcTemplate
+                    namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
@@ -79,7 +80,7 @@ public class WriterDaoImpl implements WriterDao {
         LOGGER.debug("getWriters()");
         Collection<Writer> writers =
                 namedParameterJdbcTemplate.
-                        query(GET_WRITERS_SQL, new WriterRowMapper());
+                        query(getWritersSql, new WriterRowMapper());
         return writers;
     }
 
@@ -89,7 +90,7 @@ public class WriterDaoImpl implements WriterDao {
         SqlParameterSource namedParameters =
                 new MapSqlParameterSource(WRITER_ID, writerId);
         Writer writer = namedParameterJdbcTemplate.queryForObject(
-                GET_WRITER_BY_ID_SQL, namedParameters, new WriterRowMapper()
+                getWriterByIdSql, namedParameters, new WriterRowMapper()
         );
         return writer;
     }
@@ -103,7 +104,7 @@ public class WriterDaoImpl implements WriterDao {
         namedParameters.addValue(WRITER_COUNTRY,
                 writer.getWriterCountry());
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
-        namedParameterJdbcTemplate.update(ADD_WRITER_SQL,
+        namedParameterJdbcTemplate.update(addWriterSql,
                 namedParameters, generatedKeyHolder);
         writer.setWriterId(generatedKeyHolder.getKey().intValue());
         return writer;
@@ -117,7 +118,7 @@ public class WriterDaoImpl implements WriterDao {
                         writer.getWriterName());
         namedParameters.addValue(WRITER_COUNTRY, writer.getWriterCountry());
         namedParameters.addValue(WRITER_ID, writer.getWriterId());
-        namedParameterJdbcTemplate.update(UPDATE_WRITER_SQL, namedParameters);
+        namedParameterJdbcTemplate.update(updateWriterSql, namedParameters);
     }
 
     @Override
@@ -126,7 +127,7 @@ public class WriterDaoImpl implements WriterDao {
         SqlParameterSource namedParameters =
                 new MapSqlParameterSource(WRITER_ID, writerId);
         namedParameterJdbcTemplate.update(
-                DELETE_WRITER_SQL, namedParameters);
+                deleteWriterSql, namedParameters);
     }
 
     /**

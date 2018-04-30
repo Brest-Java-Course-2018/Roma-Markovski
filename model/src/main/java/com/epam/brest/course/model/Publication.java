@@ -21,7 +21,11 @@ public class Publication {
      * @param publicationNumOfPages
      * @param publicationDescription
      */
-    public Publication(String publicationName, Integer writerId, Date publicationDate, Integer publicationNumOfPages, String publicationDescription) {
+    public Publication(final String publicationName,
+                       final Integer writerId,
+                       final Date publicationDate,
+                       final Integer publicationNumOfPages,
+                       final String publicationDescription) {
         this.publicationName = publicationName;
         this.writerId = writerId;
         this.publicationDate = publicationDate;
@@ -105,8 +109,8 @@ public class Publication {
         return publicationDescription;
     }
 
-    public final void setPublicationDescription
-            (final String publicationDescription) {
+    public final void setPublicationDescription(
+            final String publicationDescription) {
         this.publicationDescription = publicationDescription;
     }
 
@@ -116,7 +120,7 @@ public class Publication {
      * @return string which describes the publication.
      */
     @Override
-    public String toString() {
+    public final String toString() {
         return "Publication{"
                 + "publicationId=" + publicationId
                 + ", publicationName='" + publicationName + '\''

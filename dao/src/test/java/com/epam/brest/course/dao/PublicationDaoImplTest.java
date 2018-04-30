@@ -93,6 +93,7 @@ public class PublicationDaoImplTest {
 
     //TODO: Exception with a rule.
     //TODO: Make strings constant.
+    //TODO: Setters -> constructor in dao test modules.
     @Test
     public void deletePublicationById () {
         Publication publication = new Publication();
