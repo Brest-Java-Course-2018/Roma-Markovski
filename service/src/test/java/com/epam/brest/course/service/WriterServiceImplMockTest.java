@@ -25,7 +25,8 @@ public class WriterServiceImplMockTest {
     private static final Writer LERMONTOV = new Writer(
             "Lermontov Michael", "Russia");
 
-    private static final List<Writer> WRITERS = Arrays.asList(PUSHKIN, LERMONTOV);
+    private static final List<Writer> WRITERS =
+            Arrays.asList(PUSHKIN, LERMONTOV);
 
     @Autowired
     private WriterService writerService;
@@ -49,7 +50,8 @@ public class WriterServiceImplMockTest {
 
     @Test
     public void getWriterById() {
-        EasyMock.expect(mockWriterDao.getWriterById(EasyMock.anyInt())).andReturn(PUSHKIN);
+        EasyMock.expect(mockWriterDao.getWriterById(EasyMock.anyInt()))
+                .andReturn(PUSHKIN);
         EasyMock.replay(mockWriterDao);
         Writer writer = writerService.getWriterById(1);
         Assert.assertEquals(writer, PUSHKIN);
@@ -57,7 +59,8 @@ public class WriterServiceImplMockTest {
 
     @Test
     public void addWriter() {
-        EasyMock.expect(mockWriterDao.addWriter(EasyMock.anyObject(Writer.class)))
+        EasyMock.expect(mockWriterDao.addWriter(
+                EasyMock.anyObject(Writer.class)))
                 .andReturn(PUSHKIN);
         EasyMock.replay(mockWriterDao);
         Writer publication = writerService.addWriter(PUSHKIN);

@@ -22,12 +22,27 @@ import static org.junit.Assert.*;
 @Transactional
 public class PublicationDaoImplTest {
 
+    private static final String EVGENIY_ONEGIN = "Evgeniy Onegin";
+    private static final String DATE_1 = "2018-03-21";
+    private static final int WRITER_1 = 1;
+    private static final int PUBLICATION_1 = 1;
+    private static final int NUM_OF_PAGES_1 = 235;
+    private static final String POEM = "Poem";
+    private static final String WAR_AND_PEACE = "War and Peace";
+    private static final int WRITER_2 = 2;
+    private static final String DATE_2 = "2018-02-25";
+    private static final int NUM_OF_PAGES_2 = 768;
+    private static final String NOVEL = "Novel";
+    private static final String PEACE_AND_WAR = "Peace and War";
+    private static final int WRITER_3 = 3;
+    private static final String DATE_3 = "2018-01-19";
     @Autowired
     PublicationDao publicationDao;
 
     @Test
     public void getPublications() {
-        Collection<Publication> publications = publicationDao.getPublications();
+        Collection<Publication> publications =
+                publicationDao.getPublications();
         Assert.assertFalse(publications.isEmpty());
     }
 
@@ -35,78 +50,92 @@ public class PublicationDaoImplTest {
     public void getPublicationById() {
         Publication publication = publicationDao.getPublicationById(1);
         Assert.assertNotNull(publication);
-        Assert.assertTrue(publication.getPublicationId().equals(1));
-        Assert.assertEquals("Evgeniy Onegin", publication.getPublicationName());
-        Assert.assertTrue(publication.getWriterId().equals(1));
-        Assert.assertEquals(Date.valueOf("2018-03-21"), publication.getPublicationDate());
-        Assert.assertTrue(publication.getPublicationNumOfPages().equals(235));
-        Assert.assertEquals("Poem", publication.getPublicationDescription());
+        Assert.assertTrue(publication.getPublicationId().equals(PUBLICATION_1));
+        Assert.assertEquals(EVGENIY_ONEGIN,
+                publication.getPublicationName());
+        Assert.assertTrue(publication.getWriterId().equals(WRITER_1));
+        Assert.assertEquals(Date.valueOf(DATE_1),
+                publication.getPublicationDate());
+        Assert.assertTrue(publication.getPublicationNumOfPages().equals(NUM_OF_PAGES_1));
+        Assert.assertEquals(POEM, publication.getPublicationDescription());
     }
 
     @Test
     public void addPublication() {
-        Collection<Publication> publications = publicationDao.getPublications();
+        Collection<Publication> publications =
+                publicationDao.getPublications();
         int size = publications.size();
         Publication publication = new Publication(
-                "War and Peace",
-                2,
-                Date.valueOf("2018-02-25"),
-                768,
-                "Novel");
-        Publication returnedPublication = publicationDao.addPublication(publication);
+                WAR_AND_PEACE,
+                WRITER_2,
+                Date.valueOf(DATE_2),
+                NUM_OF_PAGES_2,
+                NOVEL);
+        Publication returnedPublication =
+                publicationDao.addPublication(publication);
         Integer id = returnedPublication.getPublicationId();
         Assert.assertNotNull(id);
         Publication addedPublication = publicationDao.getPublicationById(id);
 
-        Assert.assertEquals("War and Peace",addedPublication.getPublicationName());
-        Assert.assertTrue(addedPublication.getWriterId().equals(2));
-        Assert.assertEquals(Date.valueOf("2018-02-25"), addedPublication.getPublicationDate());
-        Assert.assertTrue(addedPublication.getPublicationNumOfPages().equals(768));
-        Assert.assertEquals("Novel",addedPublication.getPublicationDescription());
-        Assert.assertEquals(size + 1, publicationDao.getPublications().size());
+        Assert.assertEquals(WAR_AND_PEACE,
+                addedPublication.getPublicationName());
+        Assert.assertTrue(addedPublication.getWriterId().equals(WRITER_2));
+        Assert.assertEquals(Date.valueOf(DATE_2),
+                addedPublication.getPublicationDate());
+        Assert.assertTrue(
+                addedPublication.getPublicationNumOfPages().equals(NUM_OF_PAGES_2));
+        Assert.assertEquals(NOVEL,
+                addedPublication.getPublicationDescription());
+        Assert.assertEquals(size + 1,
+                publicationDao.getPublications().size());
     }
 
     @Test
     public void updatePublication() {
 
         Publication publication = new Publication(
-                "War and Peace",
-                2,
-                Date.valueOf("2018-02-25"),
-                768,
-                "Novel");
+                WAR_AND_PEACE,
+                WRITER_2,
+                Date.valueOf(DATE_2),
+                NUM_OF_PAGES_2,
+                NOVEL);
 
-        Publication addedPublication = publicationDao.addPublication(publication);
-        addedPublication.setPublicationName("Peace and War");
-        addedPublication.setWriterId(3);
-        addedPublication.setPublicationDate(Date.valueOf("2018-01-19"));
+        Publication addedPublication =
+                publicationDao.addPublication(publication);
+        addedPublication.setPublicationName(PEACE_AND_WAR);
+        addedPublication.setWriterId(WRITER_3);
+        addedPublication.setPublicationDate(Date.valueOf(DATE_3));
 
         publicationDao.updatePublication(addedPublication);
-        Publication updatedPublication = publicationDao.getPublicationById(addedPublication.getPublicationId());
-
-        Assert.assertEquals(addedPublication.getPublicationId(), updatedPublication.getPublicationId());
-        Assert.assertEquals("Peace and War", updatedPublication.getPublicationName());
-        Assert.assertTrue(updatedPublication.getWriterId().equals(3));
-        Assert.assertEquals(Date.valueOf("2018-01-19"), updatedPublication.getPublicationDate());
+        Publication updatedPublication =
+                publicationDao.getPublicationById(
+                        addedPublication.getPublicationId());
+        Assert.assertEquals(addedPublication.getPublicationId(),
+                updatedPublication.getPublicationId());
+        Assert.assertEquals(PEACE_AND_WAR,
+                updatedPublication.getPublicationName());
+        Assert.assertTrue(updatedPublication.getWriterId().equals(WRITER_3));
+        Assert.assertEquals(Date.valueOf(DATE_3),
+                updatedPublication.getPublicationDate());
     }
 
     //TODO: Exception with a rule.
     @Test
     public void deletePublicationById () {
         Publication publication = new Publication(
-                "War and Peace",
-                2,
-                Date.valueOf("2018-02-25"),
-                768,
-                "Novel");
+                WAR_AND_PEACE,
+                WRITER_2,
+                Date.valueOf(DATE_2),
+                NUM_OF_PAGES_2,
+                NOVEL);
 
-        Publication addedPublication = publicationDao.addPublication(publication);
-
-        Collection<Publication> publications = publicationDao.getPublications();
+        Publication addedPublication =
+                publicationDao.addPublication(publication);
+        Collection<Publication> publications =
+                publicationDao.getPublications();
         int oldSize = publications.size();
-
-        publicationDao.deletePublicationById(addedPublication.getPublicationId());
-
+        publicationDao.deletePublicationById(
+                addedPublication.getPublicationId());
         publications = publicationDao.getPublications();
         int newSize = publications.size();
 

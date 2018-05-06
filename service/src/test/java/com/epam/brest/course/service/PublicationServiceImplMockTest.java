@@ -26,7 +26,8 @@ public class PublicationServiceImplMockTest {
     private static final Publication DUBROVSKI = new Publication(
             "Dubrovski", 1, Date.valueOf("2016-05-21"), 134, "Prose");
 
-    private static final List<Publication> PUBLICATIONS = Arrays.asList(ONEGIN, DUBROVSKI);
+    private static final List<Publication> PUBLICATIONS =
+            Arrays.asList(ONEGIN, DUBROVSKI);
 
     @Autowired
     private PublicationService publicationService;
@@ -42,15 +43,19 @@ public class PublicationServiceImplMockTest {
 
     @Test
     public void getPublications() {
-        EasyMock.expect(mockPublicationDao.getPublications()).andReturn(PUBLICATIONS);
+        EasyMock.expect(mockPublicationDao.getPublications())
+                .andReturn(PUBLICATIONS);
         EasyMock.replay(mockPublicationDao);
-        Collection<Publication> publications = publicationService.getPublications();
+        Collection<Publication> publications =
+                publicationService.getPublications();
         Assert.assertEquals(publications, PUBLICATIONS);
     }
 
     @Test
     public void getPublicationById() {
-        EasyMock.expect(mockPublicationDao.getPublicationById(EasyMock.anyInt())).andReturn(ONEGIN);
+        EasyMock.expect(
+                mockPublicationDao.getPublicationById(EasyMock.anyInt()))
+                .andReturn(ONEGIN);
         EasyMock.replay(mockPublicationDao);
         Publication publication = publicationService.getPublicationById(1);
         Assert.assertEquals(publication, ONEGIN);
@@ -58,7 +63,8 @@ public class PublicationServiceImplMockTest {
 
     @Test
     public void addPublication() {
-        EasyMock.expect(mockPublicationDao.addPublication(EasyMock.anyObject(Publication.class)))
+        EasyMock.expect(mockPublicationDao.addPublication(
+                EasyMock.anyObject(Publication.class)))
                 .andReturn(DUBROVSKI);
         EasyMock.replay(mockPublicationDao);
         Publication publication = publicationService.addPublication(DUBROVSKI);
@@ -67,7 +73,8 @@ public class PublicationServiceImplMockTest {
 
     @Test
     public void updatePublication() {
-        mockPublicationDao.updatePublication(EasyMock.anyObject(Publication.class));
+        mockPublicationDao.updatePublication(
+                EasyMock.anyObject(Publication.class));
         EasyMock.expectLastCall();
         EasyMock.replay(mockPublicationDao);
         publicationService.updatePublication(ONEGIN);

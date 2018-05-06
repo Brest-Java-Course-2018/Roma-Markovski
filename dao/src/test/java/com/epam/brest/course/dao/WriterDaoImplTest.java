@@ -21,6 +21,14 @@ import static org.junit.Assert.*;
 @Transactional
 public class WriterDaoImplTest {
 
+    private static final int WRITER_ID_1 = 1;
+    private static final String PUSHKIN = "Pushkin Alex";
+    private static final String RUSSIA = "Russia";
+    private static final String GOGOL = "Gogol Nikolay";
+    private static final String UKRAINE = "Ukraine";
+    private static final String BYKOV_ALEX = "Bykov Alex";
+    private static final String BYKOV_VASIL = "Bykov Vasil";
+    private static final String BELARUS = "Belarus";
     @Autowired
     WriterDao writerDao;
 
@@ -34,41 +42,43 @@ public class WriterDaoImplTest {
     public void getWriterById() {
         Writer writer = writerDao.getWriterById(1);
         Assert.assertNotNull(writer);
-        Assert.assertTrue(writer.getWriterId().equals(1));
-        Assert.assertEquals("Alex Pushkin", writer.getWriterName());
-        Assert.assertEquals("Russia", writer.getWriterCountry());
+        Assert.assertTrue(writer.getWriterId().equals(WRITER_ID_1));
+        Assert.assertEquals(PUSHKIN, writer.getWriterName());
+        Assert.assertEquals(RUSSIA, writer.getWriterCountry());
     }
 
     @Test
     public void addWriter() {
         Collection<Writer> writers = writerDao.getWriters();
         int size = writers.size();
-        Writer writer = new Writer("Gogol Nikolay", "Ukraine");
+        Writer writer = new Writer(GOGOL, UKRAINE);
         Writer returnedWriter = writerDao.addWriter(writer);
         Integer id = returnedWriter.getWriterId();
         Assert.assertNotNull(id);
         Writer addedWriter = writerDao.getWriterById(id);
-        Assert.assertEquals("Gogol Nikolay", addedWriter.getWriterName());
-        Assert.assertEquals("Ukraine", addedWriter.getWriterCountry());
+        Assert.assertEquals(GOGOL, addedWriter.getWriterName());
+        Assert.assertEquals(UKRAINE, addedWriter.getWriterCountry());
         Assert.assertEquals(size+1, writerDao.getWriters().size());
     }
 
     @Test
     public void updateWriter() {
-        Writer writer = new Writer("Bykov Alex", "Russia");
+        Writer writer = new Writer(BYKOV_ALEX, RUSSIA);
         Writer addedWriter = writerDao.addWriter(writer);
-        addedWriter.setWriterName("Bykov Vasil");
-        addedWriter.setWriterCountry("Belarus");
+        addedWriter.setWriterName(BYKOV_VASIL);
+        addedWriter.setWriterCountry(BELARUS);
         writerDao.updateWriter(addedWriter);
-        Writer updatedWriter = writerDao.getWriterById(addedWriter.getWriterId());
-        Assert.assertEquals(addedWriter.getWriterId() ,updatedWriter.getWriterId());
-        Assert.assertEquals("Bykov Vasil" ,updatedWriter.getWriterName());
-        Assert.assertEquals("Belarus" ,updatedWriter.getWriterCountry());
+        Writer updatedWriter =
+                writerDao.getWriterById(addedWriter.getWriterId());
+        Assert.assertEquals(addedWriter.getWriterId(),
+                updatedWriter.getWriterId());
+        Assert.assertEquals(BYKOV_VASIL, updatedWriter.getWriterName());
+        Assert.assertEquals(BELARUS, updatedWriter.getWriterCountry());
     }
 
     @Test
     public void deleteWriterById() {
-        Writer writer = new Writer("Bykov Alex", "Russia");
+        Writer writer = new Writer(BYKOV_ALEX, RUSSIA);
         Writer addedWriter = writerDao.addWriter(writer);
         Collection<Writer> writers = writerDao.getWriters();
         int oldSize = writers.size();
