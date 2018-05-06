@@ -70,7 +70,6 @@ public class WriterDaoImplTest {
     public void deleteWriterById() {
         Writer writer = new Writer("Bykov Alex", "Russia");
         Writer addedWriter = writerDao.addWriter(writer);
-
         Collection<Writer> writers = writerDao.getWriters();
         int oldSize = writers.size();
 

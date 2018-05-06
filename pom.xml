@@ -26,12 +26,14 @@
         <junit.version>4.12</junit.version>
         <spring.version>4.3.15.RELEASE</spring.version>
         <log4j2.version>2.11.0</log4j2.version>
+        <easymock.version>3.6</easymock.version>
     </properties>
 
     <modules>
         <module>model</module>
         <module>dao</module>
         <module>test-db</module>
+        <module>service</module>
     </modules>
 
     <!--specifies dependencies common to all modules-->
@@ -99,11 +101,18 @@
             </dependency>
 
             <dependency>
+                <groupId>org.easymock</groupId>
+                <artifactId>easymock</artifactId>
+                <version>${easymock.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 

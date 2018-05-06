@@ -9,16 +9,20 @@
         <constructor-arg name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-
     <bean id="publicationDao" class="com.epam.brest.course.dao.PublicationDaoImpl">
         <property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>
     </bean>
 
     <bean id="writerDao" class="com.epam.brest.course.dao.WriterDaoImpl">
         <property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>
+    </bean>
+
+    <bean id="publicationService" class="com.epam.brest.course.service.PublicationServiceImpl">
+        <constructor-arg ref="publicationDao"/>
+    </bean>
+
+    <bean id="writerService" class="com.epam.brest.course.service.WriterServiceImpl">
+        <constructor-arg ref="writerDao"/>
     </bean>
 
 </beans>
