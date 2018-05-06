@@ -12,16 +12,26 @@ import java.util.Collection;
  */
 public class PublicationServiceImpl implements PublicationService {
 
+    /**
+     * Logger.
+     */
     private static final Logger LOGGER = LogManager.getLogger();
 
+    /**
+     * DAO.
+     */
     private PublicationDao publicationDao;
 
-    public PublicationServiceImpl(PublicationDao publicationDao) {
+    /**
+     * Service constructor.
+     * @param publicationDao - dao.
+     */
+    public PublicationServiceImpl(final PublicationDao publicationDao) {
         this.publicationDao = publicationDao;
     }
 
     @Override
-    public Collection<Publication> getPublications() {
+    public final Collection<Publication> getPublications() {
         LOGGER.debug("getPublications()");
         Collection<Publication> publications =
                 publicationDao.getPublications();
@@ -29,7 +39,7 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
-    public Publication getPublicationById(Integer publicationId) {
+    public final Publication getPublicationById(Integer publicationId) {
         LOGGER.debug("getPublicationById({})", publicationId);
         Publication publication =
                 publicationDao.getPublicationById(publicationId);
@@ -37,7 +47,7 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
-    public Publication addPublication(Publication publication) {
+    public final Publication addPublication(final Publication publication) {
         LOGGER.debug("addPublication({})", publication);
         Publication addedPublication =
                 publicationDao.addPublication(publication);
@@ -45,14 +55,14 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
-    public void updatePublication(Publication publication) {
+    public final void updatePublication(final Publication publication) {
         LOGGER.debug("updatePublication({})", publication);
         publicationDao.updatePublication(publication);
 
     }
 
     @Override
-    public void deletePublicationById(Integer publicationId) {
+    public final void deletePublicationById(final Integer publicationId) {
         LOGGER.debug("deletePublicationById({})", publicationId);
         publicationDao.deletePublicationById(publicationId);
     }

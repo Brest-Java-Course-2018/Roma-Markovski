@@ -21,6 +21,9 @@ import java.util.Collection;
  */
 public class PublicationDaoImpl implements PublicationDao {
 
+    /**
+     * Logger.
+     */
     private static final Logger LOGGER = LogManager.getLogger();
 
     /**

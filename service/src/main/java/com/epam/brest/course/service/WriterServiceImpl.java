@@ -12,43 +12,53 @@ import java.util.Collection;
  */
 public class WriterServiceImpl implements WriterService {
 
+    /**
+     * Logger.
+     */
     private static final Logger LOGGER = LogManager.getLogger();
 
+    /**
+     * DAO.
+     */
     private WriterDao writerDao;
 
+    /**
+     * Service constructor.
+     * @param writerDao - dao.
+     */
     public WriterServiceImpl(WriterDao writerDao) {
         this.writerDao = writerDao;
     }
 
     @Override
-    public Collection<Writer> getWriters() {
+    public final Collection<Writer> getWriters() {
         LOGGER.debug("getWriters()");
         Collection<Writer> writers = writerDao.getWriters();
         return writers;
     }
 
     @Override
-    public Writer getWriterById(Integer writerId) {
+    public final Writer getWriterById(final Integer writerId) {
         LOGGER.debug("getWriterById({})", writerId);
         Writer writer = writerDao.getWriterById(writerId);
         return writer;
     }
 
     @Override
-    public Writer addWriter(Writer writer) {
+    public final Writer addWriter(final Writer writer) {
         LOGGER.debug("addWriter({})", writer);
         Writer addedWriter = writerDao.addWriter(writer);
         return addedWriter;
     }
 
     @Override
-    public void updateWriter(Writer writer) {
+    public final void updateWriter(final Writer writer) {
         LOGGER.debug("updateWriter({})", writer);
         writerDao.updateWriter(writer);
     }
 
     @Override
-    public void deleteWriterById(Integer writerId) {
+    public final void deleteWriterById(final Integer writerId) {
         LOGGER.debug("deleteWriterById({})", writerId);
         writerDao.deleteWriterById(writerId);
     }

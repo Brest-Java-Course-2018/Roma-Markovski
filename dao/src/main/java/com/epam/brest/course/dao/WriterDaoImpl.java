@@ -20,6 +20,9 @@ import java.util.Collection;
  */
 public class WriterDaoImpl implements WriterDao {
 
+    /**
+     * Logger.
+     */
     private static final Logger LOGGER = LogManager.getLogger();
 
     /**
