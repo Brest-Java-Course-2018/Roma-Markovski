@@ -1,12 +1,14 @@
 package com.epam.brest.course.service;
 
 import com.epam.brest.course.model.Writer;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
 /**
  * Writer Service Interface.
  */
+@Service
 public interface WriterService {
 
     /**

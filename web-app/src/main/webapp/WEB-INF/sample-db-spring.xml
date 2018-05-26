@@ -15,7 +15,7 @@
     </bean>
 
     <jdbc:initialize-database>
-        <jdbc:script location="create-tables.sql"/>
-        <jdbc:script location="data-script.sql"/>
+        <jdbc:script location="classpath:/sample_db/create-tables.sql"/>
+        <jdbc:script location="classpath:/sample_db/data-script.sql"/>
     </jdbc:initialize-database>
 </beans>

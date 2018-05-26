@@ -1,12 +1,14 @@
 package com.epam.brest.course.service;
 
 import com.epam.brest.course.model.Publication;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
 /**
  * Publication Service Interface.
  */
+@Service
 public interface PublicationService {
 
     /**

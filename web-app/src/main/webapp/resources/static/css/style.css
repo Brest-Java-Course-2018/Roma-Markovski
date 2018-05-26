@@ -1,0 +1,145 @@
+body {
+    background-color: #E8EAF6;
+}
+
+.horizontal-line {
+    margin: 0;
+    background-color: #40C4FF;
+    height: 5px;
+}
+
+#navbar-with-logo{
+    background-color: #1A237E;
+}
+
+#navbar-name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#navbar-title {
+    color: #40C4FF;
+    margin-left: 20px;
+    font-size: xx-large;
+}
+
+@media (max-width: 768px) {
+    #navbar-title {
+        display: none
+    }
+    #navbar-with-logo {
+        justify-content: center;
+    }
+}
+
+#navbar-with-nav {
+    background-color: #7986CB;
+}
+
+#navbar-menu {
+    font-size: larger;
+}
+
+#header-title {
+    font-size: x-large;
+}
+
+#button-add{
+    display: flex;
+    align-items: center;
+}
+
+#button-add,
+#button-date-filter {
+    background-color: #40C4FF;
+    border: 0;
+}
+
+#button-add:hover,
+#button-date-filter:hover {
+    background-color: transparent;
+    color: #1A237E;
+    border: 1px solid #1A237E;
+}
+
+#button-date-filter {
+    margin-right: auto;
+}
+
+#div-header {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    grid-template-columns: 100%;
+}
+
+#div-header-top,
+#div-header-bottom {
+    display: flex;
+}
+
+#div-header-bottom {
+    flex-direction: column;
+}
+
+#table-publications {
+    min-width: 720px;
+}
+
+#table-writers {
+    min-width: 570px;
+}
+
+.button-date-reset {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    background-color: transparent;
+    color: #40C4FF;
+    border: 1px solid #40C4FF;
+}
+
+.button-date-accept,
+#delete-btn-no{
+    background-color: transparent;
+    color: #1A237E;
+    border: 1px solid #1A237E;
+}
+
+.button-date-accept {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+.button-date-reset:hover {
+    background-color: #40C4FF;
+    color: white;
+    border: 0;
+}
+
+.button-date-accept:hover,
+#delete-btn-no:hover {
+    background-color: #1A237E;
+    color: white;
+    border: 0;
+}
+
+.btn-two {
+    width: 50px;
+}
+
+#div-two-btns {
+    display: grid;
+    grid-template-columns: 100px 10px 100px auto;
+}
+
+#exampleModal .modal-footer{
+    justify-content: center;
+}
+
+#exampleModal .modal-footer button{
+    width: 100px;
+}

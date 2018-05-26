@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello thymeleaf!</title>
+
+    <link rel="stylesheet"
+          th:href="@{/resources/static/css/font-awesome.min.css}"
+          href="../../resources/static/css/font-awesome.min.css">
+    <link rel="stylesheet"
+          th:href="@{/resources/static/css/bootstrap.min.css}"
+          href="../../resources/static/css/bootstrap.css">
+    <link rel="stylesheet"
+          th:href="@{/resources/static/css/style.css}"
+          href="../../resources/static/css/style.css">
+</head>
+<body>
+<div class="container">
+    <h1 th:text="'Hello ' + ${name} + '!'">Hello sample</h1>
+</div>
+</body>
+<script src="../../resources/static/js/jquery.min.js"
+        th:src="@{/resources/static/js/jquery.min.js}"></script>
+<script src="../../resources/static/js/popper.min.js"
+        th:src="@{/resources/static/js/popper.min.js}"></script>
+<script src="../../resources/static/js/bootstrap.min.js"
+        th:src="@{/resources/static/js/bootstrap.min.js}"></script>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Writer</title>
+    <link rel="stylesheet"
+          th:href="@{/resources/static/css/font-awesome.min.css}"
+          href="../../resources/static/css/font-awesome.min.css">
+    <link rel="stylesheet"
+          th:href="@{/resources/static/css/bootstrap.min.css}"
+          href="../../resources/static/css/bootstrap.css">
+    <link rel="stylesheet"
+          th:href="@{/resources/static/css/style.css}"
+          href="../../resources/static/css/style.css">
+</head>
+
+<body>
+
+<div>
+    <div id="navbar-with-logo" class="navbar navbar-expand-md navbar-dark">
+        <a href="publications.html" id="navbar-name" class="my-2 ml-2 navbar-brand">
+            <img height="70" src="../../resources/static/img/book.svg"
+                 th:src="@{/resources/static/img/book.svg}">
+            <span id="navbar-title">Writers and publications</span>
+        </a>
+    </div>
+    <hr class="horizontal-line"/>
+    <nav id="navbar-with-nav" class="py-1 navbar navbar-expand-sm navbar-dark">
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbar-menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar-menu">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link"
+                   th:href="@{/publications}"
+                   href="publications.html">Publications</a>
+                <a class="nav-item nav-link active"
+                   th:href="@{/writers}"
+                   href="writers.html">Writers <span class="sr-only">(current)</span></a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<header>
+    <div class="mb-2 navbar navbar-expand-sm navbar-light bg-light text-dark"
+         id="div-header">
+        <div id="div-header-top">
+            <a href="writers.html"
+               th:href="@{/writers}"
+               id="header-title"
+               class="navbar-brand text-uppercase mr-auto">
+                Writers
+            </a>
+            <a href="writer.html"
+               th:href="@{/writer}"
+               class="py-0 my-1 btn btn-dark"
+               id="button-add"
+               data-toggle="tooltip"
+               title="Add writer">
+                <div>
+                    <i class="fa fa-plus"></i>
+                    <span class="d-none d-sm-inline">Add</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</header>
+
+<section id="writers">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card table-responsive" th:if="not ${writers.isEmpty()}">
+                    <table class="table table-striped table-light" id="table-writers">
+                        <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Country</th>
+                            <th scope="col">Number of publications</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="writer: ${writers}">
+                            <td th:text="${writer.writerName}">Tolstoy Leo</td>
+                            <td th:text="${writer.writerCountry}">Russia</td>
+                            <td>2</td>
+                            <td class="text-right">
+                                <a title="Edit writer"
+                                   data-toggle="tooltip"
+                                   data-placement="top"
+                                   href="writer.html"
+                                   th:href="'/writer/' + ${writer.writerId}"
+                                   class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
+                                    <span class="d-none d-lg-inline">Edit</span>
+                                </a>
+                                <a title="Delete writer"
+                                   data-toggle="tooltip"
+                                   data-placement="top"
+                                   href="#"
+                                   class="btn-sm btn-outline-danger">
+                                <span data-target="#exampleModal" data-toggle="modal">
+                                    <i class="fa fa-remove"></i>
+                                <span class="d-none d-lg-inline">Delete</span>
+                                </span>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card alert alert-info" th:if="${writers.isEmpty()}">
+                    <h2>Nothing found</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header alert-danger">
+                <h5 class="modal-title" id="exampleModalLabel">Delete writer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you really want to delete this writer?
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="delete-btn-yes" class="btn btn-outline-danger">Yes</button>
+                <button type="button" id="delete-btn-no" class="btn" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../resources/static/js/jquery.min.js"
+        th:src="@{/resources/static/js/jquery.min.js}"></script>
+<script src="../../resources/static/js/popper.min.js"
+        th:src="@{/resources/static/js/popper.min.js}"></script>
+<script src="../../resources/static/js/bootstrap.min.js"
+        th:src="@{/resources/static/js/bootstrap.min.js}"></script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+</body>
+</html>
