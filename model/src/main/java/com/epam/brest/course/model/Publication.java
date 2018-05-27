@@ -15,33 +15,33 @@ public class Publication {
 
     /**
      * Constructor with params.
-     * @param publicationName
+     * @param name
      * @param writerId
-     * @param publicationDate
-     * @param publicationNumOfPages
-     * @param publicationDescription
+     * @param date
+     * @param numberOfPages
+     * @param description
      */
-    public Publication(final String publicationName,
+    public Publication(final String name,
                        final Integer writerId,
-                       final Date publicationDate,
-                       final Integer publicationNumOfPages,
-                       final String publicationDescription) {
-        this.publicationName = publicationName;
+                       final Date date,
+                       final Integer numberOfPages,
+                       final String description) {
+        this.name = name;
         this.writerId = writerId;
-        this.publicationDate = publicationDate;
-        this.publicationNumOfPages = publicationNumOfPages;
-        this.publicationDescription = publicationDescription;
+        this.date = date;
+        this.numberOfPages = numberOfPages;
+        this.description = description;
     }
 
     /**
      * The publication's id.
      */
-    private Integer publicationId;
+    private Integer id;
 
     /**
      * The publication's name.
      */
-    private String publicationName;
+    private String name;
 
     /**
      * Id of the writer who wrote the publication.
@@ -51,42 +51,42 @@ public class Publication {
     /**
      * The publication's date.
      */
-    private Date publicationDate;
+    private Date date;
 
     /**
      * Number of pages.
      */
-    private Integer publicationNumOfPages;
+    private Integer numberOfPages;
 
     /**
      * The publication's description.
      */
-    private String publicationDescription;
+    private String description;
 
     /*Getters and Setters*/
 
-    public Integer getPublicationNumOfPages() {
-        return publicationNumOfPages;
+    public Integer getNumberOfPages() {
+        return numberOfPages;
     }
 
-    public void setPublicationNumOfPages(Integer publicationNumOfPages) {
-        this.publicationNumOfPages = publicationNumOfPages;
+    public void setNumberOfPages(Integer numberOfPages) {
+        this.numberOfPages = numberOfPages;
     }
 
-    public final Integer getPublicationId() {
-        return publicationId;
+    public final Integer getId() {
+        return id;
     }
 
-    public final void setPublicationId(final Integer publicationId) {
-        this.publicationId = publicationId;
+    public final void setId(final Integer id) {
+        this.id = id;
     }
 
-    public final String getPublicationName() {
-        return publicationName;
+    public final String getName() {
+        return name;
     }
 
-    public final void setPublicationName(final String publicationName) {
-        this.publicationName = publicationName;
+    public final void setName(final String name) {
+        this.name = name;
     }
 
     public final Integer getWriterId() {
@@ -97,21 +97,21 @@ public class Publication {
         this.writerId = writerId;
     }
 
-    public final Date getPublicationDate() {
-        return publicationDate;
+    public final Date getDate() {
+        return date;
     }
 
-    public final void setPublicationDate(final Date publicationDate) {
-        this.publicationDate = publicationDate;
+    public final void setDate(final Date date) {
+        this.date = date;
     }
 
-    public final String getPublicationDescription() {
-        return publicationDescription;
+    public final String getDescription() {
+        return description;
     }
 
-    public final void setPublicationDescription(
-            final String publicationDescription) {
-        this.publicationDescription = publicationDescription;
+    public final void setDescription(
+            final String description) {
+        this.description = description;
     }
 
     /**
@@ -122,12 +122,12 @@ public class Publication {
     @Override
     public final String toString() {
         return "Publication{"
-                + "publicationId=" + publicationId
-                + ", publicationName='" + publicationName + '\''
+                + "id=" + id
+                + ", name='" + name + '\''
                 + ", writerId=" + writerId
-                + ", publicationDate=" + publicationDate
-                + ", publicationNumOfPages=" + publicationNumOfPages
-                + ", publicationDescription='" + publicationDescription + '\''
+                + ", date=" + date
+                + ", numberOfPages=" + numberOfPages
+                + ", description='" + description + '\''
                 + '}';
     }
 }

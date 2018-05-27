@@ -14,55 +14,55 @@ public class Writer {
 
     /**
      * Constructor with params.
-     * @param writerName
-     * @param writerCountry
+     * @param name
+     * @param country
      */
     public Writer(
-            final String writerName,
-            final String writerCountry) {
-        this.writerName = writerName;
-        this.writerCountry = writerCountry;
+            final String name,
+            final String country) {
+        this.name = name;
+        this.country = country;
     }
 
     /**
      * The writer's id.
      */
-    private Integer writerId;
+    private Integer id;
 
     /**
      * The writer's name.
      */
-    private String writerName;
+    private String name;
 
     /**
      * The writer's country.
      */
-    private String writerCountry;
+    private String country;
 
     /*Getters and Setters*/
 
-    public final Integer getWriterId() {
-        return writerId;
+    public final Integer getId() {
+        return id;
     }
 
-    public final void setWriterId(final Integer writerId) {
-        this.writerId = writerId;
+    public final void setId(final Integer id) {
+        this.id = id;
     }
 
-    public final String getWriterName() {
-        return writerName;
+    public final String getName() {
+        return name;
     }
 
-    public final void setWriterName(final String writerName) {
-        this.writerName = writerName;
+    public final void setName(final String name) {
+        this.name = name;
     }
 
-    public final String getWriterCountry() {
-        return writerCountry;
+    public final String getCountry() {
+        return country;
     }
 
-    public final void setWriterCountry(final String writerCountry) {
-        this.writerCountry = writerCountry;
+    public final void setCountry(final String country) {
+        this.country = country;
     }
 
     /**
@@ -72,9 +72,9 @@ public class Writer {
     @Override
     public final String toString() {
         return "Writer{"
-                + "writerId=" + writerId
-                + ", writerName='" + writerName + '\''
-                + ", writerCountry='" + writerCountry + '\''
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", country='" + country + '\''
                 + '}';
     }
 }

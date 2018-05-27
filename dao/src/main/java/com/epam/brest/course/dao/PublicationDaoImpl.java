@@ -100,7 +100,7 @@ public class PublicationDaoImpl implements PublicationDao {
     @Override
     public final Publication getPublicationById(
             final Integer publicationId) {
-        LOGGER.debug("getPublicationsById({})", publicationId);
+        LOGGER.debug("getPublicationById({})", publicationId);
         SqlParameterSource namedParameters =
                 new MapSqlParameterSource(
                         PUBLICATION_ID, publicationId);
@@ -117,22 +117,22 @@ public class PublicationDaoImpl implements PublicationDao {
         MapSqlParameterSource namedParameters =
                 new MapSqlParameterSource();
         namedParameters.addValue(
-                PUBLICATION_NAME, publication.getPublicationName());
+                PUBLICATION_NAME, publication.getName());
         namedParameters.addValue(
                 WRITER_ID, publication.getWriterId());
         namedParameters.addValue(
-                PUBLICATION_DATE, publication.getPublicationDate());
+                PUBLICATION_DATE, publication.getDate());
         namedParameters.addValue(
                 PUBLICATION_NUM_OF_PAGES,
-                        publication.getPublicationNumOfPages());
+                        publication.getNumberOfPages());
         namedParameters.addValue(
                 PUBLICATION_DESCRIPTION,
-                        publication.getPublicationDescription());
+                        publication.getDescription());
 
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         namedParameterJdbcTemplate.update(
                 addPublicationSql, namedParameters, generatedKeyHolder);
-        publication.setPublicationId(
+        publication.setId(
                 generatedKeyHolder.getKey().intValue());
         return publication;
     }
@@ -143,19 +143,19 @@ public class PublicationDaoImpl implements PublicationDao {
         MapSqlParameterSource namedParameters =
                 new MapSqlParameterSource();
         namedParameters.addValue(
-                PUBLICATION_ID, publication.getPublicationId());
+                PUBLICATION_ID, publication.getId());
         namedParameters.addValue(
-                PUBLICATION_NAME, publication.getPublicationName());
+                PUBLICATION_NAME, publication.getName());
         namedParameters.addValue(
                 WRITER_ID, publication.getWriterId());
         namedParameters.addValue(
-                PUBLICATION_DATE, publication.getPublicationDate());
+                PUBLICATION_DATE, publication.getDate());
         namedParameters.addValue(
                 PUBLICATION_NUM_OF_PAGES,
-                        publication.getPublicationNumOfPages());
+                        publication.getNumberOfPages());
         namedParameters.addValue(
                 PUBLICATION_DESCRIPTION,
-                        publication.getPublicationDescription());
+                        publication.getDescription());
         namedParameterJdbcTemplate.update(
                 updatePublicationSql, namedParameters);
     }
@@ -178,14 +178,14 @@ public class PublicationDaoImpl implements PublicationDao {
         public final Publication mapRow(
                 final ResultSet resultSet, final int i) throws SQLException {
             Publication publication = new Publication();
-            publication.setPublicationId(resultSet.getInt(PUBLICATION_ID));
-            publication.setPublicationName(
+            publication.setId(resultSet.getInt(PUBLICATION_ID));
+            publication.setName(
                     resultSet.getString(PUBLICATION_NAME));
             publication.setWriterId(resultSet.getInt(WRITER_ID));
-            publication.setPublicationDate(resultSet.getDate(PUBLICATION_DATE));
-            publication.setPublicationNumOfPages(
+            publication.setDate(resultSet.getDate(PUBLICATION_DATE));
+            publication.setNumberOfPages(
                     resultSet.getInt(PUBLICATION_NUM_OF_PAGES));
-            publication.setPublicationDescription(
+            publication.setDescription(
                     resultSet.getString(PUBLICATION_DESCRIPTION));
             return publication;
         }

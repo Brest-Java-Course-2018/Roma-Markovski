@@ -138,13 +138,13 @@ public class WriterDaoImpl implements WriterDao {
         LOGGER.debug("addWriter({})", writer);
         MapSqlParameterSource namedParameters =
                 new MapSqlParameterSource(WRITER_NAME,
-                        writer.getWriterName());
+                        writer.getName());
         namedParameters.addValue(WRITER_COUNTRY,
-                writer.getWriterCountry());
+                writer.getCountry());
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         namedParameterJdbcTemplate.update(addWriterSql,
                 namedParameters, generatedKeyHolder);
-        writer.setWriterId(generatedKeyHolder.getKey().intValue());
+        writer.setId(generatedKeyHolder.getKey().intValue());
         return writer;
     }
 
@@ -153,9 +153,9 @@ public class WriterDaoImpl implements WriterDao {
         LOGGER.debug("updateWriter({})", writer);
         MapSqlParameterSource namedParameters =
                 new MapSqlParameterSource(WRITER_NAME,
-                        writer.getWriterName());
-        namedParameters.addValue(WRITER_COUNTRY, writer.getWriterCountry());
-        namedParameters.addValue(WRITER_ID, writer.getWriterId());
+                        writer.getName());
+        namedParameters.addValue(WRITER_COUNTRY, writer.getCountry());
+        namedParameters.addValue(WRITER_ID, writer.getId());
         namedParameterJdbcTemplate.update(updateWriterSql, namedParameters);
     }
 
@@ -178,9 +178,9 @@ public class WriterDaoImpl implements WriterDao {
                 final ResultSet resultSet, final int i)
                 throws SQLException {
             Writer writer = new Writer();
-            writer.setWriterId(resultSet.getInt(WRITER_ID));
-            writer.setWriterName(resultSet.getString(WRITER_NAME));
-            writer.setWriterCountry(resultSet.getString(WRITER_COUNTRY));
+            writer.setId(resultSet.getInt(WRITER_ID));
+            writer.setName(resultSet.getString(WRITER_NAME));
+            writer.setCountry(resultSet.getString(WRITER_COUNTRY));
             return writer;
         }
     }
