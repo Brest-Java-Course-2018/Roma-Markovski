@@ -88,15 +88,15 @@
                         </thead>
                         <tbody>
                         <tr th:each="writer: ${writers}">
-                            <td th:text="${writer.writerName}">Tolstoy Leo</td>
-                            <td th:text="${writer.writerCountry}">Russia</td>
-                            <td>2</td>
+                            <td th:text="${writer.name}">Tolstoy Leo</td>
+                            <td th:text="${writer.country}">Russia</td>
+                            <td th:text="${writer.numberOfPublications}"></td>
                             <td class="text-right">
                                 <a title="Edit writer"
                                    data-toggle="tooltip"
                                    data-placement="top"
                                    href="writer.html"
-                                   th:href="'/writer/' + ${writer.writerId}"
+                                   th:href="'/writer/' + ${writer.id}"
                                    class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
                                     <span class="d-none d-lg-inline">Edit</span>
                                 </a>

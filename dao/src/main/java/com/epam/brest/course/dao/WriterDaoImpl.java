@@ -1,5 +1,6 @@
 package com.epam.brest.course.dao;
 
+import com.epam.brest.course.dto.WriterDTO;
 import com.epam.brest.course.model.Writer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,6 +39,8 @@ public class WriterDaoImpl implements WriterDao {
 
     private static final String WRITER_COUNTRY = "writer_country";
 
+    private static final String NUMBER_OF_PUBLICATIONS = "number_of_publications";
+
     /**
      * SQL Select-all String.
      */
@@ -45,10 +48,22 @@ public class WriterDaoImpl implements WriterDao {
     private String getWritersSql;
 
     /**
+     * SQL Select-all-DTOs String.
+     */
+    @Value("${writer.selectDTOs}")
+    private String getWriterDTOsSql;
+
+    /**
      * SQL Select-By-Id String.
      */
     @Value("${writer.selectById}")
     private String getWriterByIdSql;
+
+    /**
+     * SQL Select-DTO-By-Id String.
+     */
+    @Value("${writer.selectDTOById}")
+    private String getWriterDTOByIdSql;
 
     /**
      * SQL Insert String.
@@ -88,14 +103,34 @@ public class WriterDaoImpl implements WriterDao {
     }
 
     @Override
+    public final Collection<WriterDTO> getWriterDTOs() {
+        LOGGER.debug("getWriterDTOs()");
+        Collection<WriterDTO> writers =
+                namedParameterJdbcTemplate.
+                        query(getWriterDTOsSql, new WriterDTORowMapper());
+        return writers;
+    }
+
+    @Override
     public final Writer getWriterById(final Integer writerId) {
-        LOGGER.debug("getWritersById({})", writerId);
+        LOGGER.debug("getWriterById({})", writerId);
         SqlParameterSource namedParameters =
                 new MapSqlParameterSource(WRITER_ID, writerId);
         Writer writer = namedParameterJdbcTemplate.queryForObject(
                 getWriterByIdSql, namedParameters, new WriterRowMapper()
         );
         return writer;
+    }
+
+    @Override
+    public final WriterDTO getWriterDTOById(final Integer writerId) {
+        LOGGER.debug("getWriterDTOById({})", writerId);
+        SqlParameterSource namedParameters =
+                new MapSqlParameterSource(WRITER_ID, writerId);
+        WriterDTO writerDTO = namedParameterJdbcTemplate.queryForObject(
+                getWriterDTOByIdSql, namedParameters, new WriterDTORowMapper()
+        );
+        return writerDTO;
     }
 
     @Override
@@ -147,6 +182,25 @@ public class WriterDaoImpl implements WriterDao {
             writer.setWriterName(resultSet.getString(WRITER_NAME));
             writer.setWriterCountry(resultSet.getString(WRITER_COUNTRY));
             return writer;
+        }
+    }
+
+    /**
+     * WriterDTORowMapper  - for creating models from resultSet.
+     */
+    private class WriterDTORowMapper implements RowMapper<WriterDTO> {
+
+        @Override
+        public final WriterDTO mapRow(
+                final ResultSet resultSet, final int i)
+                throws SQLException {
+            WriterDTO writerDTO = new WriterDTO();
+            writerDTO.setId(resultSet.getInt(WRITER_ID));
+            writerDTO.setName(resultSet.getString(WRITER_NAME));
+            writerDTO.setCountry(resultSet.getString(WRITER_COUNTRY));
+            writerDTO.setNumberOfPublications(resultSet.getInt(
+                    NUMBER_OF_PUBLICATIONS));
+            return writerDTO;
         }
     }
 }

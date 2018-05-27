@@ -7,7 +7,7 @@ package com.epam.brest.course.model;
 public class Writer {
 
     /**
-     * Constructor withput params.
+     * Constructor without params.
      */
     public Writer() {
     }

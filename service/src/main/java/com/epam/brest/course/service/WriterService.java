@@ -1,5 +1,6 @@
 package com.epam.brest.course.service;
 
+import com.epam.brest.course.dto.WriterDTO;
 import com.epam.brest.course.model.Writer;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,12 @@ public interface WriterService {
      * @return collection of writers.
      */
     Collection<Writer> getWriters();
+
+    /**
+     * Gets collection of all writerDTOs from dao.
+     * @return collection of writerDTOs.
+     */
+    Collection<WriterDTO> getWriterDTOs();
 
     /**
      * Gets a writer by its id from dao.

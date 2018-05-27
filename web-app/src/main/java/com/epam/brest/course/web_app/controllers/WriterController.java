@@ -1,5 +1,6 @@
 package com.epam.brest.course.web_app.controllers;
 
+import com.epam.brest.course.dto.WriterDTO;
 import com.epam.brest.course.model.Writer;
 import com.epam.brest.course.service.WriterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ public class WriterController {
     WriterService writerService;
 
     @GetMapping(value = "/writers")
-    public String getWriters(Model model) {
-        Collection<Writer> writers = writerService.getWriters();
+    public String getWriterDTOs(Model model) {
+        Collection<WriterDTO> writers = writerService.getWriterDTOs();
         model.addAttribute("writers", writers);
         return "writers";
     }

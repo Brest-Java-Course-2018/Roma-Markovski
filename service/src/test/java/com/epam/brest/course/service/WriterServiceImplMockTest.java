@@ -1,6 +1,7 @@
 package com.epam.brest.course.service;
 
 import com.epam.brest.course.dao.WriterDao;
+import com.epam.brest.course.dto.WriterDTO;
 import com.epam.brest.course.model.Writer;
 import org.easymock.EasyMock;
 import org.junit.After;
@@ -25,8 +26,17 @@ public class WriterServiceImplMockTest {
     private static final Writer LERMONTOV = new Writer(
             "Lermontov Michael", "Russia");
 
+    private static final WriterDTO PUSHKIN_DTO = new WriterDTO(
+            "Pushkin Alex", "Russia", 1);
+
+    private static final WriterDTO LERMONTOV_DTO = new WriterDTO(
+            "Lermontov Michael", "Russia", 2);
+
     private static final List<Writer> WRITERS =
             Arrays.asList(PUSHKIN, LERMONTOV);
+
+    private static final List<WriterDTO> WRITER_DTOS =
+            Arrays.asList(PUSHKIN_DTO, LERMONTOV_DTO);
 
     @Autowired
     private WriterService writerService;
@@ -46,6 +56,14 @@ public class WriterServiceImplMockTest {
         EasyMock.replay(mockWriterDao);
         Collection<Writer> writers = writerService.getWriters();
         Assert.assertEquals(writers, WRITERS);
+    }
+
+    @Test
+    public void getWriterDTOs() {
+        EasyMock.expect(mockWriterDao.getWriterDTOs()).andReturn(WRITER_DTOS);
+        EasyMock.replay(mockWriterDao);
+        Collection<WriterDTO> writerDTOs = writerService.getWriterDTOs();
+        Assert.assertEquals(writerDTOs, WRITER_DTOS);
     }
 
     @Test

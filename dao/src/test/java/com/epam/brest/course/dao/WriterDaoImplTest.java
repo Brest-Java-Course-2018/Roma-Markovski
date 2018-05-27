@@ -1,5 +1,6 @@
 package com.epam.brest.course.dao;
 
+import com.epam.brest.course.dto.WriterDTO;
 import com.epam.brest.course.model.Writer;
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,6 +21,7 @@ import java.util.Collection;
 public class WriterDaoImplTest {
 
     private static final int WRITER_ID_1 = 1;
+    private static final int NUMBER_OF_PUBLICATIONS_1 = 1;
     private static final String PUSHKIN = "Pushkin Alex";
     private static final String RUSSIA = "Russia";
     private static final String GOGOL = "Gogol Nikolay";
@@ -37,6 +39,12 @@ public class WriterDaoImplTest {
     }
 
     @Test
+    public void getWriterDTOs() {
+        Collection <WriterDTO> writers = writerDao.getWriterDTOs();
+        Assert.assertFalse(writers.isEmpty());
+    }
+
+    @Test
     public void getWriterById() {
         Writer writer = writerDao.getWriterById(1);
         Assert.assertNotNull(writer);
@@ -44,6 +52,18 @@ public class WriterDaoImplTest {
         Assert.assertEquals(PUSHKIN, writer.getWriterName());
         Assert.assertEquals(RUSSIA, writer.getWriterCountry());
     }
+
+    @Test
+    public void getWriterDTOById() {
+        WriterDTO writerDTO = writerDao.getWriterDTOById(1);
+        Assert.assertNotNull(writerDTO);
+        Assert.assertTrue(writerDTO.getId().equals(WRITER_ID_1));
+        Assert.assertEquals(PUSHKIN, writerDTO.getName());
+        Assert.assertEquals(RUSSIA, writerDTO.getCountry());
+        Assert.assertTrue(writerDTO.getNumberOfPublications().
+                equals(NUMBER_OF_PUBLICATIONS_1));
+    }
+
 
     @Test
     public void addWriter() {

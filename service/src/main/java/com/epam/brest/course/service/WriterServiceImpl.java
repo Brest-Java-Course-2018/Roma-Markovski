@@ -1,6 +1,7 @@
 package com.epam.brest.course.service;
 
 import com.epam.brest.course.dao.WriterDao;
+import com.epam.brest.course.dto.WriterDTO;
 import com.epam.brest.course.model.Writer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,6 +35,13 @@ public class WriterServiceImpl implements WriterService {
     public final Collection<Writer> getWriters() {
         LOGGER.debug("getWriters()");
         Collection<Writer> writers = writerDao.getWriters();
+        return writers;
+    }
+
+    @Override
+    public final Collection<WriterDTO> getWriterDTOs() {
+        LOGGER.debug("getWriterDTOs()");
+        Collection<WriterDTO> writers = writerDao.getWriterDTOs();
         return writers;
     }
 
