@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Publication</title>
+    <title>Publications</title>
     <link rel="stylesheet"
           th:href="@{/resources/static/css/font-awesome.min.css}"
           href="../../resources/static/css/font-awesome.min.css">
@@ -20,8 +20,11 @@
 
 <div>
     <div id="navbar-with-logo" class="navbar navbar-expand-md navbar-dark">
-        <a href="publications.html" id="navbar-name" class="my-2 ml-2 navbar-brand">
-            <img height="70" src="img/book.svg">
+        <a href="publications.html"
+           th:href="@{/publications}"
+           id="navbar-name" class="my-2 ml-2 navbar-brand">
+            <img height="70" src="../../resources/static/img/book.svg"
+                 th:src="@{/resources/static/img/book.svg}">
             <span id="navbar-title">Writers and publications</span>
         </a>
     </div>
@@ -35,8 +38,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar-menu">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="publications.html">Publications <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="writers.html">Writers</a>
+                <a class="nav-item nav-link active"
+                   th:href="@{/publications}"
+                   href="publications.html">Publications <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link"
+                   th:href="@{/writers}"
+                   href="writers.html">Writers</a>
             </div>
         </div>
     </nav>
@@ -47,11 +54,13 @@
          id="div-header">
         <div id="div-header-top">
             <a href="publications.html"
+               th:href="@{/publications}"
                id="header-title"
                class="navbar-brand text-uppercase mr-auto">
                 Publications
             </a>
             <a href="publication.html"
+               th:href="@{/publication}"
                class="py-0 my-1 btn btn-dark"
                id="button-add"
                data-toggle="tooltip"
@@ -101,73 +110,81 @@
 <section id="publications">
     <div class="container-fluid">
         <div class="row">
-            <div class="col table-responsive">
-                <table class="table table-striped table-light" id="table-publications">
-                    <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Writer</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Number of pages</th>
-                        <th scope="col">Description</th>
-                        <th scope="col"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>War and Peace</td>
-                        <td>Tolstoy Leo</td>
-                        <td>12.10.2016</td>
-                        <td>567</td>
-                        <td>novel</td>
-                        <td class="text-right">
-                            <a title="Edit publication"
-                               data-toggle="tooltip"
-                               data-placement="top"
-                               href="publication.html"
-                               class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
-                                <span class="d-none d-lg-inline">Edit</span>
-                            </a>
-                            <a title="Delete publication"
-                               data-toggle="tooltip"
-                               data-placement="top"
-                               href="#"
-                               class="btn-sm btn-outline-danger">
+            <div class="col">
+                <div class="card table-responsive" th:if="not ${publications.isEmpty()}">
+                    <table class="table table-striped table-light" id="table-publications">
+                        <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Writer</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Number of pages</th>
+                            <th scope="col">Description</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="publication : ${publications}">
+                            <td th:text="${publication.name}">War and Peace</td>
+                            <td th:text="${publication.writerId}">Tolstoy Leo</td>
+                            <td th:text="${publication.date}">12.10.2016</td>
+                            <td th:text="${publication.numberOfPages}">567</td>
+                            <td th:text="${publication.description}">novel</td>
+                            <td class="text-right">
+                                <a title="Edit publication"
+                                   data-toggle="tooltip"
+                                   data-placement="top"
+                                   href="publication.html"
+                                   th:href="@{|/publication/${publication.id}|}"
+                                   class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
+                                    <span class="d-none d-lg-inline">Edit</span>
+                                </a>
+                                <a title="Delete publication"
+                                   data-toggle="tooltip"
+                                   data-placement="top"
+                                   href="#"
+                                   class="btn-sm btn-outline-danger">
+                                 <span data-target="#exampleModal"
+                                       data-toggle="modal"
+                                       th:attr="data-id=${publication.id},data-name=${publication.name}">
+                                    <i class="fa fa-remove"></i>
+                                <span class="d-none d-lg-inline">Delete</span>
+                                </span>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr th:remove="all">
+                            <td>Anna Karenina</td>
+                            <td>Tolstoy Leo</td>
+                            <td>03.10.2016</td>
+                            <td>235</td>
+                            <td>novel</td>
+                            <td class="text-right">
+                                <a title="Edit publication"
+                                   data-toggle="tooltip"
+                                   data-placement="top"
+                                   href="publication.html"
+                                   class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
+                                    <span class="d-none d-lg-inline">Edit</span>
+                                </a>
+                                <a title="Delete publication"
+                                   data-toggle="tooltip"
+                                   data-placement="top"
+                                   href="#"
+                                   class="btn-sm btn-outline-danger">
                                 <span data-target="#exampleModal" data-toggle="modal">
                                     <i class="fa fa-remove"></i>
                                 <span class="d-none d-lg-inline">Delete</span>
                                 </span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Anna Karenina</td>
-                        <td>Tolstoy Leo</td>
-                        <td>03.10.2016</td>
-                        <td>235</td>
-                        <td>novel</td>
-                        <td class="text-right">
-                            <a title="Edit publication"
-                               data-toggle="tooltip"
-                               data-placement="top"
-                               href="publication.html"
-                               class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
-                                <span class="d-none d-lg-inline">Edit</span>
-                            </a>
-                            <a title="Delete publication"
-                               data-toggle="tooltip"
-                               data-placement="top"
-                               href="#"
-                               class="btn-sm btn-outline-danger">
-                                <span data-target="#exampleModal" data-toggle="modal">
-                                    <i class="fa fa-remove"></i>
-                                <span class="d-none d-lg-inline">Delete</span>
-                                </span>
-                            </a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card alert alert-info" th:if="${publications.isEmpty()}">
+                    <h2>Nothing found</h2>
+                </div>
             </div>
         </div>
     </div>
@@ -188,7 +205,7 @@
                 Do you really want to delete this publication?
             </div>
             <div class="modal-footer">
-                <button type="button" id="delete-btn-yes" class="btn btn-outline-danger">Yes</button>
+                <a id="delete-btn-yes" class="btn btn-outline-danger">Yes</a>
                 <button type="button" id="delete-btn-no" class="btn" data-dismiss="modal">No</button>
             </div>
         </div>
@@ -204,6 +221,11 @@
 <script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
+    });
+    $('#exampleModal').on('show.bs.modal', function (event) {
+        var target = $(event.relatedTarget);
+        $(this).find('.modal-body').text('Do you really want to delete publication: "' + target.data('name') + '"?');
+        document.getElementById('delete-btn-yes').href = '/publication/' + target.data('id') + '/delete';
     })
 </script>
 </body>

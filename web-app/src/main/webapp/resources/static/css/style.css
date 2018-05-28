@@ -136,10 +136,10 @@ body {
     grid-template-columns: 100px 10px 100px auto;
 }
 
-#exampleModal .modal-footer{
+.modal-footer{
     justify-content: center;
 }
 
-#exampleModal .modal-footer button{
+.modal-footer .btn{
     width: 100px;
 }
