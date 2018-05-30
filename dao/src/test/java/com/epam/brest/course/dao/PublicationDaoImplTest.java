@@ -1,5 +1,6 @@
 package com.epam.brest.course.dao;
 
+import com.epam.brest.course.dto.PublicationDTO;
 import com.epam.brest.course.model.Publication;
 import org.junit.Assert;
 import org.junit.Test;
@@ -34,6 +35,8 @@ public class PublicationDaoImplTest {
     private static final String PEACE_AND_WAR = "Peace and War";
     private static final int WRITER_3 = 3;
     private static final String DATE_3 = "2018-01-19";
+    private static final String PUSHKIN_ALEX = "Pushkin Alex";
+
     @Autowired
     PublicationDao publicationDao;
 
@@ -54,7 +57,30 @@ public class PublicationDaoImplTest {
         Assert.assertTrue(publication.getWriterId().equals(WRITER_1));
         Assert.assertEquals(Date.valueOf(DATE_1),
                 publication.getDate());
-        Assert.assertTrue(publication.getNumberOfPages().equals(NUM_OF_PAGES_1));
+        Assert.assertTrue(publication.getNumberOfPages()
+                .equals(NUM_OF_PAGES_1));
+        Assert.assertEquals(POEM, publication.getDescription());
+    }
+
+    @Test
+    public void getPublicationDTOs() {
+        Collection<PublicationDTO> publications =
+                publicationDao.getPublicationDTOs();
+        Assert.assertFalse(publications.isEmpty());
+    }
+
+    @Test
+    public void getPublicationDTOById() {
+        PublicationDTO publication = publicationDao.getPublicationDTOById(1);
+        Assert.assertNotNull(publication);
+        Assert.assertTrue(publication.getId().equals(PUBLICATION_1));
+        Assert.assertEquals(EVGENIY_ONEGIN,
+                publication.getName());
+        Assert.assertTrue(publication.getWriterName().equals(PUSHKIN_ALEX));
+        Assert.assertEquals(Date.valueOf(DATE_1),
+                publication.getDate());
+        Assert.assertTrue(publication.getNumberOfPages()
+                .equals(NUM_OF_PAGES_1));
         Assert.assertEquals(POEM, publication.getDescription());
     }
 

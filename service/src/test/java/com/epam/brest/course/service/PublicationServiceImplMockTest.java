@@ -1,6 +1,7 @@
 package com.epam.brest.course.service;
 
 import com.epam.brest.course.dao.PublicationDao;
+import com.epam.brest.course.dto.PublicationDTO;
 import com.epam.brest.course.model.Publication;
 import org.easymock.EasyMock;
 import org.junit.After;
@@ -26,8 +27,19 @@ public class PublicationServiceImplMockTest {
     private static final Publication DUBROVSKI = new Publication(
             "Dubrovski", 1, Date.valueOf("2016-05-21"), 134, "Prose");
 
+    private static final PublicationDTO ONEGIN_DTO = new PublicationDTO(
+            "Evgeniy Onegin", "Alex Pushkin", Date.valueOf("2018-03-21"),
+            235, "Poem");
+
+    private static final PublicationDTO DUBROVSKI_DTO = new PublicationDTO(
+            "Dubrovski", "Alex Pushkin", Date.valueOf("2016-05-21"),
+            134, "Prose");
+
     private static final List<Publication> PUBLICATIONS =
             Arrays.asList(ONEGIN, DUBROVSKI);
+
+    private static final List<PublicationDTO> PUBLICATION_DTOS =
+            Arrays.asList(ONEGIN_DTO, DUBROVSKI_DTO);
 
     @Autowired
     private PublicationService publicationService;
@@ -49,6 +61,16 @@ public class PublicationServiceImplMockTest {
         Collection<Publication> publications =
                 publicationService.getPublications();
         Assert.assertEquals(publications, PUBLICATIONS);
+    }
+
+    @Test
+    public void getPublicationDTOs() {
+        EasyMock.expect(mockPublicationDao.getPublicationDTOs())
+                .andReturn(PUBLICATION_DTOS);
+        EasyMock.replay(mockPublicationDao);
+        Collection<PublicationDTO> publications =
+                publicationService.getPublicationDTOs();
+        Assert.assertEquals(publications, PUBLICATION_DTOS);
     }
 
     @Test

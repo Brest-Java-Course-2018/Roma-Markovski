@@ -1,6 +1,7 @@
 package com.epam.brest.course.service;
 
 import com.epam.brest.course.dao.PublicationDao;
+import com.epam.brest.course.dto.PublicationDTO;
 import com.epam.brest.course.model.Publication;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,6 +36,14 @@ public class PublicationServiceImpl implements PublicationService {
         LOGGER.debug("getPublications()");
         Collection<Publication> publications =
                 publicationDao.getPublications();
+        return publications;
+    }
+
+    @Override
+    public final Collection<PublicationDTO> getPublicationDTOs() {
+        LOGGER.debug("getPublicationDTOs()");
+        Collection<PublicationDTO> publications =
+                publicationDao.getPublicationDTOs();
         return publications;
     }
 

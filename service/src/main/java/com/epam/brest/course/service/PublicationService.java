@@ -1,5 +1,6 @@
 package com.epam.brest.course.service;
 
+import com.epam.brest.course.dto.PublicationDTO;
 import com.epam.brest.course.model.Publication;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,12 @@ public interface PublicationService {
      * @return publication.
      */
     Publication getPublicationById(Integer publicationId);
+
+    /**
+     * Gets collection of all publicationDTOs from dao.
+     * @return collection of publicationDTOs.
+     */
+    Collection<PublicationDTO> getPublicationDTOs();
 
     /**
      * Adds a publication to dao.

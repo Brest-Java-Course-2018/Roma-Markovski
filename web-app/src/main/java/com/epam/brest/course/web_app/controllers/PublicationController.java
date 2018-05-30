@@ -1,5 +1,6 @@
 package com.epam.brest.course.web_app.controllers;
 
+import com.epam.brest.course.dto.PublicationDTO;
 import com.epam.brest.course.model.Publication;
 import com.epam.brest.course.model.Writer;
 import com.epam.brest.course.service.PublicationService;
@@ -25,7 +26,8 @@ public class PublicationController {
 
     @GetMapping(value = "/publications")
     public String getPublications(Model model) {
-        Collection<Publication> publications = publicationService.getPublications();
+        Collection<PublicationDTO> publications =
+                publicationService.getPublicationDTOs();
         model.addAttribute("publications", publications);
         return "publications";
     }
@@ -41,7 +43,8 @@ public class PublicationController {
     }
 
     @PostMapping(value = "/publication")
-    public String addPublication(Publication publication, BindingResult result) {
+    public String addPublication(
+            Publication publication, BindingResult result) {
         if (result.hasErrors()) {
             return "publication";
         }

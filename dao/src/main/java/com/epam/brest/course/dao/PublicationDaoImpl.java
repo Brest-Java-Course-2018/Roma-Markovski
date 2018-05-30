@@ -1,5 +1,6 @@
 package com.epam.brest.course.dao;
 
+import com.epam.brest.course.dto.PublicationDTO;
 import com.epam.brest.course.model.Publication;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,6 +39,8 @@ public class PublicationDaoImpl implements PublicationDao {
     private static final String PUBLICATION_NAME = "publication_name";
 
     private static final String WRITER_ID = "writer_id";
+
+    private static final String WRITER_NAME = "writer_name";
     
     private static final String PUBLICATION_DATE = "publication_date";
     
@@ -58,6 +61,18 @@ public class PublicationDaoImpl implements PublicationDao {
      */
     @Value("${publication.selectById}")
     private String getPublicationByIdSql;
+
+    /**
+     * SQL Select-All-DTOs String.
+     */
+    @Value("${publication.selectDTOs}")
+    private String getPublicationDTOsSql;
+
+    /**
+     * SQL Select-DTO-By-Id String.
+     */
+    @Value("${publication.selectDTOById}")
+    private String getPublicationDTOByIdSql;
 
     /**
      * SQL Insert String.
@@ -107,6 +122,29 @@ public class PublicationDaoImpl implements PublicationDao {
         Publication publication = namedParameterJdbcTemplate.
                 queryForObject(getPublicationByIdSql, namedParameters,
                         BeanPropertyRowMapper.newInstance(Publication.class));
+        return publication;
+    }
+
+    @Override
+    public final Collection<PublicationDTO> getPublicationDTOs() {
+        LOGGER.debug("getPublicationDTOs()");
+        Collection<PublicationDTO> publications =
+                namedParameterJdbcTemplate.
+                        query(getPublicationDTOsSql,
+                                new PublicationDTORowMapper());
+        return publications;
+    }
+
+    @Override
+    public final PublicationDTO getPublicationDTOById(
+            final Integer publicationId) {
+        LOGGER.debug("getPublicationDTOById({})", publicationId);
+        SqlParameterSource namedParameters =
+                new MapSqlParameterSource(
+                        PUBLICATION_ID, publicationId);
+        PublicationDTO publication = namedParameterJdbcTemplate.
+                queryForObject(getPublicationDTOByIdSql, namedParameters,
+                        new PublicationDTORowMapper());
         return publication;
     }
 
@@ -182,6 +220,28 @@ public class PublicationDaoImpl implements PublicationDao {
             publication.setName(
                     resultSet.getString(PUBLICATION_NAME));
             publication.setWriterId(resultSet.getInt(WRITER_ID));
+            publication.setDate(resultSet.getDate(PUBLICATION_DATE));
+            publication.setNumberOfPages(
+                    resultSet.getInt(PUBLICATION_NUM_OF_PAGES));
+            publication.setDescription(
+                    resultSet.getString(PUBLICATION_DESCRIPTION));
+            return publication;
+        }
+    }
+
+    /**
+     * PublicationDTORowMapper  - for creating models from resultSet.
+     */
+    private class PublicationDTORowMapper implements RowMapper<PublicationDTO> {
+
+        @Override
+        public final PublicationDTO mapRow(
+                final ResultSet resultSet, final int i) throws SQLException {
+            PublicationDTO publication = new PublicationDTO();
+            publication.setId(resultSet.getInt(PUBLICATION_ID));
+            publication.setName(
+                    resultSet.getString(PUBLICATION_NAME));
+            publication.setWriterName(resultSet.getString(WRITER_NAME));
             publication.setDate(resultSet.getDate(PUBLICATION_DATE));
             publication.setNumberOfPages(
                     resultSet.getInt(PUBLICATION_NUM_OF_PAGES));

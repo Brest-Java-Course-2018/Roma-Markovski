@@ -11,6 +11,9 @@
     <packaging>war</packaging>
 
     <artifactId>web-app</artifactId>
+
+    <name>web-app</name>
+
     <dependencies>
         <dependency>
             <groupId>com.epam.brest.course</groupId>

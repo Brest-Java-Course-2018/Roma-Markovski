@@ -1,5 +1,6 @@
 package com.epam.brest.course.dao;
 
+import com.epam.brest.course.dto.PublicationDTO;
 import com.epam.brest.course.model.Publication;
 
 import java.util.Collection;
@@ -21,6 +22,19 @@ public interface PublicationDao {
      * @return publication.
      */
     Publication getPublicationById(Integer publicationId);
+
+    /**
+     * Gets collection of all publicationDTOs from DB.
+     * @return collection of publications.
+     */
+    Collection<PublicationDTO> getPublicationDTOs();
+
+    /**
+     * Gets a publicationDTO by its id from DB. JUST FOR TEST.
+     * @param publicationId - id of publication.
+     * @return publication.
+     */
+    PublicationDTO getPublicationDTOById(Integer publicationId);
 
     /**
      * Adds a publication to DB.
