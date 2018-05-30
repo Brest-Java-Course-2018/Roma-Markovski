@@ -2,6 +2,9 @@ package com.epam.brest.course.dto;
 
 import java.sql.Date;
 
+/**
+ * Data-transfer Object class "PublicationDTO" - for output.
+ */
 public class PublicationDTO {
 
     /**
@@ -62,11 +65,11 @@ public class PublicationDTO {
 
     /*Getters and Setters*/
 
-    public Integer getNumberOfPages() {
+    public final Integer getNumberOfPages() {
         return numberOfPages;
     }
 
-    public void setNumberOfPages(Integer numberOfPages) {
+    public final void setNumberOfPages(final Integer numberOfPages) {
         this.numberOfPages = numberOfPages;
     }
 

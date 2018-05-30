@@ -27,7 +27,7 @@ public class WriterServiceImpl implements WriterService {
      * Service constructor.
      * @param writerDao - dao.
      */
-    public WriterServiceImpl(WriterDao writerDao) {
+    public WriterServiceImpl(final WriterDao writerDao) {
         this.writerDao = writerDao;
     }
 

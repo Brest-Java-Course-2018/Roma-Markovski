@@ -39,7 +39,8 @@ public class WriterDaoImpl implements WriterDao {
 
     private static final String WRITER_COUNTRY = "writer_country";
 
-    private static final String NUMBER_OF_PUBLICATIONS = "number_of_publications";
+    private static final String NUMBER_OF_PUBLICATIONS =
+            "number_of_publications";
 
     /**
      * SQL Select-all String.

@@ -38,8 +38,8 @@ public class WriterDTO {
      * @param country
      * @param numberOfPublications
      */
-    public WriterDTO(String name, String country,
-                     Integer numberOfPublications) {
+    public WriterDTO(final String name, final String country,
+                     final Integer numberOfPublications) {
         this.name = name;
         this.country = country;
         this.numberOfPublications = numberOfPublications;
@@ -47,45 +47,46 @@ public class WriterDTO {
 
     /*Getters and Setters*/
 
-    public Integer getId() {
+    public final Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public final void setId(final Integer id) {
         this.id = id;
     }
 
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public final void setName(final String name) {
         this.name = name;
     }
 
-    public String getCountry() {
+    public final String getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public final void setCountry(final String country) {
         this.country = country;
     }
 
-    public Integer getNumberOfPublications() {
+    public final Integer getNumberOfPublications() {
         return numberOfPublications;
     }
 
-    public void setNumberOfPublications(Integer numberOfPublications) {
+    public final void setNumberOfPublications(
+            final Integer numberOfPublications) {
         this.numberOfPublications = numberOfPublications;
     }
 
     @Override
     public String toString() {
-        return "WriterDTO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", country='" + country + '\'' +
-                ", numberOfPublications=" + numberOfPublications +
-                '}';
+        return "WriterDTO{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", country='" + country + '\''
+                + ", numberOfPublications=" + numberOfPublications
+                + '}';
     }
 }

@@ -48,7 +48,7 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
-    public final Publication getPublicationById(Integer publicationId) {
+    public final Publication getPublicationById(final Integer publicationId) {
         LOGGER.debug("getPublicationById({})", publicationId);
         Publication publication =
                 publicationDao.getPublicationById(publicationId);
