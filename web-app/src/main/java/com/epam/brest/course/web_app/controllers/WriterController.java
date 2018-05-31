@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.Collection;
 
 /**
@@ -63,7 +64,7 @@ public class WriterController {
      */
     @PostMapping(value = "/writer")
     public final String addWriter(
-            final Writer writer, final BindingResult result) {
+            final @Valid Writer writer, final BindingResult result) {
         LOGGER.debug("addWriter({}, {})", writer, result);
         if (result.hasErrors()) {
             return "writer";
@@ -93,7 +94,7 @@ public class WriterController {
      */
     @PostMapping(value = "/writer/{id}")
     public final String editWriter(
-            final Writer writer, final BindingResult result) {
+            final @Valid Writer writer, final BindingResult result) {
         LOGGER.debug("gotoEditWriter({}, {})", writer, result);
         if (result.hasErrors()) {
             return "writer";

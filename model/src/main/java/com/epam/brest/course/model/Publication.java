@@ -1,11 +1,25 @@
 package com.epam.brest.course.model;
 
+import javax.validation.constraints.*;
 import java.sql.Date;
 
 /**
  * Model class "Publication".
  */
 public class Publication {
+
+    private static final String NAME_WRONG_SIZE =
+            "The name of publication must be between 1 and 255 characters.";
+    private static final String DATE_IS_PAST =
+            "The date of publication must be in the past";
+    private static final String DATE_IS_NULL =
+            "The date of publication can't be null.";
+    private static final String PAGES_ARE_NOT_POSITIVE =
+            "The number of pages must be positive number.";
+    private static final String PAGES_ARE_TOO_BIG =
+            "The number of pages must be less than 10000.";
+    private static final String DESCRIPTION_IS_TOO_BIG =
+            "The description of publication must be less than 256.";
 
     /**
      * Constructor without params.
@@ -41,6 +55,7 @@ public class Publication {
     /**
      * The publication's name.
      */
+    @Size(min = 1, max = 255, message = NAME_WRONG_SIZE)
     private String name;
 
     /**
@@ -51,16 +66,21 @@ public class Publication {
     /**
      * The publication's date.
      */
+    @Past (message = DATE_IS_PAST)
+    @NotNull (message = DATE_IS_NULL)
     private Date date;
 
     /**
      * Number of pages.
      */
+    @Min(value = 1, message = PAGES_ARE_NOT_POSITIVE)
+    @Max(value = 9999, message = PAGES_ARE_TOO_BIG)
     private Integer numberOfPages;
 
     /**
      * The publication's description.
      */
+    @Size(max = 255, message = DESCRIPTION_IS_TOO_BIG)
     private String description;
 
     /*Getters and Setters*/

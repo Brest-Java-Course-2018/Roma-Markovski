@@ -1,10 +1,17 @@
 package com.epam.brest.course.model;
 
 
+import javax.validation.constraints.Size;
+
 /**
  * Model class "Writer".
  */
 public class Writer {
+
+    public static final String WRITER_WRONG_SIZE =
+            "The name of writer must be between 3 and 255 characters.";
+    public static final String COUNTRY_WRONG_SIZE =
+            "The country of writer must be between 3 and 63 characters.";
 
     /**
      * Constructor without params.
@@ -32,11 +39,13 @@ public class Writer {
     /**
      * The writer's name.
      */
+    @Size(min = 3, max = 255, message = WRITER_WRONG_SIZE)
     private String name;
 
     /**
      * The writer's country.
      */
+    @Size(min = 3, max = 63, message = COUNTRY_WRONG_SIZE)
     private String country;
 
     /*Getters and Setters*/

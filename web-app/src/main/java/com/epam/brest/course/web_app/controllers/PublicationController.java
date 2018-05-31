@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.Collection;
 
 /**
@@ -74,7 +75,8 @@ public class PublicationController {
      */
     @PostMapping(value = "/publication")
     public final String addPublication(
-            final Publication publication, final BindingResult result) {
+            final @Valid Publication publication,
+            final BindingResult result) {
         LOGGER.debug("addPublication({}, {})", publication, result);
         if (result.hasErrors()) {
             return "publication";
@@ -106,7 +108,8 @@ public class PublicationController {
      */
     @PostMapping(value = "/publication/{id}")
     public final String editPublication(
-            final Publication publication, final BindingResult result) {
+            final @Valid Publication publication,
+            final BindingResult result) {
         LOGGER.debug("editPublication({}, {})", publication, result);
         if (result.hasErrors()) {
             return "publication";
