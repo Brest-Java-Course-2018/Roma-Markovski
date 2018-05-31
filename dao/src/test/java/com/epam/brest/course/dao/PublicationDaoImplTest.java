@@ -25,7 +25,7 @@ public class PublicationDaoImplTest {
     private static final String DATE_1 = "2018-03-21";
     private static final int WRITER_1 = 1;
     private static final int PUBLICATION_1 = 1;
-    private static final int NUM_OF_PAGES_1 = 235;
+    private static final int NUM_OF_PAGES_1 = 384;
     private static final String POEM = "Poem";
     private static final String WAR_AND_PEACE = "War and Peace";
     private static final int WRITER_2 = 2;
@@ -36,6 +36,8 @@ public class PublicationDaoImplTest {
     private static final int WRITER_3 = 3;
     private static final String DATE_3 = "2018-01-19";
     private static final String PUSHKIN_ALEX = "Pushkin Alex";
+    private static final String START_DATE = "2017-07-03";
+    private static final String END_DATE = "2018-03-13";
 
     @Autowired
     PublicationDao publicationDao;
@@ -67,6 +69,19 @@ public class PublicationDaoImplTest {
         Collection<PublicationDTO> publications =
                 publicationDao.getPublicationDTOs();
         Assert.assertFalse(publications.isEmpty());
+    }
+
+    @Test
+    public void getPublicationDTOsByDate() {
+        Date startDate = Date.valueOf(START_DATE);
+        Date endDate = Date.valueOf(END_DATE);
+        Collection<PublicationDTO> publications =
+                publicationDao.getPublicationDTOsByDate(
+                      startDate, endDate);
+        for (PublicationDTO publication : publications) {
+            Assert.assertFalse(publication.getDate().after(endDate));
+            Assert.assertFalse(publication.getDate().before(startDate));
+        }
     }
 
     @Test

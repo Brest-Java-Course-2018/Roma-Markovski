@@ -14,8 +14,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.sql.Date;
 import java.util.Collection;
 
 /**
@@ -46,11 +48,33 @@ public class PublicationController {
      * @return view name
      */
     @GetMapping(value = "/publications")
-    public final String getPublications(final Model model) {
-        LOGGER.debug("getPublications({})", model);
+    public final String getPublicationDTOs(final Model model) {
+        LOGGER.debug("getPublicationDTOs({})", model);
         Collection<PublicationDTO> publications =
                 publicationService.getPublicationDTOs();
         model.addAttribute("publications", publications);
+        model.addAttribute("isCollapsed", true);
+        return "publications";
+    }
+
+    /**
+     * Displays publications filtered by date.
+     * @return view name
+     */
+    @PostMapping(value = "/publications")
+    public final String getPublicationDTOsByDate(
+            final Model model,
+            @RequestParam("startDate") final String startDate,
+            @RequestParam("endDate") final String endDate) {
+        LOGGER.debug("getPublicationDTOsByDate({}, {}, {})",
+                startDate, endDate, model);
+            Collection<PublicationDTO> publications =
+                    publicationService.getPublicationDTOsByDate(
+                            Date.valueOf(startDate), Date.valueOf(endDate));
+        model.addAttribute("publications", publications);
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
+        model.addAttribute("isCollapsed", false);
         return "publications";
     }
 

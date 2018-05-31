@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
@@ -26,6 +27,8 @@ public class PublicationDaoImpl implements PublicationDao {
      * Logger.
      */
     private static final Logger LOGGER = LogManager.getLogger();
+    public static final String START_DATE = "start_date";
+    public static final String END_DATE = "end_date";
 
     /**
      * Named parameter JDBC template.
@@ -67,6 +70,12 @@ public class PublicationDaoImpl implements PublicationDao {
      */
     @Value("${publication.selectDTOs}")
     private String getPublicationDTOsSql;
+
+    /**
+     * SQL Select-All-DTOs-By-Date String.
+     */
+    @Value("${publication.selectDTOsByDate}")
+    private String getPublicationDTOsByDateSql;
 
     /**
      * SQL Select-DTO-By-Id String.
@@ -132,6 +141,20 @@ public class PublicationDaoImpl implements PublicationDao {
                 namedParameterJdbcTemplate.
                         query(getPublicationDTOsSql,
                                 new PublicationDTORowMapper());
+        return publications;
+    }
+
+    @Override
+    public final Collection<PublicationDTO> getPublicationDTOsByDate(
+            final Date startDate, final Date endDate) {
+        LOGGER.debug("getPublicationDTOsByDate({}, {})", startDate, endDate);
+        MapSqlParameterSource namedParameters =
+                new MapSqlParameterSource();
+        namedParameters.addValue(START_DATE, startDate);
+        namedParameters.addValue(END_DATE, endDate);
+        Collection<PublicationDTO> publications =
+                namedParameterJdbcTemplate.query(getPublicationDTOsByDateSql,
+                        namedParameters, new PublicationDTORowMapper());
         return publications;
     }
 

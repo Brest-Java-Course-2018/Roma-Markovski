@@ -81,19 +81,33 @@
                     title="Filter by date">
                 <span>Filter by date</span>
             </button>
-            <form class="mt-2 collapse" id="date-filter-form">
+            <form class="mt-2 collapse"
+                  th:classappend="${isCollapsed} ? '' : 'show'"
+                  id="date-filter-form"
+                  action="publications.html"
+                  th:action="@{${#httpServletRequest.servletPath}}"
+                  th:method="@{post}">
                 <label class="mt-2" for="before-date">Select date from</label>
-                <input type="date" class="mt-2 form-control" id="before-date">
+                <input type="date"
+                       class="mt-2 form-control"
+                       id="before-date"
+                       th:value="${startDate}"
+                       name="startDate">
                 <label class="mt-2" for="after-date">to</label>
-                <input type="date" class="mt-2 form-control" id="after-date">
+                <input type="date"
+                       class="mt-2 form-control"
+                       id="after-date"
+                       th:value="${endDate}"
+                       name="endDate">
                 <div class="mt-2" id="div-two-btns">
-                    <button href="#"
-                            class="btn btn-light button-date-accept"
-                            type="button"
-                            data-toggle="tool-tip"
-                            title="Accept filter by date">
+                    <a href="#"
+                       th:href="@{/publications}"
+                       th:onclick="@{document.forms['date-filter-form'].submit(); return false;}"
+                       class="btn btn-light button-date-accept"
+                       data-toggle="tool-tip"
+                       title="Accept filter by date">
                         <span>Accept</span>
-                    </button>
+                    </a>
                     <button href="#"
                             class="btn btn-light button-date-reset"
                             type="reset"

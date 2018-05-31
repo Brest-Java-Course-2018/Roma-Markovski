@@ -35,6 +35,10 @@ public class PublicationServiceImplMockTest {
             "Dubrovski", "Alex Pushkin", Date.valueOf("2016-05-21"),
             134, "Prose");
 
+    private static final String START_DATE = "2017-07-03";
+
+    private static final String END_DATE = "2018-03-13";
+
     private static final List<Publication> PUBLICATIONS =
             Arrays.asList(ONEGIN, DUBROVSKI);
 
@@ -72,6 +76,20 @@ public class PublicationServiceImplMockTest {
                 publicationService.getPublicationDTOs();
         Assert.assertEquals(publications, PUBLICATION_DTOS);
     }
+
+    @Test
+    public void getPublicationDTOsByDate() {
+        EasyMock.expect(
+                mockPublicationDao.getPublicationDTOsByDate(
+                        EasyMock.anyObject(Date.class), EasyMock.anyObject(Date.class)))
+                .andReturn(PUBLICATION_DTOS);
+        EasyMock.replay(mockPublicationDao);
+        Collection<PublicationDTO> publications =
+                publicationService.getPublicationDTOsByDate(
+                        Date.valueOf(START_DATE), Date.valueOf(END_DATE));
+        Assert.assertEquals(publications, PUBLICATION_DTOS);
+    }
+
 
     @Test
     public void getPublicationById() {

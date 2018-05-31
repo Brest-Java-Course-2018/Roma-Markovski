@@ -3,6 +3,7 @@ package com.epam.brest.course.dao;
 import com.epam.brest.course.dto.PublicationDTO;
 import com.epam.brest.course.model.Publication;
 
+import java.sql.Date;
 import java.util.Collection;
 
 /**
@@ -42,6 +43,15 @@ public interface PublicationDao {
      * @return - the same publication with generated id.
      */
     Publication addPublication(Publication publication);
+
+    /**
+     * Gets publicationDTOs between certain dates from DB.
+     * @param startDate - start date.
+     * @param endDate - end date.
+     * @return publicaionDTOs filtered by date.
+     */
+    Collection<PublicationDTO> getPublicationDTOsByDate(
+            Date startDate, Date endDate);
 
     /**
      * Edits a publication in DB.

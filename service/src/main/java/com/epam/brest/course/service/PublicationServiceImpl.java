@@ -6,6 +6,7 @@ import com.epam.brest.course.model.Publication;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.sql.Date;
 import java.util.Collection;
 
 /**
@@ -44,6 +45,15 @@ public class PublicationServiceImpl implements PublicationService {
         LOGGER.debug("getPublicationDTOs()");
         Collection<PublicationDTO> publications =
                 publicationDao.getPublicationDTOs();
+        return publications;
+    }
+
+    @Override
+    public Collection<PublicationDTO> getPublicationDTOsByDate(
+            Date startDate, Date endDate) {
+        LOGGER.debug("getPublicationDTOsByDate({}, {})", startDate, endDate);
+        Collection<PublicationDTO> publications =
+                publicationDao.getPublicationDTOsByDate(startDate, endDate);
         return publications;
     }
 
