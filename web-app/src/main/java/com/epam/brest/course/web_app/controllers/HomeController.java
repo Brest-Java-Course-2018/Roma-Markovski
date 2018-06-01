@@ -23,7 +23,7 @@ public class HomeController {
     @GetMapping(value = "/")
     public final String defaultPageRedirect() {
         LOGGER.debug("defaultPageRedirect()");
-        return "redirect:writers";
+        return "redirect:publications";
     }
 
 }
