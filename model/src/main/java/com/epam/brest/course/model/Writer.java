@@ -8,9 +8,9 @@ import javax.validation.constraints.Size;
  */
 public class Writer {
 
-    public static final String WRITER_WRONG_SIZE =
+    private static final String WRITER_WRONG_SIZE =
             "The name of writer must be between 3 and 255 characters.";
-    public static final String COUNTRY_WRONG_SIZE =
+    private static final String COUNTRY_WRONG_SIZE =
             "The country of writer must be between 3 and 63 characters.";
 
     /**
