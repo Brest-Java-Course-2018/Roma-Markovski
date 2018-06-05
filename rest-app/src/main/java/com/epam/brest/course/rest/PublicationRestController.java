@@ -1,5 +1,6 @@
 package com.epam.brest.course.rest;
 
+import com.epam.brest.course.dto.PublicationDTO;
 import com.epam.brest.course.model.Publication;
 import com.epam.brest.course.service.PublicationService;
 import org.apache.logging.log4j.LogManager;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.Collection;
 
 @RestController
@@ -22,9 +24,10 @@ public class PublicationRestController {
     private PublicationService publicationService;
 
     @GetMapping(value = "/publications")
-    public Collection<Publication> getPublications() {
-        LOGGER.debug("getPublications()");
-        Collection<Publication> publications = publicationService.getPublications();
+    public Collection<PublicationDTO> getPublicationDTOs() {
+        LOGGER.debug("getPublicationDTOs()");
+        Collection<PublicationDTO> publications =
+                publicationService.getPublicationDTOs();
         return publications;
     }
 
@@ -60,5 +63,17 @@ public class PublicationRestController {
     public void deletePublication(@PathVariable(value = "id") Integer id) {
         LOGGER.debug("deletePublication({})", id);
         publicationService.deletePublicationById(id);
+    }
+
+    @GetMapping(value = "/publications/{startDate}/{endDate}")
+    @ResponseStatus(HttpStatus.OK)
+    public Collection<PublicationDTO> getPublicationDTOsByDate(
+            @PathVariable(value = "startDate") String startDate,
+            @PathVariable(value = "endDate") String endDate) {
+        LOGGER.debug("getPublicationDTOsByDate({}, {})", startDate, endDate);
+        Collection<PublicationDTO> publications =
+                publicationService.getPublicationDTOsByDate(
+                        Date.valueOf(startDate), Date.valueOf(endDate));
+        return publications;
     }
 }

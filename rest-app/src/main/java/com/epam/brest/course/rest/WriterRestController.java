@@ -1,5 +1,6 @@
 package com.epam.brest.course.rest;
 
+import com.epam.brest.course.dto.WriterDTO;
 import com.epam.brest.course.model.Writer;
 import com.epam.brest.course.service.WriterService;
 import org.apache.logging.log4j.LogManager;
@@ -22,9 +23,9 @@ public class WriterRestController {
     private WriterService writerService;
 
     @GetMapping(value = "/writers")
-    public Collection<Writer> getWriters() {
-        LOGGER.debug("getWriters()");
-        Collection<Writer> writers = writerService.getWriters();
+    public Collection<WriterDTO> getWriterDTOs() {
+        LOGGER.debug("getWriterDTOs()");
+        Collection<WriterDTO> writers = writerService.getWriterDTOs();
         return writers;
     }
 
