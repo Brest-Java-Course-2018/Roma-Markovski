@@ -53,14 +53,13 @@ public class PublicationDaoImplTest {
     public void getPublicationById() {
         Publication publication = publicationDao.getPublicationById(1);
         Assert.assertNotNull(publication);
-        Assert.assertTrue(publication.getId().equals(PUBLICATION_1));
+        Assert.assertEquals(publication.getId().intValue(), PUBLICATION_1);
         Assert.assertEquals(EVGENIY_ONEGIN,
                 publication.getName());
-        Assert.assertTrue(publication.getWriterId().equals(WRITER_1));
+        Assert.assertEquals(publication.getWriterId().intValue(), WRITER_1);
         Assert.assertEquals(Date.valueOf(DATE_1),
                 publication.getDate());
-        Assert.assertTrue(publication.getNumberOfPages()
-                .equals(NUM_OF_PAGES_1));
+        Assert.assertEquals(publication.getNumberOfPages().intValue(), NUM_OF_PAGES_1);
         Assert.assertEquals(POEM, publication.getDescription());
     }
 
@@ -88,14 +87,14 @@ public class PublicationDaoImplTest {
     public void getPublicationDTOById() {
         PublicationDTO publication = publicationDao.getPublicationDTOById(1);
         Assert.assertNotNull(publication);
-        Assert.assertTrue(publication.getId().equals(PUBLICATION_1));
+        Assert.assertEquals(publication.getId().intValue(), PUBLICATION_1);
         Assert.assertEquals(EVGENIY_ONEGIN,
                 publication.getName());
-        Assert.assertTrue(publication.getWriterName().equals(PUSHKIN_ALEX));
+        Assert.assertEquals(publication.getWriterName(), PUSHKIN_ALEX);
         Assert.assertEquals(Date.valueOf(DATE_1),
                 publication.getDate());
-        Assert.assertTrue(publication.getNumberOfPages()
-                .equals(NUM_OF_PAGES_1));
+        Assert.assertEquals(
+                publication.getNumberOfPages().intValue(), NUM_OF_PAGES_1);
         Assert.assertEquals(POEM, publication.getDescription());
     }
 
@@ -118,11 +117,10 @@ public class PublicationDaoImplTest {
 
         Assert.assertEquals(WAR_AND_PEACE,
                 addedPublication.getName());
-        Assert.assertTrue(addedPublication.getWriterId().equals(WRITER_2));
+        Assert.assertEquals(addedPublication.getWriterId().intValue(), WRITER_2);
         Assert.assertEquals(Date.valueOf(DATE_2),
                 addedPublication.getDate());
-        Assert.assertTrue(
-                addedPublication.getNumberOfPages().equals(NUM_OF_PAGES_2));
+        Assert.assertEquals(addedPublication.getNumberOfPages().intValue(), NUM_OF_PAGES_2);
         Assert.assertEquals(NOVEL,
                 addedPublication.getDescription());
         Assert.assertEquals(size + 1,
@@ -153,7 +151,7 @@ public class PublicationDaoImplTest {
                 updatedPublication.getId());
         Assert.assertEquals(PEACE_AND_WAR,
                 updatedPublication.getName());
-        Assert.assertTrue(updatedPublication.getWriterId().equals(WRITER_3));
+        Assert.assertEquals(updatedPublication.getWriterId().intValue(), WRITER_3);
         Assert.assertEquals(Date.valueOf(DATE_3),
                 updatedPublication.getDate());
     }

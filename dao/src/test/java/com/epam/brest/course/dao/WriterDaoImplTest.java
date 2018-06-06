@@ -48,7 +48,7 @@ public class WriterDaoImplTest {
     public void getWriterById() {
         Writer writer = writerDao.getWriterById(1);
         Assert.assertNotNull(writer);
-        Assert.assertTrue(writer.getId().equals(WRITER_ID_1));
+        Assert.assertEquals(writer.getId().intValue(), WRITER_ID_1);
         Assert.assertEquals(PUSHKIN, writer.getName());
         Assert.assertEquals(RUSSIA, writer.getCountry());
     }
@@ -57,11 +57,11 @@ public class WriterDaoImplTest {
     public void getWriterDTOById() {
         WriterDTO writerDTO = writerDao.getWriterDTOById(1);
         Assert.assertNotNull(writerDTO);
-        Assert.assertTrue(writerDTO.getId().equals(WRITER_ID_1));
+        Assert.assertEquals(writerDTO.getId().intValue(), WRITER_ID_1);
         Assert.assertEquals(PUSHKIN, writerDTO.getName());
         Assert.assertEquals(RUSSIA, writerDTO.getCountry());
-        Assert.assertTrue(writerDTO.getNumberOfPublications().
-                equals(NUMBER_OF_PUBLICATIONS_1));
+        Assert.assertEquals(writerDTO.getNumberOfPublications()
+                .intValue(), NUMBER_OF_PUBLICATIONS_1);
     }
 
 

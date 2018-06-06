@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Collection;
 
 /**
- * Implementation of WriterService.
+ * Implementation of WriterService. Gets data from dao and database.
  */
 public class WriterServiceImpl implements WriterService {
 

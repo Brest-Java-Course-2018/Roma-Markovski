@@ -43,6 +43,7 @@
         <module>service</module>
         <module>web-app</module>
         <module>rest-app</module>
+        <module>client-rest</module>
     </modules>
 
     <!--specifies dependencies common to all modules-->
@@ -64,9 +65,20 @@
                 <artifactId>service</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>com.epam.brest.course</groupId>
                 <artifactId>web-app</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.epam.brest.course</groupId>
+                <artifactId>client-rest</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.epam.brest.course</groupId>
+                <artifactId>rest-app</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

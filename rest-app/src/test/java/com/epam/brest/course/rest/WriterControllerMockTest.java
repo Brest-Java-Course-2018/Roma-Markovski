@@ -102,6 +102,23 @@ public class WriterControllerMockTest {
     }
 
     @Test
+    public void getWriters() throws Exception {
+        expect(writerService.getWriters())
+                .andReturn(Arrays.asList(writer1, writer2));
+        replay(writerService);
+        mockMvc.perform(
+                get("/writer_models")
+                        .accept(MediaType.APPLICATION_JSON)
+        ).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$[0].id", is(ID_1)))
+                .andExpect(jsonPath("$[0].name", is(PUSHKIN_ALEX)))
+                .andExpect(jsonPath("$[1].id", is(ID_2)))
+                .andExpect(jsonPath("$[1].name", is(KUPALA_YANKA)));
+    }
+
+    @Test
     public void getWriterById() throws Exception {
         expect(writerService.getWriterById(anyInt()))
                 .andReturn(writer1);

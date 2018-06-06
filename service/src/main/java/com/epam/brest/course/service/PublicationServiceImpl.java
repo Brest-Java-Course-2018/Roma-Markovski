@@ -10,7 +10,7 @@ import java.sql.Date;
 import java.util.Collection;
 
 /**
- * Implementation of PublicationService.
+ * Implementation of PublicationService. Gets data from dao and database.
  */
 public class PublicationServiceImpl implements PublicationService {
 

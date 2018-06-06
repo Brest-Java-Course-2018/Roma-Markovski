@@ -29,6 +29,14 @@ public class WriterRestController {
         return writers;
     }
 
+    // TODO: Url address
+    @GetMapping(value = "/writer_models")
+    public Collection<Writer> getWriters() {
+        LOGGER.debug("getWriters()");
+        Collection<Writer> writers = writerService.getWriters();
+        return writers;
+    }
+
     @GetMapping(value = "/writers/{id}")
     @ResponseStatus(HttpStatus.FOUND)
     public Writer getWriterById(@PathVariable(value = "id") Integer id) {
