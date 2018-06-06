@@ -29,7 +29,7 @@ public class WriterRestController {
         return writers;
     }
 
-    // TODO: Url address
+    // TODO: Url address?
     @GetMapping(value = "/writer_models")
     public Collection<Writer> getWriters() {
         LOGGER.debug("getWriters()");

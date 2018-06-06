@@ -31,6 +31,15 @@ public class PublicationRestController {
         return publications;
     }
 
+    //TODO: address
+    @GetMapping(value = "/publication_models")
+    public Collection<Publication> getPublications() {
+        LOGGER.debug("getPublications()");
+        Collection<Publication> publications =
+                publicationService.getPublications();
+        return publications;
+    }
+
     @GetMapping(value = "/publications/{id}")
     @ResponseStatus(HttpStatus.FOUND)
     public Publication getPublicationById(
