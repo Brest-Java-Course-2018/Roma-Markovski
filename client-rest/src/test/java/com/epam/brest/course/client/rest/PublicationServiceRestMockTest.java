@@ -1,7 +1,6 @@
 package com.epam.brest.course.client.rest;
 
 import com.epam.brest.course.dto.PublicationDTO;
-import com.epam.brest.course.dto.WriterDTO;
 import com.epam.brest.course.model.Publication;
 import com.epam.brest.course.service.PublicationService;
 import org.junit.After;

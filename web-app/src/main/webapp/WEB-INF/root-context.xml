@@ -10,7 +10,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-    <import resource="sample-db-spring.xml"></import>
+    <import resource="sample-db-spring.xml"/>
 
     <!-- Use spring servlet for all requests, including static resources -->
     <mvc:default-servlet-handler/>
@@ -37,12 +37,22 @@
         <property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>
     </bean>
 
-    <bean id="publicationService" class="com.epam.brest.course.service.PublicationServiceImpl">
-        <constructor-arg ref="publicationDao"/>
+    <!--<bean id="publicationService" class="com.epam.brest.course.service.PublicationServiceImpl">-->
+        <!--<constructor-arg ref="publicationDao"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="writerService" class="com.epam.brest.course.service.WriterServiceImpl">-->
+        <!--<constructor-arg ref="writerDao"/>-->
+    <!--</bean>-->
+
+    <bean id="writerService" class="com.epam.brest.course.client.rest.WriterConsumerRest">
+        <constructor-arg index="0" value="${protocol}://${host}:${port}/${point.writers}"/>
+        <constructor-arg index="1" ref="restTemplate"/>
     </bean>
 
-    <bean id="writerService" class="com.epam.brest.course.service.WriterServiceImpl">
-        <constructor-arg ref="writerDao"/>
+    <bean id="publicationService" class="com.epam.brest.course.client.rest.PublicationConsumerRest">
+        <constructor-arg index="0" value="${protocol}://${host}:${port}/${point.publications}"/>
+        <constructor-arg index="1" ref="restTemplate"/>
     </bean>
 
     <!-- Thymeleaf Template Resolver -->
@@ -67,11 +77,21 @@
         <property name="characterEncoding" value="UTF-8" />
     </bean>
 
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+            </list>
+        </property>
+        <!--<property name="errorHandler" ref="customResponseHandler"/>-->
+    </bean>
+
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
                 <value>classpath:sql.properties</value>
                 <value>classpath:application.properties</value>
+                <value>classpath:rest.properties</value>
             </list>
         </property>
     </bean>

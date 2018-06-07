@@ -61,6 +61,7 @@ public class PublicationConsumerRest implements PublicationService {
     @Override
     public Collection<PublicationDTO> getPublicationDTOsByDate(
             Date startDate, Date endDate) {
+        LOGGER.debug("getPublicationDTOsByDate({}, {})", startDate, endDate);
         ResponseEntity responseEntity =
                 restTemplate.getForEntity(url + "/" + startDate.toString() +
                         "/" + endDate.toString(), Collection.class);

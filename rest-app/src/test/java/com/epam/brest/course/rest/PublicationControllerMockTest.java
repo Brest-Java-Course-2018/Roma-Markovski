@@ -4,7 +4,6 @@ import com.epam.brest.course.dto.PublicationDTO;
 import com.epam.brest.course.model.Publication;
 import com.epam.brest.course.service.PublicationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.easymock.EasyMock;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
