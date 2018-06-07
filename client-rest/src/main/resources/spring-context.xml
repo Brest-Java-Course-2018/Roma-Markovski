@@ -35,7 +35,7 @@
     </bean>
 
     <bean id="publicationService" class="com.epam.brest.course.client.rest.PublicationConsumerRest">
-        <constructor-arg index="0" value="${protocol}://${host}:${port}/${point.writers}"/>
+        <constructor-arg index="0" value="${protocol}://${host}:${port}/${point.publications}"/>
         <constructor-arg index="1" ref="restTemplate"/>
     </bean>
 

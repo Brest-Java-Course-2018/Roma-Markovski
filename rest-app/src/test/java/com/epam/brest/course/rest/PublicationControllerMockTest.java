@@ -124,6 +124,29 @@ public class PublicationControllerMockTest {
     }
 
     @Test
+    public void getPublications() throws Exception {
+        expect(publicationService.getPublications())
+                .andReturn(Arrays.asList(publication1, publication2));
+        replay(publicationService);
+        mockMvc.perform(
+                get("/publication_models")
+                        .accept(MediaType.APPLICATION_JSON)
+        ).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$[0].id", is(DTO_ID_1)))
+                .andExpect(jsonPath("$[0].name", is(EVGENIY_ONEGIN)))
+                .andExpect(jsonPath("$[0].writerId", is(WRITER_ID)))
+                .andExpect(jsonPath("$[0].numberOfPages", is(NUMBER_OF_PAGES1)))
+                .andExpect(jsonPath("$[0].description", is(POEM)))
+                .andExpect(jsonPath("$[1].id", is(DTO_ID_2)))
+                .andExpect(jsonPath("$[1].name", is(DUBROVSKI)))
+                .andExpect(jsonPath("$[1].writerId", is(WRITER_ID)))
+                .andExpect(jsonPath("$[1].numberOfPages", is(NUMBER_OF_PAGES2)))
+                .andExpect(jsonPath("$[1].description", is(PROSE)));
+    }
+
+    @Test
     public void getPublicationById() throws Exception {
         expect(publicationService.getPublicationById(anyInt()))
                 .andReturn(publication1);
