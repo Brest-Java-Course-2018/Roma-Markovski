@@ -37,6 +37,7 @@ public class PublicationServiceImpl implements PublicationService {
         LOGGER.debug("getPublications()");
         Collection<Publication> publications =
                 publicationDao.getPublications();
+        LOGGER.debug("getPublications returned: {}", publications);
         return publications;
     }
 
@@ -45,6 +46,7 @@ public class PublicationServiceImpl implements PublicationService {
         LOGGER.debug("getPublicationDTOs()");
         Collection<PublicationDTO> publications =
                 publicationDao.getPublicationDTOs();
+        LOGGER.debug("getPublicationDTOs returned: {}", publications);
         return publications;
     }
 
@@ -54,6 +56,7 @@ public class PublicationServiceImpl implements PublicationService {
         LOGGER.debug("getPublicationDTOsByDate({}, {})", startDate, endDate);
         Collection<PublicationDTO> publications =
                 publicationDao.getPublicationDTOsByDate(startDate, endDate);
+        LOGGER.debug("getPublicationDTOsByDate returned: {}", publications);
         return publications;
     }
 
@@ -62,6 +65,7 @@ public class PublicationServiceImpl implements PublicationService {
         LOGGER.debug("getPublicationById({})", publicationId);
         Publication publication =
                 publicationDao.getPublicationById(publicationId);
+        LOGGER.debug("getPublicationById returned: {}", publication);
         return publication;
     }
 
@@ -70,6 +74,7 @@ public class PublicationServiceImpl implements PublicationService {
         LOGGER.debug("addPublication({})", publication);
         Publication addedPublication =
                 publicationDao.addPublication(publication);
+        LOGGER.debug("addPublication returned: {}", addedPublication);
         return addedPublication;
     }
 
@@ -77,12 +82,13 @@ public class PublicationServiceImpl implements PublicationService {
     public final void updatePublication(final Publication publication) {
         LOGGER.debug("updatePublication({})", publication);
         publicationDao.updatePublication(publication);
-
+        LOGGER.debug("updatePublication returned: void");
     }
 
     @Override
     public final void deletePublicationById(final Integer publicationId) {
         LOGGER.debug("deletePublicationById({})", publicationId);
         publicationDao.deletePublicationById(publicationId);
+        LOGGER.debug("deletePublicationById returned: void");
     }
 }

@@ -45,6 +45,15 @@
         <!--<constructor-arg ref="writerDao"/>-->
     <!--</bean>-->
 
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+            </list>
+        </property>
+        <!--<property name="errorHandler" ref="customResponseHandler"/>-->
+    </bean>
+
     <bean id="writerService" class="com.epam.brest.course.client.rest.WriterConsumerRest">
         <constructor-arg index="0" value="${protocol}://${host}:${port}/${point.writers}"/>
         <constructor-arg index="1" ref="restTemplate"/>
@@ -75,15 +84,6 @@
     <bean id="viewResolver" class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
         <property name="templateEngine" ref="templateEngine" />
         <property name="characterEncoding" value="UTF-8" />
-    </bean>
-
-    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
-        <property name="messageConverters">
-            <list>
-                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
-            </list>
-        </property>
-        <!--<property name="errorHandler" ref="customResponseHandler"/>-->
     </bean>
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

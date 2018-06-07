@@ -27,8 +27,8 @@ public class PublicationDaoImpl implements PublicationDao {
      * Logger.
      */
     private static final Logger LOGGER = LogManager.getLogger();
-    public static final String START_DATE = "start_date";
-    public static final String END_DATE = "end_date";
+    private static final String START_DATE = "start_date";
+    private static final String END_DATE = "end_date";
 
     /**
      * Named parameter JDBC template.
@@ -118,6 +118,7 @@ public class PublicationDaoImpl implements PublicationDao {
                 namedParameterJdbcTemplate.
                         query(getPublicationsSql,
                         new PublicationRowMapper());
+        LOGGER.debug("getPublications returned: {}", publications);
         return publications;
     }
 
@@ -131,6 +132,7 @@ public class PublicationDaoImpl implements PublicationDao {
         Publication publication = namedParameterJdbcTemplate.
                 queryForObject(getPublicationByIdSql, namedParameters,
                         BeanPropertyRowMapper.newInstance(Publication.class));
+        LOGGER.debug("getPublicationById returned: {}", publicationId);
         return publication;
     }
 
@@ -141,6 +143,7 @@ public class PublicationDaoImpl implements PublicationDao {
                 namedParameterJdbcTemplate.
                         query(getPublicationDTOsSql,
                                 new PublicationDTORowMapper());
+        LOGGER.debug("getPublicationDTOs returned: {}", publications);
         return publications;
     }
 
@@ -155,6 +158,7 @@ public class PublicationDaoImpl implements PublicationDao {
         Collection<PublicationDTO> publications =
                 namedParameterJdbcTemplate.query(getPublicationDTOsByDateSql,
                         namedParameters, new PublicationDTORowMapper());
+        LOGGER.debug("getPublicationDTOsByDate returned: {}", publications);
         return publications;
     }
 
@@ -168,6 +172,7 @@ public class PublicationDaoImpl implements PublicationDao {
         PublicationDTO publication = namedParameterJdbcTemplate.
                 queryForObject(getPublicationDTOByIdSql, namedParameters,
                         new PublicationDTORowMapper());
+        LOGGER.debug("getPublicationDTOById returned: {}", publicationId);
         return publication;
     }
 
@@ -195,6 +200,7 @@ public class PublicationDaoImpl implements PublicationDao {
                 addPublicationSql, namedParameters, generatedKeyHolder);
         publication.setId(
                 generatedKeyHolder.getKey().intValue());
+        LOGGER.debug("addPublication returned: {}", publication);
         return publication;
     }
 
@@ -219,6 +225,7 @@ public class PublicationDaoImpl implements PublicationDao {
                         publication.getDescription());
         namedParameterJdbcTemplate.update(
                 updatePublicationSql, namedParameters);
+        LOGGER.debug("updatePublication returned: void");
     }
 
     @Override
@@ -228,6 +235,7 @@ public class PublicationDaoImpl implements PublicationDao {
                 new MapSqlParameterSource(PUBLICATION_ID, publicationId);
         namedParameterJdbcTemplate.update(
                 deletePublicationSql, namedParameters);
+        LOGGER.debug("deletePublicationById returned: void");
     }
 
     /**

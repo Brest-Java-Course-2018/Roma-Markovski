@@ -26,6 +26,7 @@ public class WriterRestController {
     public Collection<WriterDTO> getWriterDTOs() {
         LOGGER.debug("getWriterDTOs()");
         Collection<WriterDTO> writers = writerService.getWriterDTOs();
+        LOGGER.debug("getWriterDTOs returned: {}", writers);
         return writers;
     }
 
@@ -34,6 +35,7 @@ public class WriterRestController {
     public Collection<Writer> getWriters() {
         LOGGER.debug("getWriters()");
         Collection<Writer> writers = writerService.getWriters();
+        LOGGER.debug("getWriters returned: {}", writers);
         return writers;
     }
 
@@ -42,6 +44,7 @@ public class WriterRestController {
     public Writer getWriterById(@PathVariable(value = "id") Integer id) {
         LOGGER.debug("getWriterById({})", id);
         Writer writer = writerService.getWriterById(id);
+        LOGGER.debug("getWriterById returned: {}", writer);
         return writer;
     }
 
@@ -50,6 +53,7 @@ public class WriterRestController {
     public Writer addWriter(@RequestBody Writer writer) {
         LOGGER.debug("addWriter({})", writer);
         Writer newWriter = writerService.addWriter(writer);
+        LOGGER.debug("addWriter returned: {}", newWriter);
         return newWriter;
     }
 
@@ -60,6 +64,7 @@ public class WriterRestController {
             @PathVariable (value="id") Integer id) {
         LOGGER.debug("updateWriter({})", writer, id);
         writerService.updateWriter(writer);
+        LOGGER.debug("updateWriter returned: void");
     }
 
     @DeleteMapping(value = "/writers/{id}")
@@ -67,5 +72,6 @@ public class WriterRestController {
     public void deleteWriter(@PathVariable(value = "id") Integer id) {
         LOGGER.debug("deleteWriter({})", id);
         writerService.deleteWriterById(id);
+        LOGGER.debug("deleteWriter returned: void");
     }
 }

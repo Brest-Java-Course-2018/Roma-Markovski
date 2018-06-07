@@ -38,10 +38,11 @@ public class WriterController {
      * @return view name
      */
     @GetMapping(value = "/writers")
-    public final String getWriters(final Model model) {
-        LOGGER.debug("getWriters({})", model);
+    public final String getWriterDTOs(final Model model) {
+        LOGGER.debug("getWriterDTOs({})", model);
         Collection<WriterDTO> writers = writerService.getWriterDTOs();
         model.addAttribute("writers", writers);
+        LOGGER.debug("getWriterDTOs returned: 'writers'");
         return "writers";
     }
 
@@ -55,6 +56,7 @@ public class WriterController {
         Writer writer = new Writer();
         model.addAttribute("writer", writer);
         model.addAttribute("isNew", true);
+        LOGGER.debug("gotoAddWriter returned: 'writer'");
         return "writer";
     }
 
@@ -67,9 +69,11 @@ public class WriterController {
             final @Valid Writer writer, final BindingResult result) {
         LOGGER.debug("addWriter({}, {})", writer, result);
         if (result.hasErrors()) {
+            LOGGER.debug("addWriter had errors and returned: 'writer'");
             return "writer";
         } else {
             this.writerService.addWriter(writer);
+            LOGGER.debug("addWriter returned: 'redirect:/writers'");
             return "redirect:/writers";
         }
     }
@@ -85,6 +89,7 @@ public class WriterController {
         Writer writer = writerService.getWriterById(id);
         model.addAttribute("writer", writer);
         model.addAttribute("isNew", false);
+        LOGGER.debug("gotoEditWriter returned: 'writer'");
         return "writer";
     }
 
@@ -97,9 +102,11 @@ public class WriterController {
             final @Valid Writer writer, final BindingResult result) {
         LOGGER.debug("gotoEditWriter({}, {})", writer, result);
         if (result.hasErrors()) {
+            LOGGER.debug("editWriter had errors and returned: 'writer'");
             return "writer";
         } else {
             this.writerService.updateWriter(writer);
+            LOGGER.debug("editWriter returned: 'redirect:/writers'");
             return "redirect:/writers";
         }
     }
@@ -113,6 +120,7 @@ public class WriterController {
             @PathVariable final Integer id, final Model model) {
         LOGGER.debug("deleteWriterById({}, {})", id, model);
         writerService.deleteWriterById(id);
+        LOGGER.debug("deleteWriterById returned: 'redirect:/writers'");
         return "redirect:/writers";
     }
 }

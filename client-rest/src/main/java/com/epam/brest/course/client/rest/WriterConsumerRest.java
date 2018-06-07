@@ -36,6 +36,7 @@ public class WriterConsumerRest implements WriterService {
         ResponseEntity responseEntity =
                 restTemplate.getForEntity(url, Collection.class);
         Collection<Writer> writers = (Collection<Writer>) responseEntity.getBody();
+        LOGGER.debug("getWriters returned: {}", writers);
         return writers;
     }
 
@@ -45,7 +46,9 @@ public class WriterConsumerRest implements WriterService {
         LOGGER.debug("getWriterDTOs()");
         ResponseEntity responseEntity =
                 restTemplate.getForEntity(url, Collection.class);
-        Collection<WriterDTO> writers = (Collection <WriterDTO>) responseEntity.getBody();
+        Collection<WriterDTO> writers =
+                (Collection <WriterDTO>) responseEntity.getBody();
+        LOGGER.debug("getWriterDTOs returned: {}", writers);
         return writers;
     }
 
@@ -55,6 +58,7 @@ public class WriterConsumerRest implements WriterService {
         ResponseEntity<Writer> responseEntity =
                 restTemplate.getForEntity(url + "/" + writerId, Writer.class);
         Writer writer = responseEntity.getBody();
+        LOGGER.debug("getWriterById returned: {}", writer);
         return writer;
     }
 
@@ -64,6 +68,7 @@ public class WriterConsumerRest implements WriterService {
         ResponseEntity<Writer> responseEntity =
                 restTemplate.postForEntity(url, writer, Writer.class);
         Writer newWriter = responseEntity.getBody();
+        LOGGER.debug("addWriter returned: {}", newWriter);
         return newWriter;
     }
 
@@ -72,6 +77,7 @@ public class WriterConsumerRest implements WriterService {
         LOGGER.debug("updateWriter({})", writer);
         restTemplate.postForEntity(
                 url + "/" + writer.getId(), writer, void.class);
+        LOGGER.debug("updateWriter returned: void");
     }
 
     @Override
@@ -79,5 +85,6 @@ public class WriterConsumerRest implements WriterService {
         LOGGER.debug("deleteWriterById({})", writerId);
         restTemplate.delete(
                 url + "/" + writerId);
+        LOGGER.debug("deleteWriterById returned: void");
     }
 }

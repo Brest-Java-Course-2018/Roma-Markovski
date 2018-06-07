@@ -100,6 +100,7 @@ public class WriterDaoImpl implements WriterDao {
         Collection<Writer> writers =
                 namedParameterJdbcTemplate.
                         query(getWritersSql, new WriterRowMapper());
+        LOGGER.debug("getWriters returned: {}", writers);
         return writers;
     }
 
@@ -109,6 +110,7 @@ public class WriterDaoImpl implements WriterDao {
         Collection<WriterDTO> writers =
                 namedParameterJdbcTemplate.
                         query(getWriterDTOsSql, new WriterDTORowMapper());
+        LOGGER.debug("getWriterDTOs returned: {}", writers);
         return writers;
     }
 
@@ -120,6 +122,7 @@ public class WriterDaoImpl implements WriterDao {
         Writer writer = namedParameterJdbcTemplate.queryForObject(
                 getWriterByIdSql, namedParameters, new WriterRowMapper()
         );
+        LOGGER.debug("getWriterById returned: {}", writer);
         return writer;
     }
 
@@ -131,6 +134,7 @@ public class WriterDaoImpl implements WriterDao {
         WriterDTO writerDTO = namedParameterJdbcTemplate.queryForObject(
                 getWriterDTOByIdSql, namedParameters, new WriterDTORowMapper()
         );
+        LOGGER.debug("getWriterDTOById returned: {}", writerDTO);
         return writerDTO;
     }
 
@@ -146,6 +150,7 @@ public class WriterDaoImpl implements WriterDao {
         namedParameterJdbcTemplate.update(addWriterSql,
                 namedParameters, generatedKeyHolder);
         writer.setId(generatedKeyHolder.getKey().intValue());
+        LOGGER.debug("addWriter returned: {}", writer);
         return writer;
     }
 
@@ -158,6 +163,7 @@ public class WriterDaoImpl implements WriterDao {
         namedParameters.addValue(WRITER_COUNTRY, writer.getCountry());
         namedParameters.addValue(WRITER_ID, writer.getId());
         namedParameterJdbcTemplate.update(updateWriterSql, namedParameters);
+        LOGGER.debug("updateWriter returned: void");
     }
 
     @Override
@@ -167,6 +173,7 @@ public class WriterDaoImpl implements WriterDao {
                 new MapSqlParameterSource(WRITER_ID, writerId);
         namedParameterJdbcTemplate.update(
                 deleteWriterSql, namedParameters);
+        LOGGER.debug("getPublicationDTOById returned: void");
     }
 
     /**

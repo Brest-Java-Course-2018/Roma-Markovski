@@ -54,6 +54,7 @@ public class PublicationController {
                 publicationService.getPublicationDTOs();
         model.addAttribute("publications", publications);
         model.addAttribute("isCollapsed", true);
+        LOGGER.debug("getPublicationDTOs returned: 'publications'");
         return "publications";
     }
 
@@ -75,6 +76,7 @@ public class PublicationController {
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
         model.addAttribute("isCollapsed", false);
+        LOGGER.debug("getPublicationDTOsByDate returned: 'publications'");
         return "publications";
     }
 
@@ -90,6 +92,7 @@ public class PublicationController {
         model.addAttribute("publication", publication);
         model.addAttribute("writers", writers);
         model.addAttribute("isNew", true);
+        LOGGER.debug("gotoAddPublication returned: 'publication'");
         return "publication";
     }
 
@@ -103,9 +106,14 @@ public class PublicationController {
             final BindingResult result) {
         LOGGER.debug("addPublication({}, {})", publication, result);
         if (result.hasErrors()) {
+            LOGGER.debug(
+                    "addPublication had errors and returned: 'publication'");
             return "publication";
         } else {
             this.publicationService.addPublication(publication);
+            LOGGER.debug(
+                    "addPublication had errors and returned:" +
+                            " 'redirect:/publications'");
             return "redirect:/publications";
         }
     }
@@ -123,6 +131,7 @@ public class PublicationController {
         model.addAttribute("publication", publication);
         model.addAttribute("writers", writers);
         model.addAttribute("isNew", false);
+        LOGGER.debug("gotoEditPublication returned: 'publication'");
         return "publication";
     }
 
@@ -136,9 +145,11 @@ public class PublicationController {
             final BindingResult result) {
         LOGGER.debug("editPublication({}, {})", publication, result);
         if (result.hasErrors()) {
+            LOGGER.debug("editPublication had errors and returned: 'publication'");
             return "publication";
         } else {
             this.publicationService.updatePublication(publication);
+            LOGGER.debug("editPublication returned: 'redirect:/publications'");
             return "redirect:/publications";
         }
     }
@@ -152,6 +163,7 @@ public class PublicationController {
             @PathVariable final Integer id, final Model model) {
         LOGGER.debug("deletePublicationById({}, {})", id, model);
         publicationService.deletePublicationById(id);
+        LOGGER.debug("deletePublicationById returned: 'redirect:/publications'");
         return "redirect:/publications";
     }
 }

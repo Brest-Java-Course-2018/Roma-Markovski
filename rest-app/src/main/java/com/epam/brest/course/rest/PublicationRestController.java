@@ -28,6 +28,7 @@ public class PublicationRestController {
         LOGGER.debug("getPublicationDTOs()");
         Collection<PublicationDTO> publications =
                 publicationService.getPublicationDTOs();
+        LOGGER.debug("getPublicationDTOs returned: {}", publications);
         return publications;
     }
 
@@ -37,6 +38,7 @@ public class PublicationRestController {
         LOGGER.debug("getPublications()");
         Collection<Publication> publications =
                 publicationService.getPublications();
+        LOGGER.debug("getPublications returned: {}", publications);
         return publications;
     }
 
@@ -46,6 +48,7 @@ public class PublicationRestController {
             @PathVariable(value = "id") Integer id) {
         LOGGER.debug("getPublicationById({})", id);
         Publication publication = publicationService.getPublicationById(id);
+        LOGGER.debug("getPublicationById returned: {}", publication);
         return publication;
     }
 
@@ -55,6 +58,7 @@ public class PublicationRestController {
         LOGGER.debug("addPublication({})", publication);
         Publication newPublication =
                 publicationService.addPublication(publication);
+        LOGGER.debug("addPublication returned: {}", newPublication);
         return newPublication;
     }
 
@@ -65,6 +69,7 @@ public class PublicationRestController {
             @PathVariable (value="id") Integer id) {
         LOGGER.debug("updatePublication({})", publication, id);
         publicationService.updatePublication(publication);
+        LOGGER.debug("updatePublication returned: void");
     }
 
     @DeleteMapping(value = "/publications/{id}")
@@ -72,6 +77,7 @@ public class PublicationRestController {
     public void deletePublication(@PathVariable(value = "id") Integer id) {
         LOGGER.debug("deletePublication({})", id);
         publicationService.deletePublicationById(id);
+        LOGGER.debug("deletePublication returned: void");
     }
 
     @GetMapping(value = "/publications/{startDate}/{endDate}")
@@ -83,6 +89,7 @@ public class PublicationRestController {
         Collection<PublicationDTO> publications =
                 publicationService.getPublicationDTOsByDate(
                         Date.valueOf(startDate), Date.valueOf(endDate));
+        LOGGER.debug("getPublicationDTOsByDate returned: {}", publications);
         return publications;
     }
 }
