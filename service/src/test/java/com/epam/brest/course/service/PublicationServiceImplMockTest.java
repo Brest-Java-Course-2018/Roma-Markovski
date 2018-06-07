@@ -28,11 +28,11 @@ public class PublicationServiceImplMockTest {
             "Dubrovski", 1, Date.valueOf("2016-05-21"), 134, "Prose");
 
     private static final PublicationDTO ONEGIN_DTO = new PublicationDTO(
-            "Evgeniy Onegin", "Alex Pushkin", Date.valueOf("2018-03-21"),
+            "Evgeniy Onegin", "Alex Pushkin", "21.03.2018",
             235, "Poem");
 
     private static final PublicationDTO DUBROVSKI_DTO = new PublicationDTO(
-            "Dubrovski", "Alex Pushkin", Date.valueOf("2016-05-21"),
+            "Dubrovski", "Alex Pushkin", "21.05.2016",
             134, "Prose");
 
     private static final String START_DATE = "2017-07-03";

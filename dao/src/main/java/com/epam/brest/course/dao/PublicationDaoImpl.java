@@ -273,7 +273,7 @@ public class PublicationDaoImpl implements PublicationDao {
             publication.setName(
                     resultSet.getString(PUBLICATION_NAME));
             publication.setWriterName(resultSet.getString(WRITER_NAME));
-            publication.setDate(resultSet.getDate(PUBLICATION_DATE));
+            publication.setDate(resultSet.getString(PUBLICATION_DATE));
             publication.setNumberOfPages(
                     resultSet.getInt(PUBLICATION_NUM_OF_PAGES));
             publication.setDescription(

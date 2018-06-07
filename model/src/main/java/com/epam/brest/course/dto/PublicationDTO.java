@@ -1,7 +1,5 @@
 package com.epam.brest.course.dto;
 
-import java.sql.Date;
-
 /**
  * Data-transfer Object class "PublicationDTO" - for output.
  */
@@ -23,7 +21,7 @@ public class PublicationDTO {
      */
     public PublicationDTO(final String name,
                        final String writerName,
-                       final Date date,
+                       final String date,
                        final Integer numberOfPages,
                        final String description) {
         this.name = name;
@@ -49,9 +47,9 @@ public class PublicationDTO {
     private String writerName;
 
     /**
-     * The publication's date.
+     * The publication's STRING date.
      */
-    private Date date;
+    private String date;
 
     /**
      * Number of pages.
@@ -97,11 +95,11 @@ public class PublicationDTO {
         this.writerName = writerName;
     }
 
-    public final Date getDate() {
+    public final String getDate() {
         return date;
     }
 
-    public final void setDate(final Date date) {
+    public final void setDate(final String date) {
         this.date = date;
     }
 

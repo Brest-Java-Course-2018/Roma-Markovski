@@ -12,6 +12,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -23,6 +25,7 @@ public class PublicationDaoImplTest {
 
     private static final String EVGENIY_ONEGIN = "Evgeniy Onegin";
     private static final String DATE_1 = "2018-03-21";
+    private static final String FORMATTED_DATE_1 = "21.03.2018";
     private static final int WRITER_1 = 1;
     private static final int PUBLICATION_1 = 1;
     private static final int NUM_OF_PAGES_1 = 384;
@@ -71,15 +74,20 @@ public class PublicationDaoImplTest {
     }
 
     @Test
-    public void getPublicationDTOsByDate() {
+    public void getPublicationDTOsByDate() throws ParseException {
         Date startDate = Date.valueOf(START_DATE);
         Date endDate = Date.valueOf(END_DATE);
+
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+
         Collection<PublicationDTO> publications =
                 publicationDao.getPublicationDTOsByDate(
                       startDate, endDate);
         for (PublicationDTO publication : publications) {
-            Assert.assertFalse(publication.getDate().after(endDate));
-            Assert.assertFalse(publication.getDate().before(startDate));
+            Date publicationDate =
+                    new Date(format.parse(publication.getDate()).getTime());
+            Assert.assertFalse(publicationDate.after(endDate));
+            Assert.assertFalse(publicationDate.before(startDate));
         }
     }
 
@@ -91,7 +99,7 @@ public class PublicationDaoImplTest {
         Assert.assertEquals(EVGENIY_ONEGIN,
                 publication.getName());
         Assert.assertEquals(publication.getWriterName(), PUSHKIN_ALEX);
-        Assert.assertEquals(Date.valueOf(DATE_1),
+        Assert.assertEquals(FORMATTED_DATE_1,
                 publication.getDate());
         Assert.assertEquals(
                 publication.getNumberOfPages().intValue(), NUM_OF_PAGES_1);

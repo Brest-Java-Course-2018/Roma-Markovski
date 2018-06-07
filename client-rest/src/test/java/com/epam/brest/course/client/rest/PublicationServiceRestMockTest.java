@@ -30,6 +30,8 @@ public class PublicationServiceRestMockTest {
     private static final String ALEX_PUSHKIN = "Alex Pushkin";
     private static final String DATE1 = "2018-03-21";
     private static final String DATE2 = "2016-05-21";
+    private static final String FORMATTED_DATE1 = "21.03.2018";
+    private static final String FORMATTED_DATE2 = "21.05.2016";
     private static final String POEM = "Poem";
     private static final int NUMBER_OF_PAGES1 = 235;
     private static final int NUMBER_OF_PAGES2 = 134;
@@ -59,11 +61,11 @@ public class PublicationServiceRestMockTest {
     @Before
     public void init() {
         publicationDTO1 = new PublicationDTO(
-                EVGENIY_ONEGIN, ALEX_PUSHKIN, Date.valueOf(DATE1),
+                EVGENIY_ONEGIN, ALEX_PUSHKIN, FORMATTED_DATE1,
                 NUMBER_OF_PAGES1, POEM);
         publicationDTO1.setId(DTO_ID_1);
         publicationDTO2 = new PublicationDTO(
-                DUBROVSKI, ALEX_PUSHKIN, Date.valueOf(DATE2),
+                DUBROVSKI, ALEX_PUSHKIN, FORMATTED_DATE2,
                 NUMBER_OF_PAGES2, PROSE);
         publicationDTO2.setId(DTO_ID_2);
         publication1 = new Publication(
