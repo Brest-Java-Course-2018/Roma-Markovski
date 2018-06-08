@@ -22,6 +22,7 @@ public class WriterRestController {
     @Autowired
     private WriterService writerService;
 
+    // curl -X GET -v http://localhost:8088/writers
     @GetMapping(value = "/writers")
     public Collection<WriterDTO> getWriterDTOs() {
         LOGGER.debug("getWriterDTOs()");
@@ -30,7 +31,7 @@ public class WriterRestController {
         return writers;
     }
 
-    // TODO: Url address?
+    // curl -X GET -v http://localhost:8088/writer_models
     @GetMapping(value = "/writer_models")
     public Collection<Writer> getWriters() {
         LOGGER.debug("getWriters()");
@@ -39,6 +40,7 @@ public class WriterRestController {
         return writers;
     }
 
+    // curl -X GET -v http://localhost:8088/writers/1
     @GetMapping(value = "/writers/{id}")
     @ResponseStatus(HttpStatus.FOUND)
     public Writer getWriterById(@PathVariable(value = "id") Integer id) {
@@ -48,6 +50,7 @@ public class WriterRestController {
         return writer;
     }
 
+    // curl -H "Content-Type: application/json" -X POST -d '{"name":"Dostoevski Fyodor","country":"Russia"}' -v http://localhost:8088/writers
     @PostMapping(value = "/writers")
     @ResponseStatus(HttpStatus.CREATED)
     public Writer addWriter(@RequestBody Writer writer) {
@@ -57,6 +60,7 @@ public class WriterRestController {
         return newWriter;
     }
 
+    // curl -H "Content-Type: application/json" -X POST -d '{"name":"Lermontov Michael","country":"Russia", "id":"1"}' -v http://localhost:8088/writers/1
     @PostMapping(value = "/writers/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void updateWriter(
@@ -67,6 +71,7 @@ public class WriterRestController {
         LOGGER.debug("updateWriter returned: void");
     }
 
+    // curl -X DELETE -v http://localhost:8088/writers/5
     @DeleteMapping(value = "/writers/{id}")
     @ResponseStatus(HttpStatus.FOUND)
     public void deleteWriter(@PathVariable(value = "id") Integer id) {

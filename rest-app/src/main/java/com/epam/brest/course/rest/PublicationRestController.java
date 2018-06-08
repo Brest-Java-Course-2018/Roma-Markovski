@@ -23,6 +23,7 @@ public class PublicationRestController {
     @Autowired
     private PublicationService publicationService;
 
+    // curl -X GET -v http://localhost:8088/publications
     @GetMapping(value = "/publications")
     public Collection<PublicationDTO> getPublicationDTOs() {
         LOGGER.debug("getPublicationDTOs()");
@@ -32,7 +33,7 @@ public class PublicationRestController {
         return publications;
     }
 
-    //TODO: address
+    // curl -X GET -v http://localhost:8088/publication_models
     @GetMapping(value = "/publication_models")
     public Collection<Publication> getPublications() {
         LOGGER.debug("getPublications()");
@@ -42,6 +43,7 @@ public class PublicationRestController {
         return publications;
     }
 
+    // curl -X GET -v http://localhost:8088/publications/1
     @GetMapping(value = "/publications/{id}")
     @ResponseStatus(HttpStatus.FOUND)
     public Publication getPublicationById(
@@ -52,6 +54,7 @@ public class PublicationRestController {
         return publication;
     }
 
+    // curl -H "Content-Type: application/json" -X POST -d '{"writerId":"1","name":"Otello","description":"Tragedy", "numberOfPages":"245"}' -v http://localhost:8088/publications
     @PostMapping(value = "/publications")
     @ResponseStatus(HttpStatus.CREATED)
     public Publication addPublication(@RequestBody Publication publication) {
@@ -62,6 +65,7 @@ public class PublicationRestController {
         return newPublication;
     }
 
+    // curl -H "Content-Type: application/json" -X POST -d '{"id":4, "writerId":"1","name":"Otello"}' -v http://localhost:8088/publications/4
     @PostMapping(value = "/publications/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void updatePublication(
@@ -72,6 +76,7 @@ public class PublicationRestController {
         LOGGER.debug("updatePublication returned: void");
     }
 
+    // curl -X DELETE -v http://localhost:8088/publications/2
     @DeleteMapping(value = "/publications/{id}")
     @ResponseStatus(HttpStatus.FOUND)
     public void deletePublication(@PathVariable(value = "id") Integer id) {
@@ -80,6 +85,7 @@ public class PublicationRestController {
         LOGGER.debug("deletePublication returned: void");
     }
 
+    // curl -X GET -v http://localhost:8088/publications/2017-07-03/2018-03-13
     @GetMapping(value = "/publications/{startDate}/{endDate}")
     @ResponseStatus(HttpStatus.OK)
     public Collection<PublicationDTO> getPublicationDTOsByDate(
