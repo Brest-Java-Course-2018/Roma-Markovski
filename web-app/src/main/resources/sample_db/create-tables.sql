@@ -17,8 +17,6 @@ CREATE TABLE publication (
   PRIMARY KEY (publication_id),
   CONSTRAINT FK_publication_id_writer_id
   FOREIGN KEY (writer_id) REFERENCES writer(writer_id)
---   ON UPDATE NO ACTION
---   ON DELETE NO ACTION
   ON UPDATE CASCADE
-  ON DELETE CASCADE
+  ON DELETE NO ACTION
 );

@@ -99,20 +99,28 @@
                                    data-placement="top"
                                    href="writer.html"
                                    th:href="@{|/writer/${writer.id}|}"
-                                   class="btn-sm btn-outline-secondary"><i class="fa fa-pencil"></i>
+                                   class="btn-sm btn-outline-primary"><i class="fa fa-pencil"></i>
                                     <span class="d-none d-lg-inline">Edit</span>
                                 </a>
-                                <a title="Delete writer"
+                                <a th:title="${writer.numberOfPublications} == 0 ? 'Delete writer':'To delete writer you need to delete all of his publications'"
+                                   id="delete-writer"
                                    data-toggle="tooltip"
+                                   th:attrappend="href= ${writer.numberOfPublications} == 0 ? '#'"
                                    data-placement="top"
-                                   href="#"
-                                   class="btn-sm btn-outline-danger">
-                                <span data-target="#exampleModal"
-                                      data-toggle="modal"
-                                      th:attr="data-id=${writer.id},data-name=${writer.name}">
-                                    <i class="fa fa-remove"></i>
-                                <span class="d-none d-lg-inline">Delete</span>
-                                </span>
+                                   aria-disabled="true"
+                                   class="btn-sm btn-outline-danger"
+                                   th:classappend="${writer.numberOfPublications} == 0 ? '' : 'disabled'">
+                                    <span th:if="${writer.numberOfPublications} == 0"
+                                          data-target="#exampleModal"
+                                          data-toggle="modal"
+                                          th:attr="data-id=${writer.id},data-name=${writer.name}">
+                                        <i class="fa fa-remove"></i>
+                                        <span class="d-none d-lg-inline">Delete</span>
+                                    </span>
+                                    <span th:if="${writer.numberOfPublications} != 0">
+                                        <i class="fa fa-remove"></i>
+                                        <span class="d-none d-lg-inline">Delete</span>
+                                    </span>
                                 </a>
                             </td>
                         </tr>

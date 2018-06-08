@@ -11,6 +11,6 @@ VALUES ('War and Peace', 2, '2018-01-21', 1274, 'Novel');
 INSERT INTO publication (publication_name, writer_id, publication_date, publication_num_of_pages, publication_description)
 VALUES ('Anna Karenina', 2, '2018-03-01', 864, 'Novel');
 INSERT INTO publication (publication_name, writer_id, publication_date, publication_num_of_pages, publication_description)
-VALUES ('A New Land', 3, '2018-03-21', 352, 'Poem');
+VALUES ('New Land', 3, '2018-03-21', 352, 'Poem');
 INSERT INTO publication (publication_name, writer_id, publication_date, publication_num_of_pages, publication_description)
 VALUES ('Romeo and Juliet', 4, '2017-05-19', 243, 'Tragedy');
