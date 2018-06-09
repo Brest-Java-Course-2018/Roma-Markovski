@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Header</title>
+    <link rel="stylesheet"
+          th:href="@{/resources/static/css/font-awesome.min.css}"
+          href="../../../resources/static/css/font-awesome.min.css">
+    <link rel="stylesheet"
+          th:href="@{/resources/static/css/bootstrap.min.css}"
+          href="../../../resources/static/css/bootstrap.css">
+    <link rel="stylesheet"
+          th:href="@{/resources/static/css/style.css}"
+          href="../../../resources/static/css/style.css">
+</head>
+<body>
+
+<header th:fragment="header(type, isView, isNew, isCollapsed)">
+    <div class="mb-2 navbar navbar-expand-sm navbar-light bg-light text-dark"
+         id="div-header">
+        <div id="div-header-top">
+            <a href="../publications.html"
+               th:href="${isView} ? @{'/' + ${type} + 's'} : @{'/' + ${type}}"
+               th:text="${isView} ? (${type} + 's') : ((${isNew} ? 'Add ' : 'Edit ') + ${type})"
+               id="header-title"
+               class="navbar-brand text-uppercase mr-auto">
+                Publications
+            </a>
+            <a href="../publication.html"
+               th:if="${isView}"
+               th:href="@{'/'+${type}}"
+               class="py-0 my-1 btn btn-dark"
+               id="button-add"
+               data-toggle="tooltip"
+               th:attr="title='Add '+${type}"
+               title="Add publication">
+                <div>
+                    <i class="fa fa-plus"></i>
+                    <span class="d-none d-sm-inline">Add</span>
+                </div>
+            </a>
+        </div>
+        <div th:if="${type}=='publication' and ${isView}"
+             id="div-header-bottom">
+            <button href="#"
+                    class="mt-2 btn btn-dark"
+                    type="button"
+                    id="button-date-filter"
+                    data-toggle="collapse"
+                    data-target="#date-filter-form"
+                    title="Filter by date">
+                <span>Filter by date</span>
+            </button>
+            <form class="mt-2 collapse"
+                  th:classappend="${isCollapsed} ? '' : 'show'"
+                  id="date-filter-form"
+                  action="../publications.html"
+                  th:action="@{${#httpServletRequest.servletPath}}"
+                  th:method="@{post}">
+                <label class="mt-2" for="before-date">Select date from</label>
+                <input type="date"
+                       class="mt-2 form-control"
+                       id="before-date"
+                       th:value="${startDate}"
+                       name="startDate">
+                <label class="mt-2" for="after-date">to</label>
+                <input type="date"
+                       class="mt-2 form-control"
+                       id="after-date"
+                       th:value="${endDate}"
+                       name="endDate">
+                <div class="mt-2" id="div-two-btns">
+                    <a href="#"
+                       th:href="@{/publications}"
+                       th:onclick="@{document.forms['date-filter-form'].submit(); return false;}"
+                       class="btn btn-light button-date-accept"
+                       data-toggle="tool-tip"
+                       title="Accept filter by date">
+                        <span>Accept</span>
+                    </a>
+                    <button href="#"
+                            class="btn btn-light button-date-reset"
+                            type="reset"
+                            data-toggle="tool-tip"
+                            title="Reset date">
+                        <span>Clear</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</header>
+
+
+<script src="../../../resources/static/js/jquery.min.js"
+        th:src="@{/resources/static/js/jquery.min.js}"></script>
+<script src="../../../resources/static/js/popper.min.js"
+        th:src="@{/resources/static/js/popper.min.js}"></script>
+<script src="../../../resources/static/js/bootstrap.min.js"
+        th:src="@{/resources/static/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

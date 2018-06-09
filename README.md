@@ -77,7 +77,7 @@ Web application should be available at
 
 Visit <https://travis-ci.org/Brest-Java-Course-2018/Roma-Markovski>
  
--
+--------
 
 >Produced by Roman Markovski.  
 Brest Java Courses  

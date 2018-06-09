@@ -18,7 +18,7 @@
 
 <body>
 
-<div>
+<div th:replace="fragments/upheader :: upheader('publications')">
     <div id="navbar-with-logo" class="navbar navbar-expand-md navbar-dark">
         <a href="publications.html"
            th:href="@{/publications}"
@@ -50,7 +50,7 @@
     </nav>
 </div>
 
-<header>
+<header th:replace="fragments/header :: header(type='publication', isView=false, isNew=${isNew}, isCollapsed=false)">
     <div class="mb-2 navbar navbar-expand-sm navbar-light bg-light text-dark"
          id="div-header">
         <div id="div-header-top">
