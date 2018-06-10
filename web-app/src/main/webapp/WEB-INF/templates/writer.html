@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Writer</title>
+    <title th:utext="${isNew} ? #{addWriter} : #{editWriter}">Writer</title>
     <link rel="stylesheet"
           th:href="@{/resources/static/css/font-awesome.min.css}"
           href="../../resources/static/css/font-awesome.min.css">
@@ -27,7 +27,7 @@
                  src="../../resources/static/img/book.svg"
                  th:src="@{/resources/static/img/book.svg}">
             <span id="navbar-title"
-                  th:text="#{app.title}">Writers and publications</span>
+                  th:utext="#{title}">Writers and publications</span>
         </a>
     </div>
     <hr class="horizontal-line"/>
@@ -42,22 +42,24 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link"
                    th:href="@{/publications}"
+                   th:utext="#{publications}"
                    href="publications.html">Publications</a>
                 <a class="nav-item nav-link active"
                    th:href="@{/writers}"
+                   th:utext="#{writers}"
                    href="writers.html">Writers <span class="sr-only">(current)</span></a>
             </div>
         </div>
     </nav>
 </div>
 
-<header th:replace="fragments/header :: header(type='writer', isView=false, isNew=${isNew}, isCollapsed=false)">
+<header>
     <div class="mb-2 navbar navbar-expand-sm navbar-light bg-light text-dark"
          id="div-header">
         <div id="div-header-top">
             <a href="writer.html"
                th:href="@{/writer}"
-               th:text="${isNew} ? 'Add writer' : 'Edit writer'"
+               th:utext="${isNew} ? #{addWriter} : #{editWriter}"
                id="header-title"
                class="navbar-brand text-uppercase mr-auto">
                 Writer
@@ -77,11 +79,13 @@
                               action="writers.html"
                               th:action="@{${#httpServletRequest.servletPath}}"
                               th:method="@{post}">
-                            <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
-                                <p>Please fix errors below:</p>
+                            <div th:if="${#fields.hasErrors('*')}"
+                                 class="alert alert-danger">
+                                <p th:utext="#{errorsBelow}">Please fix errors below:</p>
                             </div>
                             <div class="form-group">
-                                <label for="writer-name">Name of writer</label>
+                                <label th:utext="#{writer.name.full}"
+                                       for="writer-name">Name of writer</label>
                                 <input type="text"
                                        class="form-control"
                                        id="writer-name"
@@ -93,7 +97,8 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="writer-country">Country</label>
+                                <label th:utext="#{writer.country}"
+                                       for="writer-country">Country</label>
                                 <input type="text"
                                        class="form-control"
                                        id="writer-country"
@@ -110,14 +115,14 @@
                                    th:onclick="@{document.forms['writerForm'].submit(); return false;}"
                                    class="btn btn-light button-date-accept"
                                    data-toggle="tool-tip"
-                                   title="Save writer">
-                                    <span>Save</span>
+                                   th:title="#{writer.save}">
+                                    <span th:utext="#{save}">Save</span>
                                 </a>
                                 <button class="btn btn-light button-date-reset"
                                         type="reset"
                                         data-toggle="tool-tip"
-                                        title="Reset data">
-                                    <span>Clear</span>
+                                        th:title="#{resetData}">
+                                    <span th:utext="#{clear}">Clear</span>
                                 </button>
                             </div>
                         </form>

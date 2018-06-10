@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Writers</title>
+    <title th:utext="#{writers}">Writers</title>
     <link rel="stylesheet"
           th:href="@{/resources/static/css/font-awesome.min.css}"
           href="../../resources/static/css/font-awesome.min.css">
@@ -26,7 +26,7 @@
             <img height="70" src="../../resources/static/img/book.svg"
                  th:src="@{/resources/static/img/book.svg}">
             <span id="navbar-title"
-                  th:text="#{app.title}">Writers and publications</span>
+                  th:text="#{title}">Writers and publications</span>
         </a>
     </div>
     <hr class="horizontal-line"/>
@@ -41,21 +41,24 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link"
                    th:href="@{/publications}"
+                   th:utext="#{publications}"
                    href="publications.html">Publications</a>
                 <a class="nav-item nav-link active"
                    th:href="@{/writers}"
+                   th:utext="#{writers}"
                    href="writers.html">Writers<span class="sr-only">(current)</span></a>
             </div>
         </div>
     </nav>
 </div>
 
-<header th:replace="fragments/header :: header(type='writer', isView=true, isNew=false, isCollapsed=false)">
+<header>
     <div class="mb-2 navbar navbar-expand-sm navbar-light bg-light text-dark"
          id="div-header">
         <div id="div-header-top">
             <a href="writers.html"
                th:href="@{/writers}"
+               th:utext="#{writers}"
                id="header-title"
                class="navbar-brand text-uppercase mr-auto">
                 Writers
@@ -65,10 +68,11 @@
                class="py-0 my-1 btn btn-dark"
                id="button-add"
                data-toggle="tooltip"
-               title="Add writer">
+               th:title="#{writer.add}">
                 <div>
                     <i class="fa fa-plus"></i>
-                    <span class="d-none d-sm-inline">Add</span>
+                    <span th:utext="#{add}"
+                          class="d-none d-sm-inline">Add</span>
                 </div>
             </a>
         </div>
@@ -83,9 +87,12 @@
                     <table class="table table-striped table-light" id="table-writers">
                         <thead>
                         <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Country</th>
-                            <th scope="col">Number of publications</th>
+                            <th th:utext="#{writer.name}"
+                                scope="col">Name</th>
+                            <th th:utext="#{writer.country}"
+                                scope="col">Country</th>
+                            <th th:utext="#{writer.numOfPublications}"
+                                scope="col">Number of publications</th>
                             <th scope="col"></th>
                         </tr>
                         </thead>
@@ -95,32 +102,35 @@
                             <td th:text="${writer.country}">Russia</td>
                             <td th:text="${writer.numberOfPublications}">0</td>
                             <td class="text-right">
-                                <a title="Edit writer"
+                                <a th:title="#{writer.edit}"
                                    data-toggle="tooltip"
                                    data-placement="top"
                                    href="writer.html"
                                    th:href="@{|/writer/${writer.id}|}"
                                    class="btn-sm btn-outline-primary"><i class="fa fa-pencil"></i>
-                                    <span class="d-none d-lg-inline">Edit</span>
+                                    <span th:utext="#{edit}"
+                                          class="d-none d-lg-inline">Edit</span>
                                 </a>
-                                <a th:title="${writer.numberOfPublications} == 0 ? 'Delete writer':'To delete writer you need to delete all of his publications'"
-                                   id="delete-writer"
+                                <a th:title="${writer.numberOfPublications} == 0 ? #{writer.delete}:#{firstDeletePublications}"
                                    data-toggle="tooltip"
                                    th:attrappend="href= ${writer.numberOfPublications} == 0 ? '#'"
                                    data-placement="top"
-                                   aria-disabled="true"
                                    class="btn-sm btn-outline-danger"
                                    th:classappend="${writer.numberOfPublications} == 0 ? '' : 'disabled'">
                                     <span th:if="${writer.numberOfPublications} == 0"
                                           data-target="#exampleModal"
                                           data-toggle="modal"
-                                          th:attr="data-id=${writer.id},data-name=${writer.name}">
+                                          th:attr="data-id=${writer.id},
+                                          data-name=${writer.name},
+                                          data-question=#{writer.question}">
                                         <i class="fa fa-remove"></i>
-                                        <span class="d-none d-lg-inline">Delete</span>
+                                        <span th:utext="#{delete}"
+                                              class="d-none d-lg-inline">Delete</span>
                                     </span>
                                     <span th:if="${writer.numberOfPublications} != 0">
                                         <i class="fa fa-remove"></i>
-                                        <span class="d-none d-lg-inline">Delete</span>
+                                        <span th:utext="#{delete}"
+                                              class="d-none d-lg-inline">Delete</span>
                                     </span>
                                 </a>
                             </td>
@@ -129,7 +139,7 @@
                     </table>
                 </div>
                 <div class="card alert alert-info" th:if="${writers.isEmpty()}">
-                    <h2>Nothing found</h2>
+                    <h2 th:utext="#{nothingFound}">Nothing found</h2>
                 </div>
             </div>
         </div>
@@ -142,7 +152,9 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header alert-danger">
-                <h5 class="modal-title" id="exampleModalLabel">Delete writer</h5>
+                <h5 class="modal-title"
+                    id="exampleModalLabel"
+                    th:utext="#{writer.delete}">Delete writer</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -151,8 +163,14 @@
                 Do you really want to delete this writer?
             </div>
             <div class="modal-footer">
-                <a id="delete-btn-yes" class="btn btn-outline-danger">Yes</a>
-                <button type="button" id="delete-btn-no" class="btn" data-dismiss="modal">No</button>
+                <a th:utext="#{yes}"
+                   id="delete-btn-yes"
+                   class="btn btn-outline-danger">Yes</a>
+                <button th:utext="#{no}"
+                        type="button"
+                        id="delete-btn-no"
+                        class="btn"
+                        data-dismiss="modal">No</button>
             </div>
         </div>
     </div>
@@ -170,7 +188,7 @@
     });
     $('#exampleModal').on('show.bs.modal', function (event) {
         var target = $(event.relatedTarget);
-        $(this).find('.modal-body').text('Do you really want to delete writer: "' + target.data('name') + '"?');
+        $(this).find('.modal-body').text(target.data('question')+' "' + target.data('name') + '"?');
         document.getElementById('delete-btn-yes').href = '/writer/' + target.data('id') + '/delete';
     })
 </script>
