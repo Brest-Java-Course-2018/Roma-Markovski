@@ -1,6 +1,7 @@
 package com.epam.brest.course.client.rest;
 
 import com.epam.brest.course.dto.PublicationDTO;
+import com.epam.brest.course.model.DateInterval;
 import com.epam.brest.course.model.Publication;
 import com.epam.brest.course.service.PublicationService;
 import org.junit.After;
@@ -28,6 +29,8 @@ public class PublicationServiceRestMockTest {
 
     private static final String EVGENIY_ONEGIN = "Evgeniy Onegin";
     private static final String ALEX_PUSHKIN = "Alex Pushkin";
+    private static final DateInterval INTERVAL =
+            new DateInterval("2018-03-12", "2018-02-25");
     private static final String DATE1 = "2018-03-21";
     private static final String DATE2 = "2016-05-21";
     private static final String FORMATTED_DATE1 = "21.03.2018";
@@ -122,8 +125,7 @@ public class PublicationServiceRestMockTest {
                 .andReturn(entity);
         replay(mockRestTemplate);
         Collection<PublicationDTO> resultPublications =
-                publicationService.getPublicationDTOsByDate(
-                        Date.valueOf(DATE1), Date.valueOf(DATE2));
+                publicationService.getPublicationDTOsByDate(INTERVAL);
         Assert.assertNotNull(resultPublications);
         Assert.assertEquals(PUBLICATIONS_SIZE, resultPublications.size());
     }

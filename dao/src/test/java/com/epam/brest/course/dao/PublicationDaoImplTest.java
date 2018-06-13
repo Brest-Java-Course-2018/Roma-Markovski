@@ -1,6 +1,7 @@
 package com.epam.brest.course.dao;
 
 import com.epam.brest.course.dto.PublicationDTO;
+import com.epam.brest.course.model.DateInterval;
 import com.epam.brest.course.model.Publication;
 import org.junit.Assert;
 import org.junit.Test;
@@ -24,6 +25,8 @@ import java.util.Collection;
 public class PublicationDaoImplTest {
 
     private static final String EVGENIY_ONEGIN = "Evgeniy Onegin";
+    private static final DateInterval INTERVAL =
+            new DateInterval("2018-03-12", "2018-02-25");
     private static final String DATE_1 = "2018-03-21";
     private static final String FORMATTED_DATE_1 = "21.03.2018";
     private static final int WRITER_1 = 1;
@@ -75,19 +78,15 @@ public class PublicationDaoImplTest {
 
     @Test
     public void getPublicationDTOsByDate() throws ParseException {
-        Date startDate = Date.valueOf(START_DATE);
-        Date endDate = Date.valueOf(END_DATE);
-
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
 
         Collection<PublicationDTO> publications =
-                publicationDao.getPublicationDTOsByDate(
-                      startDate, endDate);
+                publicationDao.getPublicationDTOsByDate(INTERVAL);
         for (PublicationDTO publication : publications) {
             Date publicationDate =
                     new Date(format.parse(publication.getDate()).getTime());
-            Assert.assertFalse(publicationDate.after(endDate));
-            Assert.assertFalse(publicationDate.before(startDate));
+            Assert.assertFalse(publicationDate.after(INTERVAL.getEndDate()));
+            Assert.assertFalse(publicationDate.before(INTERVAL.getStartDate()));
         }
     }
 

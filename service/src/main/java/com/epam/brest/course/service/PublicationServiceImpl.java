@@ -2,11 +2,11 @@ package com.epam.brest.course.service;
 
 import com.epam.brest.course.dao.PublicationDao;
 import com.epam.brest.course.dto.PublicationDTO;
+import com.epam.brest.course.model.DateInterval;
 import com.epam.brest.course.model.Publication;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Date;
 import java.util.Collection;
 
 /**
@@ -52,10 +52,10 @@ public class PublicationServiceImpl implements PublicationService {
 
     @Override
     public Collection<PublicationDTO> getPublicationDTOsByDate(
-            Date startDate, Date endDate) {
-        LOGGER.debug("getPublicationDTOsByDate({}, {})", startDate, endDate);
+            DateInterval interval) {
+        LOGGER.debug("getPublicationDTOsByDate({}, {})", interval);
         Collection<PublicationDTO> publications =
-                publicationDao.getPublicationDTOsByDate(startDate, endDate);
+                publicationDao.getPublicationDTOsByDate(interval);
         LOGGER.debug("getPublicationDTOsByDate returned: {}", publications);
         return publications;
     }

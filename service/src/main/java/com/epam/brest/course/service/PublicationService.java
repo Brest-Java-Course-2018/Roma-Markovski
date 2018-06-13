@@ -1,10 +1,10 @@
 package com.epam.brest.course.service;
 
 import com.epam.brest.course.dto.PublicationDTO;
+import com.epam.brest.course.model.DateInterval;
 import com.epam.brest.course.model.Publication;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.Collection;
 
 /**
@@ -34,12 +34,11 @@ public interface PublicationService {
 
     /**
      * Gets publicationDTOs between certain dates from dao.
-     * @param startDate - start date.
-     * @param endDate - end date.
+     * @param interval - date span.
      * @return publicaionDTOs filtered by date.
      */
     Collection<PublicationDTO> getPublicationDTOsByDate(
-            Date startDate, Date endDate);
+            DateInterval interval);
 
     /**
      * Adds a publication to dao.

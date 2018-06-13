@@ -17,6 +17,8 @@ public class Publication {
 //            "The date of publication must be in the past";
     private static final String DATE_IS_NULL =
             "The date of publication can't be null.";
+    private static final String WRITER_ID_IS_NULL =
+            "You didn't choose the writer.";
     private static final String PAGES_ARE_NOT_POSITIVE =
             "The number of pages must be positive number.";
     private static final String PAGES_ARE_TOO_BIG =
@@ -64,6 +66,7 @@ public class Publication {
     /**
      * Id of the writer who wrote the publication.
      */
+    @NotNull (message = WRITER_ID_IS_NULL)
     private Integer writerId;
 
     /**

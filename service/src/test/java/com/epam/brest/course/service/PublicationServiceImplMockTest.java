@@ -2,6 +2,7 @@ package com.epam.brest.course.service;
 
 import com.epam.brest.course.dao.PublicationDao;
 import com.epam.brest.course.dto.PublicationDTO;
+import com.epam.brest.course.model.DateInterval;
 import com.epam.brest.course.model.Publication;
 import org.easymock.EasyMock;
 import org.junit.After;
@@ -35,9 +36,8 @@ public class PublicationServiceImplMockTest {
             "Dubrovski", "Alex Pushkin", "21.05.2016",
             134, "Prose");
 
-    private static final String START_DATE = "2017-07-03";
-
-    private static final String END_DATE = "2018-03-13";
+    private static final DateInterval INTERVAL =
+            new DateInterval("2018-03-12", "2018-02-25");
 
     private static final List<Publication> PUBLICATIONS =
             Arrays.asList(ONEGIN, DUBROVSKI);
@@ -81,12 +81,11 @@ public class PublicationServiceImplMockTest {
     public void getPublicationDTOsByDate() {
         EasyMock.expect(
                 mockPublicationDao.getPublicationDTOsByDate(
-                        EasyMock.anyObject(Date.class), EasyMock.anyObject(Date.class)))
+                        EasyMock.anyObject(DateInterval.class)))
                 .andReturn(PUBLICATION_DTOS);
         EasyMock.replay(mockPublicationDao);
         Collection<PublicationDTO> publications =
-                publicationService.getPublicationDTOsByDate(
-                        Date.valueOf(START_DATE), Date.valueOf(END_DATE));
+                publicationService.getPublicationDTOsByDate(INTERVAL);
         Assert.assertEquals(publications, PUBLICATION_DTOS);
     }
 

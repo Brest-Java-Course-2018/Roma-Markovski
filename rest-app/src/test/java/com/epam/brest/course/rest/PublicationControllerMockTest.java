@@ -1,6 +1,7 @@
 package com.epam.brest.course.rest;
 
 import com.epam.brest.course.dto.PublicationDTO;
+import com.epam.brest.course.model.DateInterval;
 import com.epam.brest.course.model.Publication;
 import com.epam.brest.course.service.PublicationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -214,7 +215,7 @@ public class PublicationControllerMockTest {
     @Test
     public void getPublicationDTOsByDate() throws Exception {
         expect(publicationService.getPublicationDTOsByDate(
-                anyObject(Date.class), anyObject(Date.class)))
+                anyObject(DateInterval.class)))
                 .andReturn(Arrays.asList(publicationDTO1, publicationDTO2));
         replay(publicationService);
         mockMvc.perform(

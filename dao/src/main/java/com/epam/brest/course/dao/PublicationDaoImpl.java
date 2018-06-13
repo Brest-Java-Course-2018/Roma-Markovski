@@ -1,6 +1,7 @@
 package com.epam.brest.course.dao;
 
 import com.epam.brest.course.dto.PublicationDTO;
+import com.epam.brest.course.model.DateInterval;
 import com.epam.brest.course.model.Publication;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,7 +14,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
@@ -149,12 +149,12 @@ public class PublicationDaoImpl implements PublicationDao {
 
     @Override
     public final Collection<PublicationDTO> getPublicationDTOsByDate(
-            final Date startDate, final Date endDate) {
-        LOGGER.debug("getPublicationDTOsByDate({}, {})", startDate, endDate);
+            final DateInterval interval) {
+        LOGGER.debug("getPublicationDTOsByDate({})", interval);
         MapSqlParameterSource namedParameters =
                 new MapSqlParameterSource();
-        namedParameters.addValue(START_DATE, startDate);
-        namedParameters.addValue(END_DATE, endDate);
+        namedParameters.addValue(START_DATE, interval.getStartDate());
+        namedParameters.addValue(END_DATE, interval.getEndDate());
         Collection<PublicationDTO> publications =
                 namedParameterJdbcTemplate.query(getPublicationDTOsByDateSql,
                         namedParameters, new PublicationDTORowMapper());

@@ -1,6 +1,7 @@
 package com.epam.brest.course.client.rest;
 
 import com.epam.brest.course.dto.PublicationDTO;
+import com.epam.brest.course.model.DateInterval;
 import com.epam.brest.course.model.Publication;
 import com.epam.brest.course.service.PublicationService;
 import org.apache.logging.log4j.LogManager;
@@ -8,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.sql.Date;
 import java.util.Collection;
 
 public class PublicationConsumerRest implements PublicationService {
@@ -69,13 +69,15 @@ public class PublicationConsumerRest implements PublicationService {
     @Override
     @SuppressWarnings("unchecked")
     public Collection<PublicationDTO> getPublicationDTOsByDate(
-            Date startDate, Date endDate) {
-        LOGGER.debug("getPublicationDTOsByDate({}, {})", startDate, endDate);
-        LOGGER.debug("getForEntity({}, {})",url + "/" + startDate.toString() +
-                "/" + endDate.toString(), Collection.class);
+            DateInterval interval) {
+        LOGGER.debug("getPublicationDTOsByDate({}, {})", interval);
+        LOGGER.debug("getForEntity({}, {})",url + "/" +
+                interval.getStartDate().toString() +
+                "/" + interval.getEndDate().toString(), Collection.class);
         ResponseEntity responseEntity =
-                restTemplate.getForEntity(url + "/" + startDate.toString() +
-                        "/" + endDate.toString(), Collection.class);
+                restTemplate.getForEntity(url + "/" +
+                        interval.getStartDate().toString() + "/" +
+                        interval.getEndDate().toString(), Collection.class);
         Collection<PublicationDTO> publications =
                 (Collection <PublicationDTO>) responseEntity.getBody();
         LOGGER.debug("getPublicationDTOsByDate returned: {}", publications);

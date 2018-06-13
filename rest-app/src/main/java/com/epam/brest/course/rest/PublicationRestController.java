@@ -1,6 +1,7 @@
 package com.epam.brest.course.rest;
 
 import com.epam.brest.course.dto.PublicationDTO;
+import com.epam.brest.course.model.DateInterval;
 import com.epam.brest.course.model.Publication;
 import com.epam.brest.course.service.PublicationService;
 import org.apache.logging.log4j.LogManager;
@@ -9,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.util.Collection;
 
 @RestController
@@ -94,7 +94,7 @@ public class PublicationRestController {
         LOGGER.debug("getPublicationDTOsByDate({}, {})", startDate, endDate);
         Collection<PublicationDTO> publications =
                 publicationService.getPublicationDTOsByDate(
-                        Date.valueOf(startDate), Date.valueOf(endDate));
+                        new DateInterval(startDate, endDate));
         LOGGER.debug("getPublicationDTOsByDate returned: {}", publications);
         return publications;
     }

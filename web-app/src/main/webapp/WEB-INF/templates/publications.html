@@ -68,7 +68,7 @@
                class="py-0 my-1 btn btn-dark"
                id="button-add"
                data-toggle="tooltip"
-               th:title="#{addPublication}">
+               th:title="#{publication.add}">
                 <div>
                     <i class="fa fa-plus"></i>
                     <span th:utext="#{add}"
@@ -88,24 +88,41 @@
             </button>
             <form class="mt-2 collapse"
                   th:classappend="${isCollapsed} ? '' : 'show'"
+                  th:object="${dateInterval}"
                   id="date-filter-form"
                   action="publications.html"
                   th:action="@{${#httpServletRequest.servletPath}}"
                   th:method="@{post}">
+                <div th:if="${#fields.hasErrors('*')}"
+                     class="alert alert-danger">
+                    <p class="m-0"
+                       th:utext="#{errorsBelow}">Please fix errors below:</p>
+                    <p class="m-0"
+                       th:if="${#fields.hasErrors('global')}"
+                       th:errors="*{global}"></p>
+                </div>
                 <label th:utext="#{filter.from}"
                        class="mt-2" for="before-date">Select date from</label>
                 <input type="date"
                        class="mt-2 form-control"
                        id="before-date"
-                       th:value="${startDate}"
+                       th:value="*{startDate}"
                        name="startDate">
+                <div class="form-text text-danger"
+                     th:if="${#fields.hasErrors('startDate')}"
+                     th:errors="*{startDate}">[errors]
+                </div>
                 <label th:utext="#{filter.to}"
                        class="mt-2" for="after-date">to</label>
                 <input type="date"
                        class="mt-2 form-control"
                        id="after-date"
-                       th:value="${endDate}"
+                       th:value="*{endDate}"
                        name="endDate">
+                <div class="form-text text-danger"
+                     th:if="${#fields.hasErrors('endDate')}"
+                     th:errors="*{endDate}">[errors]
+                </div>
                 <div class="mt-2" id="div-two-btns">
                     <a href="#"
                        th:href="@{/publications}"

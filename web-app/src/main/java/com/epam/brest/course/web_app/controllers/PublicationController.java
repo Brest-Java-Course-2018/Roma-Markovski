@@ -1,6 +1,7 @@
 package com.epam.brest.course.web_app.controllers;
 
 import com.epam.brest.course.dto.PublicationDTO;
+import com.epam.brest.course.model.DateInterval;
 import com.epam.brest.course.model.Publication;
 import com.epam.brest.course.model.Writer;
 import com.epam.brest.course.service.PublicationService;
@@ -11,13 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.sql.Date;
 import java.util.Collection;
 
 /**
@@ -52,7 +49,9 @@ public class PublicationController {
         LOGGER.debug("getPublicationDTOs({})", model);
         Collection<PublicationDTO> publications =
                 publicationService.getPublicationDTOs();
+        DateInterval dateInterval = new DateInterval();
         model.addAttribute("publications", publications);
+        model.addAttribute("dateInterval", dateInterval);
         model.addAttribute("isCollapsed", true);
         LOGGER.debug("getPublicationDTOs returned: 'publications'");
         return "publications";
@@ -65,18 +64,25 @@ public class PublicationController {
     @PostMapping(value = "/publications")
     public final String getPublicationDTOsByDate(
             final Model model,
-            @RequestParam("startDate") final String startDate,
-            @RequestParam("endDate") final String endDate) {
+            @Valid final DateInterval dateInterval,
+            final BindingResult result) {
         LOGGER.debug("getPublicationDTOsByDate({}, {}, {})",
-                startDate, endDate, model);
+                model, dateInterval, result);
+        if (result.hasErrors()) {
             Collection<PublicationDTO> publications =
+                    publicationService.getPublicationDTOs();
+            model.addAttribute("publications", publications);
+            LOGGER.debug("getPublicationDTOsByDate had errors" +
+                            " and returned: 'publications'");
+        } else {
+            Collection<PublicationDTO> filteredPublications =
                     publicationService.getPublicationDTOsByDate(
-                            Date.valueOf(startDate), Date.valueOf(endDate));
-        model.addAttribute("publications", publications);
-        model.addAttribute("startDate", startDate);
-        model.addAttribute("endDate", endDate);
-        model.addAttribute("isCollapsed", false);
-        LOGGER.debug("getPublicationDTOsByDate returned: 'publications'");
+                            dateInterval);
+            model.addAttribute("publications", filteredPublications);
+            model.addAttribute("dateInterval", dateInterval);
+            model.addAttribute("isCollapsed", false);
+            LOGGER.debug("getPublicationDTOsByDate returned: 'publications'");
+        }
         return "publications";
     }
 
@@ -146,7 +152,7 @@ public class PublicationController {
         LOGGER.debug("editPublication({}, {})", publication, result);
         if (result.hasErrors()) {
             LOGGER.debug("editPublication had errors and returned: 'publication'");
-            return "publication";
+            return "publication/{id}";
         } else {
             this.publicationService.updatePublication(publication);
             LOGGER.debug("editPublication returned: 'redirect:/publications'");
