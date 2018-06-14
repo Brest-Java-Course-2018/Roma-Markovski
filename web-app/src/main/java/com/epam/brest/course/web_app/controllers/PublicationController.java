@@ -110,12 +110,16 @@ public class PublicationController {
      */
     @PostMapping(value = "/publication")
     public final String addPublication(
+            final Model model,
             final @Valid Publication publication,
             final BindingResult result) {
         LOGGER.debug("addPublication({}, {})", publication, result);
         if (result.hasErrors()) {
             LOGGER.debug(
                     "addPublication had errors and returned: 'publication'");
+            Collection<Writer> writers = writerService.getWriters();
+            model.addAttribute("writers", writers);
+            model.addAttribute("isNew", true);
             return "publication";
         } else {
             this.publicationService.addPublication(publication);
@@ -149,12 +153,16 @@ public class PublicationController {
      */
     @PostMapping(value = "/publication/{id}")
     public final String editPublication(
+            final Model model,
             final @Valid Publication publication,
             final BindingResult result) {
         LOGGER.debug("editPublication({}, {})", publication, result);
         if (result.hasErrors()) {
             LOGGER.debug("editPublication had errors and returned: 'publication'");
-            return "publication/{id}";
+            Collection<Writer> writers = writerService.getWriters();
+            model.addAttribute("writers", writers);
+            model.addAttribute("isNew", false);
+            return "publication";
         } else {
             this.publicationService.updatePublication(publication);
             LOGGER.debug("editPublication returned: 'redirect:/publications'");
