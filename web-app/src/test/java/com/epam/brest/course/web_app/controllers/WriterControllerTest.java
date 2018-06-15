@@ -21,6 +21,7 @@ import java.util.List;
 
 import static org.easymock.EasyMock.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -99,36 +100,35 @@ public class WriterControllerTest {
                 .andExpect(model().attribute("writers", writers));
     }
 
-//    @Test
-//    public void gotoAddWriter() throws Exception {
-//        replay(mockWriterService);
-//        mockMvc.perform(
-//                get("/writer")
-//                        .accept(MediaType.APPLICATION_JSON)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//        ).andDo(print())
-//                .andExpect(model().attributeExists("writer"))
-//                .andExpect(model().attributeExists("isNew"))
-//                .andExpect(model().attribute("isNew", true))
-//                .andExpect(view().name("writer"));
-//    }
-//
-//    @Test
-//    public void wrongAddWriter() throws Exception {
-//        replay(mockWriterService);
-//        mockMvc.perform(
-//                post("/writer")
-//                        .accept(MediaType.APPLICATION_JSON)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .param("name","")
-//                        .param("country", "")
-//        ).andDo(print())
-//                .andExpect(model().attributeHasFieldErrors(
-//                        "writer", "name", "country"
-//                        ))
-//                .andExpect(status().isOk())
-//                .andExpect(view().name("writer"));
-//    }
+    @Test
+    public void gotoAddWriter() throws Exception {
+        replay(mockWriterService);
+        mockMvc.perform(
+                get("/writer")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andDo(print())
+                .andExpect(model().attributeExists("writer"))
+                .andExpect(model().attributeExists("isNew"))
+                .andExpect(model().attribute("isNew", true))
+                .andExpect(view().name("writer"));
+    }
+
+    @Test
+    public void wrongAddWriter() throws Exception {
+        replay(mockWriterService);
+        mockMvc.perform(
+                post("/writer")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("name","f")
+                        .param("country", "b")
+        ).andDo(print())
+                .andExpect(model().attributeHasFieldErrors(
+                        "writer", "name", "country"
+                        ))
+                .andExpect(view().name("writer"));
+    }
 //
 //    @Test
 //    public void addWriter() throws Exception {
