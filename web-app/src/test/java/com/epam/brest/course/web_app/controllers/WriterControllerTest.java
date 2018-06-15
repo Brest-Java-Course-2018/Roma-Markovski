@@ -24,6 +24,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -95,6 +96,7 @@ public class WriterControllerTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
         ).andDo(print())
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("writers"))
                 .andExpect(model().attributeExists("writers"))
                 .andExpect(model().attribute("writers", writers));
@@ -108,6 +110,7 @@ public class WriterControllerTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
         ).andDo(print())
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("writer"))
                 .andExpect(model().attributeExists("isNew"))
                 .andExpect(model().attribute("isNew", true))
@@ -121,106 +124,93 @@ public class WriterControllerTest {
                 post("/writer")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .param("name","f")
+                        .param("name","")
                         .param("country", "b")
         ).andDo(print())
                 .andExpect(model().attributeHasFieldErrors(
                         "writer", "name", "country"
                         ))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("writer"));
     }
-//
-//    @Test
-//    public void addWriter() throws Exception {
-//        expect(mockWriterService.addWriter(anyObject(Writer.class)))
-//                .andReturn(writer1);
-//        replay(mockWriterService);
-//        mockMvc.perform(
-//                post("/writer")
-//                        .accept(MediaType.APPLICATION_JSON)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .param("name","yanka")
-//                        .param("country", "belarus")
-//        ).andDo(print())
-//                .andExpect(view().name("redirect:/writers"));
-//    }
 
-//    @Test
-//    public void getWriters() throws Exception {
-//        expect(writerService.getWriters())
-//                .andReturn(Arrays.asList(writer1, writer2));
-//        replay(writerService);
-//        mockMvc.perform(
-//                get("/writer_models")
-//                        .accept(MediaType.APPLICATION_JSON)
-//        ).andDo(print())
-//                .andExpect(status().isOk())
-//                .andExpect(view().contentType(MediaType.APPLICATION_JSON_UTF8))
-//                .andExpect(jsonPath("$[0].id", is(ID_1)))
-//                .andExpect(jsonPath("$[0].name", is(PUSHKIN_ALEX)))
-//                .andExpect(jsonPath("$[1].id", is(ID_2)))
-//                .andExpect(jsonPath("$[1].name", is(KUPALA_YANKA)));
-//    }
-//
-//    @Test
-//    public void getWriterById() throws Exception {
-//        expect(writerService.getWriterById(anyInt()))
-//                .andReturn(writer1);
-//        replay(writerService);
-//        mockMvc.perform(
-//                get("/writers/1")
-//                        .accept(MediaType.APPLICATION_JSON)
-//        ).andDo(print())
-//                .andExpect(status().isFound())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-//                .andExpect(jsonPath("$.id", is(ID_1)))
-//                .andExpect(jsonPath("$.name", is(PUSHKIN_ALEX)))
-//                .andExpect(jsonPath("$.country", is(RUSSIA)));
-//    }
-//
-//    @Test
-//    public void addWriter() throws Exception {
-//        expect(writerService.addWriter(anyObject(Writer.class)))
-//                .andReturn(writer2);
-//        replay(writerService);
-//        mockMvc.perform(
-//                post("/writers")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(mapper.writeValueAsString(writer2)) //not important which writer
-//                        .accept(MediaType.APPLICATION_JSON)
-//        ).andDo(print())
-//                .andExpect(status().isCreated())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-//                .andExpect(jsonPath("$.id", is(ID_2)))
-//                .andExpect(jsonPath("$.name", is(KUPALA_YANKA)))
-//                .andExpect(jsonPath("$.country", is(BELARUS)));
-//    }
-//
-//    @Test
-//    public void updateWriter() throws Exception {
-//        writerService.updateWriter(anyObject(Writer.class));
-//        expectLastCall();
-//        replay(writerService);
-//        mockMvc.perform(
-//                post("/writers/2")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(mapper.writeValueAsString(writer2)) //not important which writer
-//                        .accept(MediaType.APPLICATION_JSON)
-//        ).andDo(print())
-//                .andExpect(status().isOk());
-//    }
-//
-//    @Test
-//    public void deleteWriter() throws Exception {
-//        writerService.deleteWriterById(1);
-//        expectLastCall();
-//        replay(writerService);
-//        mockMvc.perform(
-//                delete("/writers/1")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(mapper.writeValueAsString(writer1)) //not important which writer
-//                        .accept(MediaType.APPLICATION_JSON)
-//        ).andDo(print())
-//                .andExpect(status().isFound());
-//    }
+    @Test
+    public void addWriter() throws Exception {
+        expect(mockWriterService.addWriter(anyObject(Writer.class)))
+                .andReturn(writer1);
+        replay(mockWriterService);
+        mockMvc.perform(
+                post("/writer")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("name","Kupala Yanka")
+                        .param("country", "Belarus")
+        ).andDo(print())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/writers"));
+    }
+
+    @Test
+    public void gotoEditWriter() throws Exception {
+        expect(mockWriterService.getWriterById(anyInt()))
+            .andReturn(writer1);
+        replay(mockWriterService);
+        mockMvc.perform(
+                get("/writer/1")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andDo(print())
+                .andExpect(model().attributeExists("writer"))
+                .andExpect(model().attributeExists("isNew"))
+                .andExpect(model().attribute("isNew", false))
+                .andExpect(view().name("writer"))
+                .andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
+    public void wrongEditWriter() throws Exception {
+        replay(mockWriterService);
+        mockMvc.perform(
+                post("/writer/1")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("name","")
+                        .param("country", "b")
+        ).andDo(print())
+                .andExpect(model().attributeHasFieldErrors(
+                        "writer", "name", "country"
+                ))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(view().name("writer"));
+    }
+
+    @Test
+    public void editWriter() throws Exception {
+        mockWriterService.updateWriter(anyObject(Writer.class));
+        expectLastCall();
+        replay(mockWriterService);
+        mockMvc.perform(
+                post("/writer/1")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("name","Kupala Yanka")
+                        .param("country", "Belarus")
+        ).andDo(print())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/writers"));
+    }
+
+    @Test
+    public void deleteWriter() throws Exception {
+        mockWriterService.deleteWriterById(anyInt());
+        expectLastCall();
+        replay(mockWriterService);
+        mockMvc.perform(
+                get("/writer/2/delete")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andDo(print())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/writers"));
+    }
 }
