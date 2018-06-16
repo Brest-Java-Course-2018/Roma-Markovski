@@ -10,7 +10,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-    <import resource="sample-db-spring.xml"/>
+    <!--<import resource="sample-db-spring.xml"/>-->
 
     <!-- Use spring servlet for all requests, including static resources -->
     <mvc:default-servlet-handler/>
@@ -24,24 +24,24 @@
 
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
-    <bean id="namedParameterJdbcTemplate"
-          class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-        <constructor-arg name="dataSource" ref="dataSource"/>
-    </bean>
+    <!--<bean id="namedParameterJdbcTemplate"-->
+          <!--class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">-->
+        <!--<constructor-arg name="dataSource" ref="dataSource"/>-->
+    <!--</bean>-->
 
-    <bean id="publicationDao" class="com.epam.brest.course.dao.PublicationDaoImpl">
-        <property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>
-    </bean>
+    <!--<bean id="publicationDao" class="com.epam.brest.course.dao.PublicationDaoImpl">-->
+        <!--<property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>-->
+    <!--</bean>-->
 
-    <bean id="writerDao" class="com.epam.brest.course.dao.WriterDaoImpl">
-        <property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>
-    </bean>
+    <!--<bean id="writerDao" class="com.epam.brest.course.dao.WriterDaoImpl">-->
+        <!--<property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>-->
+    <!--</bean>-->
 
-    <!--<bean id="publicationService" class="com.epam.brest.course.service.PublicationServiceImpl">-->
+    <!--<bean id="publicationService" class="com.epam.brest.course.com.epam.brest.course.service.PublicationServiceImpl">-->
         <!--<constructor-arg ref="publicationDao"/>-->
     <!--</bean>-->
 
-    <!--<bean id="writerService" class="com.epam.brest.course.service.WriterServiceImpl">-->
+    <!--<bean id="writerService" class="com.epam.brest.course.com.epam.brest.course.service.WriterServiceImpl">-->
         <!--<constructor-arg ref="writerDao"/>-->
     <!--</bean>-->
 
@@ -89,9 +89,9 @@
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:sql.properties</value>
+                <!--<value>classpath:sql.properties</value>-->
                 <value>classpath:application.properties</value>
-                <value>classpath:rest.properties</value>
+                <!--<value>classpath:rest.properties</value>-->
             </list>
         </property>
     </bean>

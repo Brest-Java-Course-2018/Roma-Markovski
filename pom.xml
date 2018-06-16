@@ -42,7 +42,8 @@
         <module>model</module>
         <module>dao</module>
         <module>test-db</module>
-        <module>service</module>
+        <module>service-api</module>
+        <module>service-impl</module>
         <module>web-app</module>
         <module>rest-app</module>
         <module>client-rest</module>
@@ -64,7 +65,12 @@
             </dependency>
             <dependency>
                 <groupId>com.epam.brest.course</groupId>
-                <artifactId>service</artifactId>
+                <artifactId>service-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.epam.brest.course</groupId>
+                <artifactId>service-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

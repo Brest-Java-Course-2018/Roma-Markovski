@@ -20,7 +20,7 @@
         <!--</dependency>-->
         <dependency>
             <groupId>com.epam.brest.course</groupId>
-            <artifactId>service</artifactId>
+            <artifactId>service-api</artifactId>
         </dependency>
 
         <dependency>
