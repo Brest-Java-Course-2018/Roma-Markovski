@@ -79,4 +79,10 @@ public class WriterRestController {
         writerService.deleteWriterById(id);
         LOGGER.debug("deleteWriter returned: void");
     }
+
+    @GetMapping(value="/anyErrorExample")
+    public final String throwAnyException() {
+        LOGGER.debug("throwError()");
+        throw new RuntimeException();
+    }
 }

@@ -78,6 +78,10 @@
             <artifactId>json-path</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.epam.brest.course</groupId>
+            <artifactId>client-rest</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
