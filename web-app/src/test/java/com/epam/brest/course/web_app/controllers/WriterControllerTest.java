@@ -50,7 +50,7 @@ public class WriterControllerTest {
     private WriterController writerController;
 
     @Autowired
-    private WriterService mockWriterService;
+    private WriterService writerService;
 
 
     private MockMvc mockMvc;
@@ -81,16 +81,16 @@ public class WriterControllerTest {
 
     @After
     public void tearDown() {
-        verify(mockWriterService);
-        reset(mockWriterService);
+        verify(writerService);
+        reset(writerService);
     }
 
     @Test
     public void getWriterDTOs() throws Exception {
         List<WriterDTO> writers = Arrays.asList(writerDTO1, writerDTO2);
-        expect(mockWriterService.getWriterDTOs())
+        expect(writerService.getWriterDTOs())
                 .andReturn(writers);
-        replay(mockWriterService);
+        replay(writerService);
         mockMvc.perform(
                 get("/writers")
                         .accept(MediaType.APPLICATION_JSON)
@@ -104,7 +104,7 @@ public class WriterControllerTest {
 
     @Test
     public void gotoAddWriter() throws Exception {
-        replay(mockWriterService);
+        replay(writerService);
         mockMvc.perform(
                 get("/writer")
                         .accept(MediaType.APPLICATION_JSON)
@@ -119,7 +119,7 @@ public class WriterControllerTest {
 
     @Test
     public void wrongAddWriter() throws Exception {
-        replay(mockWriterService);
+        replay(writerService);
         mockMvc.perform(
                 post("/writer")
                         .accept(MediaType.APPLICATION_JSON)
@@ -136,9 +136,9 @@ public class WriterControllerTest {
 
     @Test
     public void addWriter() throws Exception {
-        expect(mockWriterService.addWriter(anyObject(Writer.class)))
+        expect(writerService.addWriter(anyObject(Writer.class)))
                 .andReturn(writer1);
-        replay(mockWriterService);
+        replay(writerService);
         mockMvc.perform(
                 post("/writer")
                         .accept(MediaType.APPLICATION_JSON)
@@ -152,9 +152,9 @@ public class WriterControllerTest {
 
     @Test
     public void gotoEditWriter() throws Exception {
-        expect(mockWriterService.getWriterById(anyInt()))
+        expect(writerService.getWriterById(anyInt()))
             .andReturn(writer1);
-        replay(mockWriterService);
+        replay(writerService);
         mockMvc.perform(
                 get("/writer/1")
                         .accept(MediaType.APPLICATION_JSON)
@@ -169,7 +169,7 @@ public class WriterControllerTest {
 
     @Test
     public void wrongEditWriter() throws Exception {
-        replay(mockWriterService);
+        replay(writerService);
         mockMvc.perform(
                 post("/writer/1")
                         .accept(MediaType.APPLICATION_JSON)
@@ -186,9 +186,9 @@ public class WriterControllerTest {
 
     @Test
     public void editWriter() throws Exception {
-        mockWriterService.updateWriter(anyObject(Writer.class));
+        writerService.updateWriter(anyObject(Writer.class));
         expectLastCall();
-        replay(mockWriterService);
+        replay(writerService);
         mockMvc.perform(
                 post("/writer/1")
                         .accept(MediaType.APPLICATION_JSON)
@@ -202,9 +202,9 @@ public class WriterControllerTest {
 
     @Test
     public void deleteWriter() throws Exception {
-        mockWriterService.deleteWriterById(anyInt());
+        writerService.deleteWriterById(anyInt());
         expectLastCall();
-        replay(mockWriterService);
+        replay(writerService);
         mockMvc.perform(
                 get("/writer/2/delete")
                         .accept(MediaType.APPLICATION_JSON)
