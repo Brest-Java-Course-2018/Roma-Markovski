@@ -158,7 +158,8 @@ public class PublicationDaoImplTest {
                 updatedPublication.getId());
         Assert.assertEquals(PEACE_AND_WAR,
                 updatedPublication.getName());
-        Assert.assertEquals(updatedPublication.getWriterId().intValue(), WRITER_3);
+        Assert.assertEquals(updatedPublication.getWriterId().intValue(),
+                WRITER_3);
         Assert.assertEquals(Date.valueOf(DATE_3),
                 updatedPublication.getDate());
     }

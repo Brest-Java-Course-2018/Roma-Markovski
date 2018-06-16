@@ -1,5 +1,6 @@
 package com.epam.brest.course.web_app.controllers;
 
+import com.epam.brest.course.client.ServerDataAccessException;
 import com.epam.brest.course.dto.WriterDTO;
 import com.epam.brest.course.model.Writer;
 import com.epam.brest.course.service.WriterService;
@@ -122,5 +123,12 @@ public class WriterController {
         writerService.deleteWriterById(id);
         LOGGER.debug("deleteWriterById returned: 'redirect:/writers'");
         return "redirect:/writers";
+    }
+
+    @GetMapping(value="/errorExample")
+    public final String throwError(
+            final Model model) {
+        LOGGER.debug("throwError({}, {})", model);
+        throw new ServerDataAccessException("Example error.");
     }
 }
