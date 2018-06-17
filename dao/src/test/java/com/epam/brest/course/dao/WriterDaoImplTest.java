@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -53,6 +54,11 @@ public class WriterDaoImplTest {
         Assert.assertEquals(RUSSIA, writer.getCountry());
     }
 
+    @Test(expected = EmptyResultDataAccessException.class)
+    public void wrongGetPublicationById() {
+        Writer writer = writerDao.getWriterById(-1);
+    }
+
     @Test
     public void getWriterDTOById() {
         WriterDTO writerDTO = writerDao.getWriterDTOById(1);
@@ -62,6 +68,11 @@ public class WriterDaoImplTest {
         Assert.assertEquals(RUSSIA, writerDTO.getCountry());
         Assert.assertEquals(writerDTO.getNumberOfPublications()
                 .intValue(), NUMBER_OF_PUBLICATIONS_1);
+    }
+
+    @Test(expected = EmptyResultDataAccessException.class)
+    public void wrongGetPublicationDTOById() {
+        WriterDTO writer = writerDao.getWriterDTOById(-1);
     }
 
 

@@ -126,9 +126,8 @@ public class WriterController {
     }
 
     @GetMapping(value="/errorExample")
-    public final String throwError(
-            final Model model) {
-        LOGGER.debug("throwError({}, {})", model);
+    public final String throwError() {
+        LOGGER.debug("throwError()");
         throw new ServerDataAccessException("Example error.");
     }
 }

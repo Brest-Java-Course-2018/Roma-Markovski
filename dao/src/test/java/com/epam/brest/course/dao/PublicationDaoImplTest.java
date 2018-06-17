@@ -4,9 +4,12 @@ import com.epam.brest.course.dto.PublicationDTO;
 import com.epam.brest.course.model.DateInterval;
 import com.epam.brest.course.model.Publication;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -42,8 +45,6 @@ public class PublicationDaoImplTest {
     private static final int WRITER_3 = 3;
     private static final String DATE_3 = "2018-01-19";
     private static final String PUSHKIN_ALEX = "Pushkin Alex";
-    private static final String START_DATE = "2017-07-03";
-    private static final String END_DATE = "2018-03-13";
 
     @Autowired
     PublicationDao publicationDao;
@@ -67,6 +68,12 @@ public class PublicationDaoImplTest {
                 publication.getDate());
         Assert.assertEquals(publication.getNumberOfPages().intValue(), NUM_OF_PAGES_1);
         Assert.assertEquals(POEM, publication.getDescription());
+    }
+
+    @Test(expected = EmptyResultDataAccessException.class)
+    public void wrongGetPublicationById() {
+        Publication publication =
+                publicationDao.getPublicationById(-1);
     }
 
     @Test
@@ -103,6 +110,12 @@ public class PublicationDaoImplTest {
         Assert.assertEquals(
                 publication.getNumberOfPages().intValue(), NUM_OF_PAGES_1);
         Assert.assertEquals(POEM, publication.getDescription());
+    }
+
+    @Test(expected = EmptyResultDataAccessException.class)
+    public void wrongGetPublicationDTOById() {
+        PublicationDTO publication =
+                publicationDao.getPublicationDTOById(-1);
     }
 
     @Test

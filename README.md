@@ -13,29 +13,29 @@ Writers and Publications
 + displaying number of the writer’s publications;
 + publication filtration by date.
 
-#### Required software
+### Required software
 The following software need to be installed:
 1. JDK 1.8
 2. Maven (v3.3.9)
 
-#### Check environment configuration
+### Check environment configuration
 
     $ java -version
     $ export JAVA_HOME = ...
     $ mvn -version
 
-#### Build
+### Build
 
     $ mvn clean install 
 
 
-#### Reporting
+### Reporting
 
     $ mvn site
     $ mvn site:stage
     Go to './target/staging/index.html'
     
-#### Start REST application:
+### Start REST application:
     
     $ mvn -pl rest-app/ jetty:run
 Rest service should be available at 
@@ -67,13 +67,14 @@ Rest service should be available at
     
     ...
     
-#### Start WEB application:
+### Start WEB application:
 
     $ mvn -pl web-app/ jetty:run
 Web application should be available at 
 <http://localhost:8080>
+<http://localhost:8080?locale=ru>
 
-#### Travis CI Integration:
+### Travis CI Integration:
 
 Visit <https://travis-ci.org/Brest-Java-Course-2018/Roma-Markovski>
  
