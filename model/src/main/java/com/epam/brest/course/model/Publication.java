@@ -16,8 +16,6 @@ public class Publication {
 
     private static final String NAME_WRONG_SIZE =
             "The name of publication must be between 1 and 255 characters.";
-//    private static final String DATE_IS_PAST =
-//            "The date of publication must be in the past";
     private static final String DATE_IS_NULL =
             "The date of publication can\'t be null.";
     private static final String WRITER_ID_IS_NULL =

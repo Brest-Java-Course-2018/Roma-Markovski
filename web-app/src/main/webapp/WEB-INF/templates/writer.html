@@ -91,7 +91,7 @@
                                        class="form-control"
                                        id="writer-name"
                                        th:field="*{name}"
-                                       placeholder="Enter name">
+                                       th:placeholder="#{writer.name.placeholder}">
                                 <div class="form-text text-danger"
                                      th:if="${#fields.hasErrors('name')}"
                                      th:errors="*{name}">[errors]
@@ -104,7 +104,7 @@
                                        class="form-control"
                                        id="writer-country"
                                        th:field="*{country}"
-                                       placeholder="Enter country">
+                                       th:placeholder="#{writer.country.placeholder}">
                                 <div class="form-text text-danger"
                                      th:if="${#fields.hasErrors('country')}"
                                      th:errors="*{country}">[errors]
@@ -123,7 +123,7 @@
                                         type="reset"
                                         data-toggle="tool-tip"
                                         th:title="#{resetData}">
-                                    <span th:utext="#{clear}">Clear</span>
+                                    <span th:utext="#{reset}">Reset</span>
                                 </button>
                             </div>
                         </form>
