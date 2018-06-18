@@ -179,7 +179,7 @@ public class WriterDaoImpl implements WriterDao {
     /**
      * WriterRowMapper  - for creating models from resultSet.
      */
-    private class WriterRowMapper implements RowMapper<Writer> {
+    private static class WriterRowMapper implements RowMapper<Writer> {
 
         @Override
         public final Writer mapRow(
@@ -196,7 +196,7 @@ public class WriterDaoImpl implements WriterDao {
     /**
      * WriterDTORowMapper  - for creating models from resultSet.
      */
-    private class WriterDTORowMapper implements RowMapper<WriterDTO> {
+    private static class WriterDTORowMapper implements RowMapper<WriterDTO> {
 
         @Override
         public final WriterDTO mapRow(

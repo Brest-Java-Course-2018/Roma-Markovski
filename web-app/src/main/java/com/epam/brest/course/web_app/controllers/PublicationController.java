@@ -74,8 +74,8 @@ public class PublicationController {
             Collection<PublicationDTO> publications =
                     publicationService.getPublicationDTOs();
             model.addAttribute("publications", publications);
-            LOGGER.debug("getPublicationDTOsByDate had errors" +
-                            " and returned: 'publications'");
+            LOGGER.debug("getPublicationDTOsByDate had errors"
+                    + " and returned: 'publications'");
         } else {
             Collection<PublicationDTO> filteredPublications =
                     publicationService.getPublicationDTOsByDate(
@@ -124,8 +124,8 @@ public class PublicationController {
         } else {
             this.publicationService.addPublication(publication);
             LOGGER.debug(
-                    "addPublication had errors and returned:" +
-                            " 'redirect:/publications'");
+                    "addPublication had errors and returned:"
+                            + " 'redirect:/publications'");
             return "redirect:/publications";
         }
     }
@@ -158,7 +158,8 @@ public class PublicationController {
             final BindingResult result) {
         LOGGER.debug("editPublication({}, {})", publication, result);
         if (result.hasErrors()) {
-            LOGGER.debug("editPublication had errors and returned: 'publication'");
+            LOGGER.debug(
+                    "editPublication had errors and returned: 'publication'");
             Collection<Writer> writers = writerService.getWriters();
             model.addAttribute("writers", writers);
             model.addAttribute("isNew", false);
@@ -179,7 +180,8 @@ public class PublicationController {
             @PathVariable final Integer id, final Model model) {
         LOGGER.debug("deletePublicationById({}, {})", id, model);
         publicationService.deletePublicationById(id);
-        LOGGER.debug("deletePublicationById returned: 'redirect:/publications'");
+        LOGGER.debug(
+                "deletePublicationById returned: 'redirect:/publications'");
         return "redirect:/publications";
     }
 }

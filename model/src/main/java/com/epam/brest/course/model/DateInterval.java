@@ -6,46 +6,72 @@ import com.epam.brest.course.model.validator.Past;
 import java.sql.Date;
 import java.util.Calendar;
 
-@Interval(message = "Start date should not be later than end date.")
+/**
+ * Model class "DateInterval" with validation.
+ */
+@Interval(message = DateInterval.START_DATE_NOT_LATER_END_DATE)
 public class DateInterval {
 
-    @Past(message = "Start date should be valid, not earlier than 01.01.2000 and not later than today.")
+    static final String START_DATE_NOT_LATER_END_DATE =
+            "Start date should not be later than end date.";
+    private static final String VALID_START_DATE =
+            "Start date should be valid, not"
+                    + " earlier than 01.01.2000 and not later than today.";
+    private static final String VALID_END_DATE =
+            "End date should be valid, not"
+                    + " earlier than 01.01.2000 and not later than today.";
+    private static final String MINIMAL_DATE = "2000-01-01";
+
+    /**
+     * Start date of interval.
+     */
+    @Past(message = VALID_START_DATE)
     private Date startDate;
 
-    @Past(message = "End date should be valid, not earlier than 01.01.2000 and not later than today.")
+    /**
+     * End date of interval.
+     */
+    @Past(message = VALID_END_DATE)
     private Date endDate;
 
-    public DateInterval(String strStartDate, String strEndDate) {
+    /**
+     * Constructor with params.
+     * @param strStartDate - start date string.
+     * @param strEndDate - end date string.
+     */
+    public DateInterval(final String strStartDate, final String strEndDate) {
         this.startDate = Date.valueOf(strStartDate);
         this.endDate = Date.valueOf(strEndDate);
     }
 
+    /**
+     * Constructor with default params.
+     */
     public DateInterval() {
-        this.startDate = Date.valueOf("2000-01-01");
+        this.startDate = Date.valueOf(MINIMAL_DATE);
         this.endDate = new Date(Calendar.getInstance().getTime().getTime());
     }
 
-    public void setStartDate(Date startDate) {
+    public final void setStartDate(final Date startDate) {
         this.startDate = startDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public final void setEndDate(final Date endDate) {
         this.endDate = endDate;
     }
 
-    public Date getStartDate() {
+    public final Date getStartDate() {
         return startDate;
     }
 
-    public Date getEndDate() {
+    public final Date getEndDate() {
         return endDate;
     }
 
     @Override
-    public String toString() {
-        return "DateInterval{" +
-                "startDate=" + startDate +
-                ", endDate=" + endDate +
-                '}';
+    public final String toString() {
+        return "DateInterval{" + "startDate="
+                + startDate + ", endDate="
+                + endDate + '}';
     }
 }

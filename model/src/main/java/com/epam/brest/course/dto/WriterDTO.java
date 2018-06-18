@@ -81,7 +81,7 @@ public class WriterDTO {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "WriterDTO{"
                 + "id=" + id
                 + ", name='" + name + '\''

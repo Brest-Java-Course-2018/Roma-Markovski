@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/**
+ * Handles all the errors.
+ */
 @ControllerAdvice
 public class ErrorHandler {
     /**
@@ -16,9 +19,9 @@ public class ErrorHandler {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(value=HttpStatus.BAD_REQUEST)
-    public String handleAnyException(
-            Exception e, final Model model) {
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public final String handleAnyException(
+            final Exception e, final Model model) {
         LOGGER.debug("handleAnyException({}, {})", e, model);
         model.addAttribute("message", e.getMessage());
         return "error";

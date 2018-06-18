@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/**
+ * Rest error handler.
+ */
 @ControllerAdvice
 public class RestErrorHandler {
 
@@ -16,10 +19,16 @@ public class RestErrorHandler {
      */
     private static final Logger LOGGER = LogManager.getLogger();
 
+    /**
+     * Handle exceptions.
+     * @param e - exception.
+     * @return string 'exception'.
+     */
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(value=HttpStatus.BAD_REQUEST, reason="Unknown error occured.")
-    public @ResponseBody String handleAnyException(
-            Exception e) {
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST,
+            reason = "Unknown error occured.")
+    public @ResponseBody final String handleAnyException(
+            final Exception e) {
         LOGGER.error("handleAnyException({})", e);
         return "exception";
     }

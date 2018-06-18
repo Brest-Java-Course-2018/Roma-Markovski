@@ -8,10 +8,14 @@ import javax.validation.constraints.Size;
  */
 public class Writer {
 
-    private static final String WRITER_WRONG_SIZE =
+    private static final String NAME_WRONG_SIZE =
             "The name of writer must be between 3 and 255 characters.";
     private static final String COUNTRY_WRONG_SIZE =
             "The country of writer must be between 3 and 63 characters.";
+    private static final int MIN_NAME_SIZE = 3;
+    private static final int MAX_NAME_SIZE = 255;
+    private static final int MIN_COUNTRY_SIZE = 3;
+    private static final int MAX_COUNTRY_SIZE = 63;
 
     /**
      * Constructor without params.
@@ -39,13 +43,15 @@ public class Writer {
     /**
      * The writer's name.
      */
-    @Size(min = 3, max = 255, message = WRITER_WRONG_SIZE)
+    @Size(min = MIN_NAME_SIZE, max = MAX_NAME_SIZE,
+            message = NAME_WRONG_SIZE)
     private String name;
 
     /**
      * The writer's country.
      */
-    @Size(min = 3, max = 63, message = COUNTRY_WRONG_SIZE)
+    @Size(min = MIN_COUNTRY_SIZE, max = MAX_COUNTRY_SIZE,
+            message = COUNTRY_WRONG_SIZE)
     private String country;
 
     /*Getters and Setters*/

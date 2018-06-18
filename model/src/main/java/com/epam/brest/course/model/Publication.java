@@ -27,8 +27,13 @@ public class Publication {
     private static final String DESCRIPTION_IS_TOO_BIG =
             "The description of publication must be less than 256 characters.";
     private static final String VALID_DATE =
-            "Enter valid date, which is not earlier" +
-                    " than 01.01.2000 and not later than today.";
+            "Enter valid date, which is not earlier"
+                    + " than 01.01.2000 and not later than today.";
+    private static final int MIN_NAME_SIZE = 1;
+    private static final int MAX_NAME_SIZE = 255;
+    private static final int MIN_PAGES_SIZE = 1;
+    private static final int MAX_PAGES_SIZE = 9999;
+    private static final int MAX_DESCRIPTION_SIZE = 255;
 
     /**
      * Constructor without params.
@@ -65,7 +70,7 @@ public class Publication {
     /**
      * The publication's name.
      */
-    @Size(min = 1, max = 255, message = NAME_WRONG_SIZE)
+    @Size(min = MIN_NAME_SIZE, max = MAX_NAME_SIZE, message = NAME_WRONG_SIZE)
     private String name;
 
     /**
@@ -85,23 +90,23 @@ public class Publication {
     /**
      * Number of pages.
      */
-    @Min(value = 1, message = PAGES_ARE_NOT_POSITIVE)
-    @Max(value = 9999, message = PAGES_ARE_TOO_BIG)
+    @Min(value = MIN_PAGES_SIZE, message = PAGES_ARE_NOT_POSITIVE)
+    @Max(value = MAX_PAGES_SIZE, message = PAGES_ARE_TOO_BIG)
     private Integer numberOfPages;
 
     /**
      * The publication's description.
      */
-    @Size(max = 255, message = DESCRIPTION_IS_TOO_BIG)
+    @Size(max = MAX_DESCRIPTION_SIZE, message = DESCRIPTION_IS_TOO_BIG)
     private String description;
 
     /*Getters and Setters*/
 
-    public Integer getNumberOfPages() {
+    public final Integer getNumberOfPages() {
         return numberOfPages;
     }
 
-    public void setNumberOfPages(Integer numberOfPages) {
+    public final void setNumberOfPages(final Integer numberOfPages) {
         this.numberOfPages = numberOfPages;
     }
 

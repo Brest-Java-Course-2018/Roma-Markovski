@@ -125,8 +125,11 @@ public class WriterController {
         return "redirect:/writers";
     }
 
-    @GetMapping(value="/errorExample")
-    public final String throwError() {
+    /**
+     * Shows example error message.
+     */
+    @GetMapping(value = "/errorExample")
+    public final void throwError() {
         LOGGER.debug("throwError()");
         throw new ServerDataAccessException("Example error.");
     }

@@ -11,6 +11,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Collection;
 
+/**
+ * Implementation of PublicationService. Gets data from rest-app.
+ */
 public class PublicationConsumerRest implements PublicationService {
 
     /**
@@ -22,14 +25,20 @@ public class PublicationConsumerRest implements PublicationService {
 
     private RestTemplate restTemplate;
 
-    public PublicationConsumerRest(String url, RestTemplate restTemplate) {
+    /**
+     * Constructor.
+     * @param url - url.
+     * @param restTemplate -restTemplate.
+     */
+    public PublicationConsumerRest(
+            final String url, final RestTemplate restTemplate) {
         this.url = url;
         this.restTemplate = restTemplate;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public Collection<Publication> getPublications() {
+    public final Collection<Publication> getPublications() {
         LOGGER.debug("getPublications()");
         LOGGER.debug("getForEntity({}, {})", url, Collection.class);
         ResponseEntity responseEntity =
@@ -42,12 +51,14 @@ public class PublicationConsumerRest implements PublicationService {
     }
 
     @Override
-    public Publication getPublicationById(Integer publicationId) {
+    public final Publication getPublicationById(
+            final Integer publicationId) {
         LOGGER.debug("getPublicationById({})", publicationId);
-        LOGGER.debug("getForEntity({}, {})", url + "/" + publicationId, Publication.class);
+        LOGGER.debug("getForEntity({}, {})",
+                url + "/" + publicationId, Publication.class);
         ResponseEntity<Publication> responseEntity =
-                restTemplate.getForEntity
-                        (url + "/" + publicationId, Publication.class);
+                restTemplate.getForEntity(
+                        url + "/" + publicationId, Publication.class);
         Publication publication = responseEntity.getBody();
         LOGGER.debug("getPublicationById returned: {}", publication);
         return publication;
@@ -55,7 +66,7 @@ public class PublicationConsumerRest implements PublicationService {
 
     @Override
     @SuppressWarnings("unchecked")
-    public Collection<PublicationDTO> getPublicationDTOs() {
+    public final Collection<PublicationDTO> getPublicationDTOs() {
         LOGGER.debug("getPublicationDTOs()");
         LOGGER.debug("getForEntity({}, {})", url, Collection.class);
         ResponseEntity<Collection> responseEntity =
@@ -68,24 +79,24 @@ public class PublicationConsumerRest implements PublicationService {
 
     @Override
     @SuppressWarnings("unchecked")
-    public Collection<PublicationDTO> getPublicationDTOsByDate(
-            DateInterval interval) {
+    public final Collection<PublicationDTO> getPublicationDTOsByDate(
+            final DateInterval interval) {
         LOGGER.debug("getPublicationDTOsByDate({}, {})", interval);
-        LOGGER.debug("getForEntity({}, {})",url + "/" +
-                interval.getStartDate().toString() +
-                "/" + interval.getEndDate().toString(), Collection.class);
+        LOGGER.debug("getForEntity({}, {})", url + "/"
+                + interval.getStartDate().toString()
+                + "/" + interval.getEndDate().toString(), Collection.class);
         ResponseEntity responseEntity =
-                restTemplate.getForEntity(url + "/" +
-                        interval.getStartDate().toString() + "/" +
-                        interval.getEndDate().toString(), Collection.class);
+                restTemplate.getForEntity(url + "/"
+                        + interval.getStartDate().toString() + "/"
+                        + interval.getEndDate().toString(), Collection.class);
         Collection<PublicationDTO> publications =
-                (Collection <PublicationDTO>) responseEntity.getBody();
+                (Collection<PublicationDTO>) responseEntity.getBody();
         LOGGER.debug("getPublicationDTOsByDate returned: {}", publications);
         return publications;
     }
 
     @Override
-    public Publication addPublication(Publication publication) {
+    public final Publication addPublication(final Publication publication) {
         LOGGER.debug("addPublication({})", publication);
         LOGGER.debug("postForEntity({}, {}, {})", url,
                 publication, Publication.class);
@@ -98,7 +109,7 @@ public class PublicationConsumerRest implements PublicationService {
     }
 
     @Override
-    public void updatePublication(Publication publication) {
+    public final void updatePublication(final Publication publication) {
         LOGGER.debug("updatePublication({})", publication);
         LOGGER.debug("postForEntity({}, {}, {})",
                 url + "/" + publication.getId(), publication, void.class);
@@ -108,7 +119,7 @@ public class PublicationConsumerRest implements PublicationService {
     }
 
     @Override
-    public void deletePublicationById(Integer publicationId) {
+    public final void deletePublicationById(final Integer publicationId) {
         LOGGER.debug("deletePublicationById({})", publicationId);
         LOGGER.debug("postForEntity({})",
                 url + "/" + publicationId);

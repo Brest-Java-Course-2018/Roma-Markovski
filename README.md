@@ -71,7 +71,9 @@ Rest service should be available at
 
     $ mvn -pl web-app/ jetty:run
 Web application should be available at 
+
 <http://localhost:8080>
+
 <http://localhost:8080?locale=ru>
 
 ### Travis CI Integration:

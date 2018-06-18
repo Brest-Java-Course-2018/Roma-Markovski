@@ -1,4 +1,4 @@
 /**
- * Package for services with application logic.
+ * Package for services implementation.
  */
 package com.epam.brest.course.service;

@@ -24,36 +24,43 @@ public class WriterConsumerRest implements WriterService {
 
     private RestTemplate restTemplate;
 
-    public WriterConsumerRest(String url, RestTemplate restTemplate) {
+    /**
+     * Constructor.
+     * @param url - url.
+     * @param restTemplate -restTemplate.
+     */
+    public WriterConsumerRest(
+            final String url, final RestTemplate restTemplate) {
         this.url = url;
         this.restTemplate = restTemplate;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public Collection<Writer> getWriters() {
+    public final Collection<Writer> getWriters() {
         LOGGER.debug("getWriters()");
         ResponseEntity responseEntity =
                 restTemplate.getForEntity(url, Collection.class);
-        Collection<Writer> writers = (Collection<Writer>) responseEntity.getBody();
+        Collection<Writer> writers =
+                (Collection<Writer>) responseEntity.getBody();
         LOGGER.debug("getWriters returned: {}", writers);
         return writers;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public Collection<WriterDTO> getWriterDTOs() {
+    public final Collection<WriterDTO> getWriterDTOs() {
         LOGGER.debug("getWriterDTOs()");
         ResponseEntity responseEntity =
                 restTemplate.getForEntity(url, Collection.class);
         Collection<WriterDTO> writers =
-                (Collection <WriterDTO>) responseEntity.getBody();
+                (Collection<WriterDTO>) responseEntity.getBody();
         LOGGER.debug("getWriterDTOs returned: {}", writers);
         return writers;
     }
 
     @Override
-    public Writer getWriterById(Integer writerId) {
+    public final Writer getWriterById(final Integer writerId) {
         LOGGER.debug("getWriterById({})", writerId);
         ResponseEntity<Writer> responseEntity =
                 restTemplate.getForEntity(url + "/" + writerId, Writer.class);
@@ -63,7 +70,7 @@ public class WriterConsumerRest implements WriterService {
     }
 
     @Override
-    public Writer addWriter(Writer writer) {
+    public final Writer addWriter(final Writer writer) {
         LOGGER.debug("addWriter({})", writer);
         ResponseEntity<Writer> responseEntity =
                 restTemplate.postForEntity(url, writer, Writer.class);
@@ -73,7 +80,7 @@ public class WriterConsumerRest implements WriterService {
     }
 
     @Override
-    public void updateWriter(Writer writer) {
+    public final void updateWriter(final Writer writer) {
         LOGGER.debug("updateWriter({})", writer);
         restTemplate.postForEntity(
                 url + "/" + writer.getId(), writer, void.class);
@@ -81,7 +88,7 @@ public class WriterConsumerRest implements WriterService {
     }
 
     @Override
-    public void deleteWriterById(Integer writerId) {
+    public final void deleteWriterById(final Integer writerId) {
         LOGGER.debug("deleteWriterById({})", writerId);
         restTemplate.delete(
                 url + "/" + writerId);

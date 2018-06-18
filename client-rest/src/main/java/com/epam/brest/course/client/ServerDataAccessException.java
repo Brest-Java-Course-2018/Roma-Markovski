@@ -1,8 +1,15 @@
 package com.epam.brest.course.client;
 
+/**
+ * Server data access exception.
+ */
 public class ServerDataAccessException extends RuntimeException {
 
-    public ServerDataAccessException(String message) {
+    /**
+     * Constructor.
+     * @param message - error message.
+     */
+    public ServerDataAccessException(final String message) {
         super(message);
     }
 }

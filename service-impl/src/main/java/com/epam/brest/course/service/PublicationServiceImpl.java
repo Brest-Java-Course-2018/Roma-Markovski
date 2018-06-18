@@ -51,8 +51,8 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
-    public Collection<PublicationDTO> getPublicationDTOsByDate(
-            DateInterval interval) {
+    public final Collection<PublicationDTO> getPublicationDTOsByDate(
+            final DateInterval interval) {
         LOGGER.debug("getPublicationDTOsByDate({}, {})", interval);
         Collection<PublicationDTO> publications =
                 publicationDao.getPublicationDTOsByDate(interval);

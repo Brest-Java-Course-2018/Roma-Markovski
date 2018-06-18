@@ -27,8 +27,6 @@ public class PublicationDaoImpl implements PublicationDao {
      * Logger.
      */
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final String START_DATE = "start_date";
-    private static final String END_DATE = "end_date";
 
     /**
      * Named parameter JDBC template.
@@ -38,20 +36,16 @@ public class PublicationDaoImpl implements PublicationDao {
     //constant fields
 
     private static final String PUBLICATION_ID = "publication_id";
-
     private static final String PUBLICATION_NAME = "publication_name";
-
     private static final String WRITER_ID = "writer_id";
-
     private static final String WRITER_NAME = "writer_name";
-    
     private static final String PUBLICATION_DATE = "publication_date";
-    
     private static final String PUBLICATION_NUM_OF_PAGES =
             "publication_num_of_pages";
-
     private static final String PUBLICATION_DESCRIPTION =
             "publication_description";
+    private static final String START_DATE = "start_date";
+    private static final String END_DATE = "end_date";
 
     /**
      * SQL Select-All String.
@@ -241,7 +235,7 @@ public class PublicationDaoImpl implements PublicationDao {
     /**
      * PublicationRowMapper  - for creating models from resultSet.
      */
-    private class PublicationRowMapper implements RowMapper<Publication> {
+    private static class PublicationRowMapper implements RowMapper<Publication> {
 
         @Override
         public final Publication mapRow(
@@ -263,7 +257,8 @@ public class PublicationDaoImpl implements PublicationDao {
     /**
      * PublicationDTORowMapper  - for creating models from resultSet.
      */
-    private class PublicationDTORowMapper implements RowMapper<PublicationDTO> {
+    private static class PublicationDTORowMapper
+            implements RowMapper<PublicationDTO> {
 
         @Override
         public final PublicationDTO mapRow(
