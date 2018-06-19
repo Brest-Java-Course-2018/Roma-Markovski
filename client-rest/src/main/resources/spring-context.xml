@@ -16,6 +16,7 @@
     </bean>
 
     <context:annotation-config/>
+
     <context:component-scan base-package="com.epam.brest.course.client"/>
 
     <bean id="customResponseErrorHandler" class="com.epam.brest.course.client.rest.CustomResponseErrorHandler"/>
@@ -31,11 +32,6 @@
 
     <bean id="departmentService" class="com.epam.brest.course.client.rest.DepartmentConsumerRest">
         <constructor-arg index="0" value="${protocol}://${host}:${port}/${point.departments}"/>
-        <constructor-arg index="1" ref="restTemplate"/>
-    </bean>
-
-    <bean id="employeeService" class="com.epam.brest.course.client.rest.EmployeeConsumerRest">
-        <constructor-arg index="0" value="${protocol}://${host}:${port}/${point.employees}"/>
         <constructor-arg index="1" ref="restTemplate"/>
     </bean>
 
